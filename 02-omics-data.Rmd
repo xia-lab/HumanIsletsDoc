@@ -1,0 +1,39 @@
+# Overview of Omics Data Types
+
+For each data type, include information on:
+
+- Platform(s)
+- Batches (and whether batch effect is significant)
+- Any logistical (shipping, storage)/lab procedures conducted prior to collecting data (and indicate relevant technical parameters - ie. culture times, etc)
+- Whether data was intentionally collected on specific subsets of donors
+- Raw data processing pipeline
+- Where you can find raw data files
+- Missing value strategy, filtering, and normalization prior to statistical analysis
+- Any additional notes
+- Citations of papers that have published parts of the data
+
+## Gene expression (bulk RNA-seq)
+RNA-seq profiles were collected starting in <span style="color: blue;">[YEAR]</span>in batches of islets from ~10-20 donors. <span style="color: blue;">[Include information on batches]</span>. Raw reads were aligned to the <span style="color: blue;">[BLANK GENOME]</span> using <span style="color: blue;">[BLANK SOFTWARE version BLANK]</span>. The counts matrix was filtered to remove any genes with fewer than <span style="color: blue;">[X]</span> mean counts. The counts were normalized for sequencing depth and adjusted to account for high variance/high abundant genes using the <span style="color: blue;">[BLANK]</span> method in the limma voom R package (version <span style="color: blue;">#</span>). Batch effect was corrected using the Combat-Seq R package (version <span style="color: blue;">#</span>). Since 
+
+## Gene expression (Nanostring)
+50 islets are hand picked in Edmonton. Cells are washed with PBS then collected in 100ul of RLT Beta-mercaptoethanol. Islets arestored at -80C before shipping to the Lynn Lab.
+
+## Protein expression (proteomics)
+Human islets are shipped to Jim Johnson’s lab at UBC. 300 Islets are hand picked, washed with pbs and pellet is snap frozen and stored at -80C. Details of lysis and analysis are found [here](https://www.medrxiv.org/content/10.1101/2023.05.24.23290298v1.full.pdf). 
+
+## Gene expression (single-cell RNA-seq)
+
+## Gene expression (pseudobulk RNA-seq)
+150 islets are hand picked at the University of Alberta and transferred into a tube with 1ml of Trizol reagent. Samples are stored at -80C until shipping to Anna Gloyn’s lab (originally Oxford now Stanford). 
+
+
+
+
+
+
+
+
+
+
+
+

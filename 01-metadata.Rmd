@@ -1,0 +1,52 @@
+# Overview of Metadata Types
+
+For each outcome type, include information on:
+
+- Overview of experimental procedures performed prior to collecting the data (and relevant technical parameters) -> refer to timeline diagram
+- Glossary of every variable in the tool: what precisely does it mean, what are the units, etc
+- Who collected the data (institution)
+- Replicates - were there any, are they different groups of islets, different individual cells, etc
+- Explanation of any changes in protocols (ie. switch to different GSIS concentrations, maybe different platform used halfway through, etc)
+- Whether data was intentionally collected on specific subsets of donors
+- Versions of data available for download
+- Data processing prior to statistical analysis (merging replicates, transformations, removed outliers, definition of any computed/normalized values)
+- Any additional notes
+- Citations of papers that have published parts of the data
+
+
+## Donor Characteristics:
+
+Donor characteristics are provided to the Isletcore team through the organ procurement programs. These characteristics can come from the family and aren’t always accurate reflections of the medical history. Hba1c measurements are performed in the Isletcore when the donor blood sample is available. 
+
+## Organ Characteristics and Processing:
+
+Organ characteristic and processing data is recorded during the islet isolation by the lead technician. Cold Ischemia time will be calculated based on the cross clamp time during organ procurement until the start of the isolation in Edmonton. 
+
+## Isolation Outcomes:
+
+Islet purity, IEQ, % trapped, IPI are determined by the lead technician. Full details on determining IEQ, purity etc can be found [here](https://www.protocols.io/view/human-islet-quantification-and-purity-assessment-14egnxxwml5d/v3/) or in our [IsletCore](http://www.bcell.org/uploads/5/1/3/3/51338649/adi_isletcore_welcome_booklet.pdf) welcome booklet. Details on determining Insulin and DNA samples can always be found [here](https://www.protocols.io/view/sampling-of-human-islets-for-quality-control-purpo-j8nlk553dl5r/v2). Cell proportion data is determined through our proteomics data. Proteomics samples are shipped to Jim Johnson’s lab at UBC. Samples are then hand picked and snap frozen for processing. 
+
+## Cell Culture Outcomes:
+
+On the day of shipping, Islets are recounted to determine IEQ, % recovery, IPI after culture. Culture time is determined by the end of the isolation until approximately 9am on a shipping day. Post culture samples are collected for insulin and DNA as [previously described](https://www.protocols.io/view/sampling-of-human-islets-for-quality-control-purpo-j8nlk553dl5r/v2).
+
+## Static Insulin Secretion:
+
+In triplicates, 15  hand picked islets from each donor were sequentially treated with low glucose for 1 hour followed by high glucose 1 hour. Collected supernatant for low glucose, high glucose or insulin content are measured by ELISA and recorded in the database. For each donor, there are multiple glucose combinations that may have been used. Glucose pairs are 1mM to 10mM glucose, 1mM to 16.7mM glucose or 2.8mM glucose to 16.7mM glucose. Islets used in the 1mM to 10mM group are unique from the 1mM to 16.7mM group. The secretion data are commonly presented as a percentage of the total content (secreted insulin/total insulin *100), and as a stimulation index (high glucose secretion/low glucose secretion). Biological outliers were defined as “Seth is coming up with the definition now”, and identified outliers were removed from the dataset. The data for each replicate (after outlier removal) can be downloaded from the data export page. The total insulin content, secretion percentages, and stimulation indices, averaged across replicates, can be queried, analyzed, and visualized in the other parts of the tool. Complete experimental details can be found [here](https://www.protocols.io/view/static-glucose-stimulated-insulin-secretion-gsis-p-n2bvjkzxgk5w/v3). 
+
+
+## Islet Oxygen Consumption (Seahorse assay):
+
+
+## Dynamic Insulin Responses to Macronutrients:
+
+Human islets are shipped to Jim Johnson’s lab at UBC. Islets are hand picked and cultured in RPMI for 24-72hrs before the experiment to allow the islets to recover from shipping. 65 islets are loaded per chamber and pre-incubated for 1 hour. Islets are stimulated with 6 or 15mM glucose, 5mM Leucine or 0.75mM Oleic acid/0.75mM palmitic acid as indicated. Samples are stored at -20C until analysis with RIA. Full details are described [here](https://www.medrxiv.org/content/10.1101/2023.05.24.23290298v1.full.pdf). 
+
+## Single-cell Function (electrophysiology)
+
+Human islets are hand picked and dispersed into single cells and plated on 35mm cell culture dishes by the MacDonald lab. 24-72 hours after the dispersion, electrophysiological measurements are recorded. Cell identity is confirmed by immunohistochemistry. 
+
+
+
+
+

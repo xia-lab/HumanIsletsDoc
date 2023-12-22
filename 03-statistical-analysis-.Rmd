@@ -1,0 +1,33 @@
+# Overview of statistical analysis methods
+
+For each analysis, include details on:
+
+- Specific methods (and R packages) used for each task (aimed for statisticians/data scientists)
+- Explanation of how the methods work, what they are useful for, and their limitations (aimed for biologists, not statisticians/data scientists)
+- Which parameters are exposed in the interface, what they do, and rationale for which parameters were exposed
+- How to interpret the results
+- How to report the results (which details/citations to include in methods sections of papers)
+- Any additional notes
+
+## Multiple linear regression
+
+## Spearman ranked correlation
+
+## Overrepresentation analysis
+
+## Gene set enrichment analysis
+
+## Pipelines to generate significant feature associations for feature search page
+
+## Sources of annotation files, pathway libraries, & link to code repository
+
+
+
+
+
+
+
+
+
+
+

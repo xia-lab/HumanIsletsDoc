@@ -1,0 +1,26 @@
+--- 
+title: "Human Islets"
+author: ""
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+output: bookdown::gitbook
+documentclass: book
+
+description: |
+  This is an introduction of the Human Islet project.
+---
+
+# General Introduction
+
+The HumanIslets tool houses data collected from or associated with human islets procured by the University of Alberta. The data includes clinical metadata
+
+I envision a branching timeline, so that you can visualize everything that happened to an islet sample prior to the collection of each data type. Here is a rough outline of steps (I know it’s incomplete/wrong - will look at some of the guides on the IsletCore website to better sketch out)
+
+   1. Pancreas procurement
+   2. Shipping to Edmonton
+   3. Islet isolation (more details here - I assume many/multiple steps)
+   4. GSIS outcomes
+   5. Other outcomes at UofA
+   6. Shipping to other labs for seahorse, perifusion, omics
+   7. Shipping to other labs (not in project)
+
