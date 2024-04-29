@@ -1,33 +1,32 @@
 # Overview of statistical analysis methods
 
-For each analysis, include details on:
-
-- Specific methods (and R packages) used for each task (aimed for statisticians/data scientists)
-- Explanation of how the methods work, what they are useful for, and their limitations (aimed for biologists, not statisticians/data scientists)
-- Which parameters are exposed in the interface, what they do, and rationale for which parameters were exposed
-- How to interpret the results
-- How to report the results (which details/citations to include in methods sections of papers)
-- Any additional notes
-
 ## Multiple linear regression
+
+Linear models are used to compute omics feature-metadata associations for the bulk RNAseq, Nanostring, pseudobulk RNAseq, and bulk proteomics datasets. A linear model containing the selected metadata variable of interest and all covariates (if any) is fit to the expression or abundance levels of each feature in the selected omics dataset, using the limma R package (version 3.52.4). If the user selects a categorical metadata of interest, two dropdowns automatically appear so that a specific contrast can be specified (ie. ‘type 2 diabetes’ versus ‘no diabetes’). Then, the coefficient of the metadata variable (continuous) or metadata contrast (categorical) of interest and its associated p-value are extracted from the model for each feature. P-values are adjusted using the false discovery rate method. The rationale for using the original limma method is that it has been shown to perform well for many omics types as long as the data are appropriately normalized and transformed. While more customized methods developed for specific omics types may perform slightly better when applied to the appropriate data type, the advantage of our approach is that it can be applied to many omics types without modification, making the results more comparable to each other and making the HumanIslets tool easier to maintain. A detailed explanation of how analyze omics data with multiple linear regression, including how to specify linear models for different research questions and how to interpret the results, is available in Protocol #2 [here](https://currentprotocols.onlinelibrary.wiley.com/doi/full/10.1002/cpz1.922). 
 
 ## Spearman ranked correlation
 
-## Overrepresentation analysis
+Due to the highly nonlinear nature of the relationships between single-cell gene expression and single-cell electrophysiology outcomes (patch-seq), Spearman correlation (base R) is used to compute feature-metadata relationships for the patchSeq data. Only single-cell electrophysiology outcomes are available for analysis with the single-cell expression data, and covariate adjustment is not supported. For these analyses, electrophysiology parameters other than the half-inactivation sodium current were normalized to cell size. The sign of the calcium entry, sodium current, and calcium current (early and late) electrophysiology parameters was flipped such that greater values correspond to greater currents. Negative exocytosis values were replaced with zeros. 
 
-## Gene set enrichment analysis
+## Pathway analysis
 
-## Pipelines to generate significant feature associations for feature search page
+Overrepresentation analysis (ORA) and gene set enrichment analysis (GSEA) are supported for pathway analysis of the feature association results. Both methods are implemented using the fgsea R package (version 1.22.0). The feature list used for ORA is determined by the p-value threshold specified in the association analysis. GSEA can be performed using either the model coefficient (or log2FC when the metadata is categorical) or the test statistic from the association analysis to rank the features. For the patch-seq data, the coefficient is the correlation estimate and there is no test statistic option as it is not compatible with the Spearman correlation results. There are six supported pathway libraries, including KEGG, Reactome, the full Gene Ontology term list (broken into Biological Process, Cellular Component, and Molecular Function), and the PANTHER summary of the Gene Ontology terms (also broken into the same three categories). 
 
-## Sources of annotation files, pathway libraries, & link to code repository
+Pathway analysis can sometimes return a high number of significant pathways or gene sets that consist of mostly the same features, leading to a redundant results list. Users have the option of collapsing redundant sets, which uses the “collapsePathways” function within the fgsea R package to filter the gene sets to only include those with independent gene lists. Pathway analysis is not supported for the Nanostring data, as there are too few features (n = 156) for adequate pathway coverage. 
 
+## Pre-computed feature associations
 
+Associations were computed between all omics feature-metadata variable pairs and between all metadata variable-metadata variable pairs. The linear model and Spearman correlation methods described above were used to compute the omics-metadata associations, with one modification. Some categorical variables have obvious specific contrasts, for example for diabetes status, one is usually interested in type 1 versus no diabetes and type 2 versus no diabetes. In these cases, we specify each contrast of interest using the methods described above. Other variables do not have obvious comparisons, for example donation type, so in this case an ANOVA style analysis is done and the statistics are extracted for the categorical variable coefficient rather than for a specific contrast. Sex, age, BMI, and culture time were included as covariates for analyses that used a linear model (all bulk omics data associations). 
 
+	Three different methods were used to compute associations between pairs of metadata, depending on whether each metadata in the pair were continuous or categorical. Pearson correlation was used for continuous-continuous pairs, Cramer’s V correlation was used for categorical-categorical pairs, and ANOVA was used for categorical-continuous pairs where the categorical variable is the independent variable and the continuous variable is the dependent variable. Multiple hypothesis correction (FDR method) was performed across all results for the same statistical method. Some metadata variables such as percent purity and percent trapped are in between ordinal variables and a true continuous variable because they are estimates made by eye by a research technician, and the technician tends to estimate whole percentages (ie. 80%, 70%). For simplicity, we treat these as continuous variables. 
 
+## Deconvolution analysis
 
+After normalization for tissue sample size, the intensity of a marker protein that is only abundant in one cell type and that has relatively constant levels is proportional to the abundance of that cell type. We assume an average of 0.55 beta cells, 0.30 alpha cells, 0.10 delta cells, and 0.05 gamma cells and use this to estimate the cell type composition of each donor using proteomics data. We computed the proportion of each cell type for each donor, according to marker genes. The overall proportion of each cell type was calculated as the median of proportion estimates across all marker genes for that cell type. Finally, the proportion of non-endocrine cells was computed as the remainder after adding the estimated proportion of beta, alpha, delta, and gamma cells and normalizing the endocrine proportions to satisfy an assumed maximum purity of 98%. When computing associations between individual omics features and cell type proportions, endocrine cell proportions were normalized as a proportion of the total endocrine signal and the non-endocrine proportion was included as a covariate to better distinguish cell type-specific signals. 
 
+Overall, this can be thought of as estimating the strength of the signal associated with four endocrine cell types, anchoring the median signal strength with prior known cell type proportions, and attributing any missing signal to trapped non-endocrine cells. It relies on the assumptions that marker genes are only expressed in one cell type and that their levels are constant across donors. Neither of these assumptions are completely satisfied, however the method should be a robust estimator so long as the majority of marker genes have heavily biased expression in one cell type and if all marker genes are not regulated in the same direction (ie. all beta cell marker genes up-regulated in donors with diabetes).
 
+## Sources of gene annotations & link to code repository
 
-
-
+Entrez IDs, official gene symbols, and short gene descriptions were accessed from NCBI’s FTP site on February 2, 2023 (link [here](https://ftp.ncbi.nlm.nih.gov/gene/DATA/GENE_INFO/Mammalia/)), and curated for use throughout the HumanIslets tool. Copies of all associated R scripts, including functions called by the HumanIslets tool, scripts used for data processing and analysis, and scripts for generating manuscript figures are available at this [repository](https://github.com/xia-lab/HumanIsletsR).
 

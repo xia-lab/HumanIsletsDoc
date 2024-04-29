@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 5 Overview of statistical analysis methods | Human Islets</title>
+  <title>Chapter 2 Using HumanIslets.com | Human Islets</title>
   <meta name="description" content="This is an introduction of the Human Islet project." />
   <meta name="generator" content="bookdown 0.39 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 5 Overview of statistical analysis methods | Human Islets" />
+  <meta property="og:title" content="Chapter 2 Using HumanIslets.com | Human Islets" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="This is an introduction of the Human Islet project." />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 5 Overview of statistical analysis methods | Human Islets" />
+  <meta name="twitter:title" content="Chapter 2 Using HumanIslets.com | Human Islets" />
   
   <meta name="twitter:description" content="This is an introduction of the Human Islet project." />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="overview-of-omics-data-types.html"/>
-
+<link rel="prev" href="index.html"/>
+<link rel="next" href="overview-of-primary-metadata.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -137,34 +137,74 @@
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="overview-of-statistical-analysis-methods" class="section level1 hasAnchor" number="5">
-<h1><span class="header-section-number">Chapter 5</span> Overview of statistical analysis methods<a href="overview-of-statistical-analysis-methods.html#overview-of-statistical-analysis-methods" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<div id="multiple-linear-regression" class="section level2 hasAnchor" number="5.1">
-<h2><span class="header-section-number">5.1</span> Multiple linear regression<a href="overview-of-statistical-analysis-methods.html#multiple-linear-regression" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Linear models are used to compute omics feature-metadata associations for the bulk RNAseq, Nanostring, pseudobulk RNAseq, and bulk proteomics datasets. A linear model containing the selected metadata variable of interest and all covariates (if any) is fit to the expression or abundance levels of each feature in the selected omics dataset, using the limma R package (version 3.52.4). If the user selects a categorical metadata of interest, two dropdowns automatically appear so that a specific contrast can be specified (ie. ‘type 2 diabetes’ versus ‘no diabetes’). Then, the coefficient of the metadata variable (continuous) or metadata contrast (categorical) of interest and its associated p-value are extracted from the model for each feature. P-values are adjusted using the false discovery rate method. The rationale for using the original limma method is that it has been shown to perform well for many omics types as long as the data are appropriately normalized and transformed. While more customized methods developed for specific omics types may perform slightly better when applied to the appropriate data type, the advantage of our approach is that it can be applied to many omics types without modification, making the results more comparable to each other and making the HumanIslets tool easier to maintain. A detailed explanation of how analyze omics data with multiple linear regression, including how to specify linear models for different research questions and how to interpret the results, is available in Protocol #2 <a href="https://currentprotocols.onlinelibrary.wiley.com/doi/full/10.1002/cpz1.922">here</a>.</p>
+<div id="using-humanislets.com" class="section level1 hasAnchor" number="2">
+<h1><span class="header-section-number">Chapter 2</span> Using HumanIslets.com<a href="using-humanislets.html#using-humanislets.com" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="omics-data-analysis" class="section level2 hasAnchor" number="2.1">
+<h2><span class="header-section-number">2.1</span> Omics Data Analysis <a href="https://humanislets.com"><img src="logo1.png" alt="Logo" style="width:18px; height:18px;"></a><a href="using-humanislets.html#omics-data-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>HumanIslet.com presently includes information from 540 human research islet isolations that includes donor and technical metadata, islet and islet cell function, and omics. Omics datasets include bulk proteomics, bulk RNAseq, gene panels (Nanostring), patch-seq, and pseudobulk RNAseq for alpha- and beta-cells. Omics-metadata relationships can be analysed by:</p>
+<ol style="list-style-type: decimal">
+<li>Selecting the ‘Omics Type’ of interest</li>
+<li>Selecting the ‘Primary Metadata’ to be analysed, and ‘Comparison of Interest’ if applicable</li>
+<li>Choosing covariates to control for</li>
+<li>Selecting donors to include
+<ol style="list-style-type: lower-alpha">
+<li>Choosing ‘Subset’ will open a window that allows for filtering by donor characteristics and data availability, or upload of a list of donor IDs or RRIDs of interest</li>
+</ol></li>
+<li>Selecting a p-value cutoff, and the use of adjusted p-values</li>
+<li>Click ‘submit’</li>
+</ol>
+<p>The number of donors included in the analysis will be displayed. If too few donors are available for the chosen analysis (&lt;10), an error message will be shown. Results of the analysis will be shown under ‘Feature Association Results’, and both results and analysis pipeline can be downloaded by clicking on the appropriate button. Results are shown as a graphical representation (volcano plot) or table, accessible by clicking on the appropriate tab. Clicking on features (points in the volcano plot, or table entries) will raise a graph showing categorical or scatterplot representations of the data/feature of interest. Clicking on individual donors within those plots will take you to the ‘Donor View’ page for that donor (section 2.2, below), allowing for inspection of potential outlier donors. In the Results Table, clicking on the feature name will take you to the ‘Feature Search’ page (section 2.3, below) for that gene/protein. At the right are links to the NCBI gene page and T2D Knowledge Portal (T2DKP) entries for each feature (external sites), and to a single-cell RNAseq reference dataset (SC) to inspect cell-type specific expression of the feature.</p>
+<p>The third tab under the ‘Feature Association Results’ pulls up a Pathway Analysis tool for common Overrepresentation Analysis (ORA) or Gene Set Enrichment Analysis (GSEA) on the results. To perform pathway analysis:</p>
+<ol style="list-style-type: decimal">
+<li>Select ORA or GSEA
+<ol style="list-style-type: lower-alpha">
+<li>ORA is performed on significant hits based on the p-value threshold set above</li>
+<li>GSEA can be performed using log2FC/coefficient or T-statistic for ranking, and can be performed even in cases when no individual features are marked as significant</li>
+</ol></li>
+<li>Select whether to collapse redundant pathways</li>
+<li>Choose a false discovery rate (FDR) cutoff</li>
+<li>Choose among common pathway libraries to query</li>
+<li>Click ‘submit’</li>
+</ol>
+<p>The ‘Pathway Results’ will be displayed in both graphical and table format, selected by clicking on the appropriate tab. As above, both results and analysis pipeline can be downloaded by clicking on the appropriate button. In the interactive graphical view, significant pathways (based on FDR cutoff) are shown as ridgeplots. Clicking on these will raise heatmaps showing the contribution of individual genes/proteins.</p>
 </div>
-<div id="spearman-ranked-correlation" class="section level2 hasAnchor" number="5.2">
-<h2><span class="header-section-number">5.2</span> Spearman ranked correlation<a href="overview-of-statistical-analysis-methods.html#spearman-ranked-correlation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Due to the highly nonlinear nature of the relationships between single-cell gene expression and single-cell electrophysiology outcomes (patch-seq), Spearman correlation (base R) is used to compute feature-metadata relationships for the patchSeq data. Only single-cell electrophysiology outcomes are available for analysis with the single-cell expression data, and covariate adjustment is not supported. For these analyses, electrophysiology parameters other than the half-inactivation sodium current were normalized to cell size. The sign of the calcium entry, sodium current, and calcium current (early and late) electrophysiology parameters was flipped such that greater values correspond to greater currents. Negative exocytosis values were replaced with zeros.</p>
+<div id="donor-view" class="section level2 hasAnchor" number="2.2">
+<h2><span class="header-section-number">2.2</span> Donor View <a href="https://humanislets.com"><img src="logo2.png" alt="Logo" style="width:18px; height:18px;"></a><a href="using-humanislets.html#donor-view" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The Donor View page allows examination of individual donor, islet isolation, and functional data from each of 540 donors currently in the HumanIslets.com database. Donors can be searched by ADI IsletCore Donor ID or Research Resource ID (RRID). Data categories can be selected in tabs indicated on the left (Donor information; Isolation Information; Static and Dynamic Insulin Secretion; Mitochondrial Function; Electrophysiology, along with an overview of Omics data currently available). These metadata are described in detail in chapters 3 and 4, below.</p>
+<p>Typically, data is shown for selected donor in the context of the entire dataset, allowing for easy inspection and determination of whether a donor falls within the normal range of the population. A few points that are worth noting here:</p>
+<ul>
+<li><em>Donor Information</em> shows the RRID if available. Clicking on this will link out to the NCBI Biosample page for this donor</li>
+<li><em>Isolation Information</em> also contains the current inventory of snap frozen and cryopreserved islet tubes for that donor (all donors also have paraffin embedded biopsies)</li>
+<li><em>Isolation Information</em> includes cell type composition calculated by - deconvolution in donors with bulk proteomics data (see section 5.5, below)</li>
+<li><em>Dynamic Insulin</em> Responses can be shown with or without normalisation to baseline</li>
+<li><em>Mitochondrial Function</em> (oxygen consumption by Seahorse assay) can be shown with or without normalisation to DNA and baseline</li>
+</ul>
 </div>
-<div id="pathway-analysis" class="section level2 hasAnchor" number="5.3">
-<h2><span class="header-section-number">5.3</span> Pathway analysis<a href="overview-of-statistical-analysis-methods.html#pathway-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Overrepresentation analysis (ORA) and gene set enrichment analysis (GSEA) are supported for pathway analysis of the feature association results. Both methods are implemented using the fgsea R package (version 1.22.0). The feature list used for ORA is determined by the p-value threshold specified in the association analysis. GSEA can be performed using either the model coefficient (or log2FC when the metadata is categorical) or the test statistic from the association analysis to rank the features. For the patch-seq data, the coefficient is the correlation estimate and there is no test statistic option as it is not compatible with the Spearman correlation results. There are six supported pathway libraries, including KEGG, Reactome, the full Gene Ontology term list (broken into Biological Process, Cellular Component, and Molecular Function), and the PANTHER summary of the Gene Ontology terms (also broken into the same three categories).</p>
-<p>Pathway analysis can sometimes return a high number of significant pathways or gene sets that consist of mostly the same features, leading to a redundant results list. Users have the option of collapsing redundant sets, which uses the “collapsePathways” function within the fgsea R package to filter the gene sets to only include those with independent gene lists. Pathway analysis is not supported for the Nanostring data, as there are too few features (n = 156) for adequate pathway coverage.</p>
+<div id="feature-search" class="section level2 hasAnchor" number="2.3">
+<h2><span class="header-section-number">2.3</span> Feature Search <a href="https://humanislets.com"><img src="logo3.png" alt="Logo" style="width:18px; height:18px;"></a><a href="using-humanislets.html#feature-search" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Instead of performing an ‘Omics Analysis’ focused on a particular omics type and metadata variable, users can search for a feature of interest and pull up ALL associations for that particular feature of interest, corrected for common covariates (see section 5.4, below). Searchable features include genes/proteins and also metadata variable. This allows rapid interrogation of precomputed results across all datasets.</p>
+<p>Searching for a gene/protein feature generates a table of results ranked by adjusted p-value. Searching for a metadata variable (e.g. BMI) generates a table of feature (gene/protein) results across all omics datasets, ranked by adjusted p-value. Clicking on rows and external links brings up categorical or scatterplots of the association, external pages for the feature of interest, or single-cell RNAseq expression for that feature. Because a large number of associations can be displayed, filtering of the metadata or omics type is enabled by clicking on the column title.</p>
 </div>
-<div id="pre-computed-feature-associations" class="section level2 hasAnchor" number="5.4">
-<h2><span class="header-section-number">5.4</span> Pre-computed feature associations<a href="overview-of-statistical-analysis-methods.html#pre-computed-feature-associations" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Associations were computed between all omics feature-metadata variable pairs and between all metadata variable-metadata variable pairs. The linear model and Spearman correlation methods described above were used to compute the omics-metadata associations, with one modification. Some categorical variables have obvious specific contrasts, for example for diabetes status, one is usually interested in type 1 versus no diabetes and type 2 versus no diabetes. In these cases, we specify each contrast of interest using the methods described above. Other variables do not have obvious comparisons, for example donation type, so in this case an ANOVA style analysis is done and the statistics are extracted for the categorical variable coefficient rather than for a specific contrast. Sex, age, BMI, and culture time were included as covariates for analyses that used a linear model (all bulk omics data associations).</p>
-<pre><code>Three different methods were used to compute associations between pairs of metadata, depending on whether each metadata in the pair were continuous or categorical. Pearson correlation was used for continuous-continuous pairs, Cramer’s V correlation was used for categorical-categorical pairs, and ANOVA was used for categorical-continuous pairs where the categorical variable is the independent variable and the continuous variable is the dependent variable. Multiple hypothesis correction (FDR method) was performed across all results for the same statistical method. Some metadata variables such as percent purity and percent trapped are in between ordinal variables and a true continuous variable because they are estimates made by eye by a research technician, and the technician tends to estimate whole percentages (ie. 80%, 70%). For simplicity, we treat these as continuous variables. </code></pre>
-</div>
-<div id="deconvolution-analysis" class="section level2 hasAnchor" number="5.5">
-<h2><span class="header-section-number">5.5</span> Deconvolution analysis<a href="overview-of-statistical-analysis-methods.html#deconvolution-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>After normalization for tissue sample size, the intensity of a marker protein that is only abundant in one cell type and that has relatively constant levels is proportional to the abundance of that cell type. We assume an average of 0.55 beta cells, 0.30 alpha cells, 0.10 delta cells, and 0.05 gamma cells and use this to estimate the cell type composition of each donor using proteomics data. We computed the proportion of each cell type for each donor, according to marker genes. The overall proportion of each cell type was calculated as the median of proportion estimates across all marker genes for that cell type. Finally, the proportion of non-endocrine cells was computed as the remainder after adding the estimated proportion of beta, alpha, delta, and gamma cells and normalizing the endocrine proportions to satisfy an assumed maximum purity of 98%. When computing associations between individual omics features and cell type proportions, endocrine cell proportions were normalized as a proportion of the total endocrine signal and the non-endocrine proportion was included as a covariate to better distinguish cell type-specific signals.</p>
-<p>Overall, this can be thought of as estimating the strength of the signal associated with four endocrine cell types, anchoring the median signal strength with prior known cell type proportions, and attributing any missing signal to trapped non-endocrine cells. It relies on the assumptions that marker genes are only expressed in one cell type and that their levels are constant across donors. Neither of these assumptions are completely satisfied, however the method should be a robust estimator so long as the majority of marker genes have heavily biased expression in one cell type and if all marker genes are not regulated in the same direction (ie. all beta cell marker genes up-regulated in donors with diabetes).</p>
-</div>
-<div id="sources-of-gene-annotations-link-to-code-repository" class="section level2 hasAnchor" number="5.6">
-<h2><span class="header-section-number">5.6</span> Sources of gene annotations &amp; link to code repository<a href="overview-of-statistical-analysis-methods.html#sources-of-gene-annotations-link-to-code-repository" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Entrez IDs, official gene symbols, and short gene descriptions were accessed from NCBI’s FTP site on February 2, 2023 (link <a href="https://ftp.ncbi.nlm.nih.gov/gene/DATA/GENE_INFO/Mammalia/">here</a>), and curated for use throughout the HumanIslets tool. Copies of all associated R scripts, including functions called by the HumanIslets tool, scripts used for data processing and analysis, and scripts for generating manuscript figures are available at this <a href="https://github.com/xia-lab/HumanIsletsR">repository</a>.</p>
+<div id="data-download" class="section level2 hasAnchor" number="2.4">
+<h2><span class="header-section-number">2.4</span> Data download <a href="https://humanislets.com"><img src="logo4.png" alt="Logo" style="width:18px; height:18px;"></a><a href="using-humanislets.html#data-download" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>All data at HumanIslets.com is available for download. Donors of interest can be filtered by Donor Characteristics (see section 3.1) and/or data availability. Advanced filters allow selection of donors of interest by any metadata available. Donors of interest can also be selected by uploading a list of donor IDs (for example, donor IDs obtained from a particular Omics Analysis). Data can be downloaded as Comma separated values (.csv), text (.txt), R object (.rds), or in Excel format (.xlsx) within a zip file. To perform data download:</p>
+<ol style="list-style-type: decimal">
+<li>Under ‘Select Donors’ choose filtering parameters, upload a list of donor IDs
+<ol style="list-style-type: lower-alpha">
+<li>Distribution of chosen donors compared with the entire dataset can be assessed by clicking on the icons at right</li>
+</ol></li>
+<li>Once donors of interest are selected/filtered, click ‘submit’ to choose those donors
+<ol style="list-style-type: lower-alpha">
+<li>The total number of donors chosen will be displayed</li>
+</ol></li>
+<li>Under ‘Download Data’
+<ol style="list-style-type: lower-alpha">
+<li>Select the datasets of interest</li>
+<li>Select the data format</li>
+<li>The distribution of datasets selected, compared with the entire database, can be shown by clicking ‘Summary’</li>
+</ol></li>
+<li>Click ‘Download’</li>
+</ol>
 
 </div>
 </div>
@@ -173,8 +213,8 @@
           </div>
         </div>
       </div>
-<a href="overview-of-omics-data-types.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="overview-of-primary-metadata.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -205,7 +245,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/yao-lzy/HumanIslets/edit/main/04-statistical-analysis-.Rmd",
+"link": "https://github.com/yao-lzy/HumanIslets/edit/main/01-using-website.Rmd",
 "text": "Edit"
 },
 "history": {

@@ -1,50 +1,70 @@
-# Overview of Metadata Types
+# Overview of Primary Metadata
 
-For each outcome type, include information on:
+## Donor Characteristics
 
-- Overview of experimental procedures performed prior to collecting the data (and relevant technical parameters) -> refer to timeline diagram
-- Glossary of every variable in the tool: what precisely does it mean, what are the units, etc
-- Who collected the data (institution)
-- Replicates - were there any, are they different groups of islets, different individual cells, etc
-- Explanation of any changes in protocols (ie. switch to different GSIS concentrations, maybe different platform used halfway through, etc)
-- Whether data was intentionally collected on specific subsets of donors
-- Versions of data available for download
-- Data processing prior to statistical analysis (merging replicates, transformations, removed outliers, definition of any computed/normalized values)
-- Any additional notes
-- Citations of papers that have published parts of the data
+De-identified donor characteristics, including HLA-typing, collected at the time of organ procurement are provided in a de-identified manner to the ADI IsletCore team by the organ procurement organisations. Users should be aware that some information, such as diabetes diagnosis, may not be clinically validated at the time of organ retrieval. Whenever possible, HbA1c measurements are performed directly by the ADI IsletCore using blood samples sent with the organ, and donors indicated as type 1 diabetes (T1D) are validated as much as possible through genetic testing, autoantibody testing, and immunohistochemical analysis. While the Donor Metadata ‘diabetes diagnosis’ reflects the status indicated by the organ procurement organization, the Donor Metadata ‘corrected diabetes status’ indicates a classification based on the totality of information available to the ADI IsletCore (including ‘pre-diabetes’ defined as HbA1c between 5.7 and 6.5%, and ‘non-diagnosed’ donors with HbA1c>6.5% as type 2 diabetes (T2D)).
 
+> *Available donor characteristics metadata include*: Age, Sex, Donation Type (NDD, DCD, MAID), BMI, HbA1c (%), HLA A2 (Yes/No), Diabetes diagnosis, and Corrected diabetes status.
 
-## Donor Characteristics:
+## Organ Characteristics and Processing
 
-Donor characteristics are provided to the Isletcore team through the organ procurement programs. These characteristics can come from the family and aren’t always accurate reflections of the medical history. Hba1c measurements are performed in the Isletcore when the donor blood sample is available. 
+Organ characteristic and processing metadata is recorded during the islet isolation by the ADI IsletCore lead technician. Cold ischemia time is calculated from the cross clamp time during organ procurement until the start of the isolation in Edmonton. Please note that some measures, such as ‘organ consistency’ are subjective.
 
-## Organ Characteristics and Processing:
+> *Available organ characteristics and processing metadata include*: Cold Ischemic Time (h), Pancreas weight (g), Fatty infiltration (Yes/No), Organ consistency (Soft, Normal, Fibrotic, Inconsistent), Collagenase supplier (Roche, VitaCyte, Serva, Sigma), Colleganse type (Liberase, Clzyme, Gold, NB1, Sigma, Other, Recombinant), Digestion time (min).
 
-Organ characteristic and processing data is recorded during the islet isolation by the lead technician. Cold Ischemia time will be calculated based on the cross clamp time during organ procurement until the start of the isolation in Edmonton. 
+## Isolation Outcomes
 
-## Isolation Outcomes:
+Islet purity, islet equivalents (IEQ), % trapped, and islet particle index (IPI) are determined by the ADI IsletCore lead technician. Full details can be found [here](https://www.protocols.io/view/human-islet-quantification-and-purity-assessment-14egnxxwml5d/v3) or in our [IsletCore](http://www.bcell.org/uploads/5/1/3/3/51338649/adi_isletcore_welcome_booklet.pdf) welcome booklet. Details on determining Insulin and DNA samples as part of our quality control can be found [here](https://www.protocols.io/view/sampling-of-human-islets-for-quality-control-purpo-j8nlk553dl5r/v2). 
 
-Islet purity, IEQ, % trapped, IPI are determined by the lead technician. Full details on determining IEQ, purity etc can be found [here](https://www.protocols.io/view/human-islet-quantification-and-purity-assessment-14egnxxwml5d/v3/) or in our [IsletCore](http://www.bcell.org/uploads/5/1/3/3/51338649/adi_isletcore_welcome_booklet.pdf) welcome booklet. Details on determining Insulin and DNA samples can always be found [here](https://www.protocols.io/view/sampling-of-human-islets-for-quality-control-purpo-j8nlk553dl5r/v2). Cell proportion data is determined through our proteomics data. Proteomics samples are shipped to Jim Johnson’s lab at UBC. Samples are then hand picked and snap frozen for processing. 
+> *Available isolation outcomes metadata include*: Total islet equivalents (IEQ), Islet equivalents per pancreas weight (IEQ/g), Purity (%), Trapped (%), Islet particle index, Insulin content (ug), DNA content (ug), Insulin:DNA ratio, Insulin per IEQ (ng/IEQ).
 
-## Cell Culture Outcomes:
+## Cell Type Proportions
 
-On the day of shipping, Islets are recounted to determine IEQ, % recovery, IPI after culture. Culture time is determined by the end of the isolation until approximately 9am on a shipping day. Post culture samples are collected for insulin and DNA as [previously described](https://www.protocols.io/view/sampling-of-human-islets-for-quality-control-purpo-j8nlk553dl5r/v2).
+Cell proportions are estimated based on deconvolution of bulk islet proteomic data from hand-picked islets using canonical proteins as markers (see below). Estimated cell type proportions are shown as either the ‘non-endocrine cell proportion’ (of all cells) or as the proportion of the endocrine compartment only.
 
-## Static Insulin Secretion:
+>*Available cell type proportions metadata include*: Non-endocrine cell proportion (computed), beta-cell proportion (of endocrine; computed), alpha-cell proportion (of endocrine; computed), delta-cell proportion (of endocrine; computed), and gamma-cell proportion (of endocrine; computed).
 
-In triplicates, 15  hand picked islets from each donor were sequentially treated with low glucose for 1 hour followed by high glucose 1 hour. Collected supernatant for low glucose, high glucose or insulin content are measured by ELISA and recorded in the database. For each donor, there are multiple glucose combinations that may have been used. Glucose pairs are 1mM to 10mM glucose, 1mM to 16.7mM glucose or 2.8mM glucose to 16.7mM glucose. Islets used in the 1mM to 10mM group are unique from the 1mM to 16.7mM group. The secretion data are commonly presented as a percentage of the total content (secreted insulin/total insulin *100), and as a stimulation index (high glucose secretion/low glucose secretion). Biological outliers were defined as “Seth is coming up with the definition now”, and identified outliers were removed from the dataset. The data for each replicate (after outlier removal) can be downloaded from the data export page. The total insulin content, secretion percentages, and stimulation indices, averaged across replicates, can be queried, analyzed, and visualized in the other parts of the tool. Complete experimental details can be found [here](https://www.protocols.io/view/static-glucose-stimulated-insulin-secretion-gsis-p-n2bvjkzxgk5w/v3). 
+## Cell Culture Outcomes
 
+Following isolation, islets are cultured prior to shipment and sample collection for assay. On the day of shipping/collection, islets are recounted to determine islet equivalents (IEQ) and islet particle index (IPI) after culture. Culture time is determined by the end of the isolation until approximately 9 am on a shipping/collection day. The % recovery is calculated as ‘post-isolation IEQ/pre-shipment IEQ*100.’ Post-culture samples are collected for insulin and DNA as [described](https://www.protocols.io/view/sampling-of-human-islets-for-quality-control-purpo-j8nlk553dl5r/v2).
 
-## Islet Oxygen Consumption (Seahorse assay):
+>*Available cell culture outcomes metadata include*: Culture time (h), Total islet equivalents after culture (IEQ), Percent IEQ recovery after culture (%), Islet particle index after culture, Insulin content after culture, Insulin:DNA ratio after culture, Insulin per IEQ after culture (ng/IEQ).
 
+## Static Insulin Secretion
 
-## Dynamic Insulin Responses to Macronutrients:
+On the day of sample collection (see section 2.5, above) islets are handpicked to 100% purity and cultured overnight at 37°C with 5% CO2. In triplicates, 15 hand-picked islets from each donor are pre-incubated at low glucose for 2 x 1 hours consecutively, and then sequentially treated with low glucose for 1 hour followed by high glucose 1 hour. Collected supernatant for low glucose, high glucose or insulin content are measured by ELISA (ALPCO STELLUX Chemiluminescence). For each donor, there are multiple glucose combinations that are used. Experimental details can be found [here](https://www.protocols.io/view/static-glucose-stimulated-insulin-secretion-gsis-p-n2bvjkzxgk5w/v3). Glucose pairs are:
 
-Human islets are shipped to Jim Johnson’s lab at UBC. Islets are hand picked and cultured in RPMI for 24-72hrs before the experiment to allow the islets to recover from shipping. 65 islets are loaded per chamber and pre-incubated for 1 hour. Islets are stimulated with 6 or 15mM glucose, 5mM Leucine or 0.75mM Oleic acid/0.75mM palmitic acid as indicated. Samples are stored at -20C until analysis with RIA. Full details are described [here](https://www.medrxiv.org/content/10.1101/2023.05.24.23290298v1.full.pdf). 
+1. 1mM → 10mM glucose
+2. 1mM → 16.7mM glucose
+3. 2.8mM → 16.7mM glucose
+
+Outliers were handled in two ways. *<u>Level 1</u>*) A single donor-level measurement was computed as the median of the three replicate measures. Using the median instead of the mean reduced the impact of replicate-level outliers on the data. *<u>Level 2*</u>) The donor-level values were filtered to remove those that were more than 4 standard deviations away from the mean of all donors on a log10 scale. This removed values that were many orders of magnitude different from the population. In the Data Download tool, the data are provided at the replicate level (before outlier removal), while in-tool Omics Analysis is performed on data subjected to both Level 1 and Level 2 outlier removal.
+
+> *Available static insulin secretion metadata include*: Culture time before experiment (days), Insulin content (pg/ml), Secretion at 1 mM glucose (pg/ml), Secretion at 2.8 mM glucose (pg/ml), Secretion at 10 mM glucose (pg/ml), Secretion at 16.7 mM glucose (pg/ml), Stimulation index (1->10 mM glucose), Stimulation index (1->16.7 mM glucose), Stimulation index (2.8->16.7 mM glucose).
+
+## Islet Oxygen Consumption (Seahorse assay)
+
+At the ADI IsletCore, after an overnight culture, islets are hand-picked, and 70 islets per well are assayed in triplicate for each donor. Islets are placed in the center of the well and islet capture screens are used to keep islets in place. Plate is incubated at 37oC for 1 hour without CO2, after which the plate is placed in the Xfe24 analyzer (Agilent). Basal measurements are at 2.8mM glucose, while stimulation is at 16.7mM glucose. 5uM oligomycin, 3uM FCCP and 5uM of rotenone and antimycin A are used as indicated. All solutions are made using DMEM supplemented with 1% FBS, sodium pyruvate and L-glutamine. After the run is complete, islets are collected and a DNA assay is done to normalize data. A detailed protocol is [here](https://www.protocols.io/view/seahorse-protocol-for-islets-using-xfe24-analyzer-n2bvj63p5lk5/v1).
+
+> *Available islet oxygen consumption (Seahorse assay) metadata include*: Basal respiration, ATP-linked respiration, Proton leak, Max glucose response, Stimulated glucose response, Max respiration, and Spare capacity.
+
+## Dynamic Insulin Responses to Macronutrients
+
+After shipment to the University of British Columbia, islets are hand picked and cultured in RPMI for 24-72hrs before the experiment to allow recovery from shipping. 65 islets are loaded per chamber and pre-incubated for 1 hour. Islets are stimulated with 6 or 15mM glucose, 5mM Leucine or 0.75mM Oleic acid/0.75mM palmitic acid as indicated. Samples are stored at -20oC until analysis with RIA. Full details are described [here](https://www.medrxiv.org/content/10.1101/2023.05.24.23290298v1.full.pdf). 
+
+> *Available dynamic insulin responses to macronutrients metadata include*: 3 mM Glucose baseline secretion (AUC), 15 mM Glucose-stimulated peak, 15 mM Glucose-stimulated secretion (AUC), 6 mM Glucose-stimulated secretion (AUC), 30 mM KCl-stimulated secretion, after glucose (AUC), 5 mM Leucine-stimulated peak secretion , 5 mM Leucine-stimulated secretion (AUC), 5 mM Leucine + 6 mM Glucose-stimulated secretion (AUC), 30 mM KCl-stimulated secretion, after leucine (AUC), 1.5 mM Oleate/palmitate-stimulated peak secretion, 1.5 mM Oleate/palmitate-stimulated secretion (AUC), 1.5 mM Oleate/palmitate _ 6 mM glucose-stimulated peak secretion, 30 mM KCl-stimulated secretion, after oleate palmitate (AUC).
 
 ## Single-cell Function (electrophysiology)
 
-Human islets are hand picked and dispersed into single cells and plated on 35mm cell culture dishes by the MacDonald lab. 24-72 hours after the dispersion, electrophysiological measurements are recorded. Cell identity is confirmed by immunohistochemistry. 
+On the day of collection (see section 2.5 above) islets are hand-picked, dispersed to single cells and plated on 35 mm cell culture dishes as described [here](https://www.protocols.io/view/human-and-mouse-islet-single-cell-dispersion-for-p-x54v98851l3e/v1). 24-72 hours after plating, electrophysiology is performed by whole-cell patch-clamp using procedures and solutions outlined in publications [here](https://www.jci.org/articles/view/82498) and [here](https://www.sciencedirect.com/science/article/pii/S155041312030187X?via%3Dihub).
+
+For earlier donors, only ‘total exocytosis’ in response to a series of 10 membrane depolarizations from -70 to 0 mV is reported. For more recent donors (from R305 onward) an expanded panel of electrophysiological measures is reported that include measures of cell size, exocytosis, voltage-dependent Ca2+ channel activity, and voltage-dependent-Na+ channel activity. Cell types are identified either by immunostaining (insulin/glucagon) or by single-cell RNA sequencing after the experiment. In the Omics analysis, analyses can be performed on either alpha- or beta-cells, at 1, 5 or 10 mM glucose. 
+
+> *Available single-cell function metadata include*: Size (pF), Total exocytosis (fF/pF), Early (RRP) exocytosis (fF/pF), Late exocytosis (fF/pF), Calcium entry (pC/pF), Early calcium current amplitude (pA/pF), Late calcium current amplitude (pA/pF), Sodium current amplitude (pA/pF), Half inactivation sodium current (mV).
+
+
+
+
 
 
 

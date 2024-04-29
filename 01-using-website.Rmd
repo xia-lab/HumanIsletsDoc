@@ -1,55 +1,63 @@
 # Using HumanIslets.com
 
-## Omics Data Analysis [![Logo](logo1.png)](https://humanislets.com/omics).
+## Omics Data Analysis [<img src="logo1.png" alt="Logo" style="width:18px; height:18px;">](https://humanislets.com)
 
 
-For each outcome type, include information on:
+HumanIslet.com presently includes information from 540 human research islet isolations that includes donor and technical metadata, islet and islet cell function, and omics. Omics datasets include bulk proteomics, bulk RNAseq, gene panels (Nanostring), patch-seq, and pseudobulk RNAseq for alpha- and beta-cells. Omics-metadata relationships can be analysed by:
 
-- Overview of experimental procedures performed prior to collecting the data (and relevant technical parameters) -> refer to timeline diagram
-- Glossary of every variable in the tool: what precisely does it mean, what are the units, etc
-- Who collected the data (institution)
-- Replicates - were there any, are they different groups of islets, different individual cells, etc
-- Explanation of any changes in protocols (ie. switch to different GSIS concentrations, maybe different platform used halfway through, etc)
-- Whether data was intentionally collected on specific subsets of donors
-- Versions of data available for download
-- Data processing prior to statistical analysis (merging replicates, transformations, removed outliers, definition of any computed/normalized values)
-- Any additional notes
-- Citations of papers that have published parts of the data
+1. Selecting the ‘Omics Type’ of interest
+2. Selecting the ‘Primary Metadata’ to be analysed, and ‘Comparison of Interest’ if applicable
+3. Choosing covariates to control for
+4. Selecting donors to include
+      a. Choosing ‘Subset’ will open a window that allows for filtering by donor characteristics and data availability, or upload of a list of donor IDs or RRIDs of interest
+5. Selecting a p-value cutoff, and the use of adjusted p-values
+6. Click ‘submit’
 
-
-## Donor Characteristics:
-
-Donor characteristics are provided to the Isletcore team through the organ procurement programs. These characteristics can come from the family and aren’t always accurate reflections of the medical history. Hba1c measurements are performed in the Isletcore when the donor blood sample is available. 
-
-## Organ Characteristics and Processing:
-
-Organ characteristic and processing data is recorded during the islet isolation by the lead technician. Cold Ischemia time will be calculated based on the cross clamp time during organ procurement until the start of the isolation in Edmonton. 
-
-## Isolation Outcomes:
-
-Islet purity, IEQ, % trapped, IPI are determined by the lead technician. Full details on determining IEQ, purity etc can be found [here](https://www.protocols.io/view/human-islet-quantification-and-purity-assessment-14egnxxwml5d/v3/) or in our [IsletCore](http://www.bcell.org/uploads/5/1/3/3/51338649/adi_isletcore_welcome_booklet.pdf) welcome booklet. Details on determining Insulin and DNA samples can always be found [here](https://www.protocols.io/view/sampling-of-human-islets-for-quality-control-purpo-j8nlk553dl5r/v2). Cell proportion data is determined through our proteomics data. Proteomics samples are shipped to Jim Johnson’s lab at UBC. Samples are then hand picked and snap frozen for processing. 
-
-## Cell Culture Outcomes:
-
-On the day of shipping, Islets are recounted to determine IEQ, % recovery, IPI after culture. Culture time is determined by the end of the isolation until approximately 9am on a shipping day. Post culture samples are collected for insulin and DNA as [previously described](https://www.protocols.io/view/sampling-of-human-islets-for-quality-control-purpo-j8nlk553dl5r/v2).
-
-## Static Insulin Secretion:
-
-In triplicates, 15  hand picked islets from each donor were sequentially treated with low glucose for 1 hour followed by high glucose 1 hour. Collected supernatant for low glucose, high glucose or insulin content are measured by ELISA and recorded in the database. For each donor, there are multiple glucose combinations that may have been used. Glucose pairs are 1mM to 10mM glucose, 1mM to 16.7mM glucose or 2.8mM glucose to 16.7mM glucose. Islets used in the 1mM to 10mM group are unique from the 1mM to 16.7mM group. The secretion data are commonly presented as a percentage of the total content (secreted insulin/total insulin *100), and as a stimulation index (high glucose secretion/low glucose secretion). Biological outliers were defined as “Seth is coming up with the definition now”, and identified outliers were removed from the dataset. The data for each replicate (after outlier removal) can be downloaded from the data export page. The total insulin content, secretion percentages, and stimulation indices, averaged across replicates, can be queried, analyzed, and visualized in the other parts of the tool. Complete experimental details can be found [here](https://www.protocols.io/view/static-glucose-stimulated-insulin-secretion-gsis-p-n2bvjkzxgk5w/v3). 
+The number of donors included in the analysis will be displayed. If too few donors are available for the chosen analysis (<10), an error message will be shown. Results of the analysis will be shown under ‘Feature Association Results’, and both results and analysis pipeline can be downloaded by clicking on the appropriate button. Results are shown as a graphical representation (volcano plot) or table, accessible by clicking on the appropriate tab. Clicking on features (points in the volcano plot, or table entries) will raise a graph showing categorical or scatterplot representations of the data/feature of interest. Clicking on individual donors within those plots will take you to the ‘Donor View’ page for that donor (section 2.2, below), allowing for inspection of potential outlier donors. In the Results Table, clicking on the feature name will take you to the ‘Feature Search’ page (section 2.3, below) for that gene/protein. At the right are links to the NCBI gene page and T2D Knowledge Portal (T2DKP) entries for each feature (external sites), and to a single-cell RNAseq reference dataset (SC) to inspect cell-type specific expression of the feature.
 
 
-## Islet Oxygen Consumption (Seahorse assay):
+The third tab under the ‘Feature Association Results’ pulls up a Pathway Analysis tool for common Overrepresentation Analysis (ORA) or Gene Set Enrichment Analysis (GSEA) on the results. To perform pathway analysis:
 
+1. Select ORA or GSEA
+    a. ORA is performed on significant hits based on the p-value threshold set above
+    b. GSEA can be performed using log2FC/coefficient or T-statistic for ranking, and can be performed even in cases when no individual features are marked as significant
+2. Select whether to collapse redundant pathways
+3. Choose a false discovery rate (FDR) cutoff
+4. Choose among common pathway libraries to query
+5. Click ‘submit’
 
-## Dynamic Insulin Responses to Macronutrients:
+The ‘Pathway Results’ will be displayed in both graphical and table format, selected by clicking on the appropriate tab. As above, both results and analysis pipeline can be downloaded by clicking on the appropriate button. In the interactive graphical view, significant pathways (based on FDR cutoff) are shown as ridgeplots. Clicking on these will raise heatmaps showing the contribution of individual genes/proteins.
 
-Human islets are shipped to Jim Johnson’s lab at UBC. Islets are hand picked and cultured in RPMI for 24-72hrs before the experiment to allow the islets to recover from shipping. 65 islets are loaded per chamber and pre-incubated for 1 hour. Islets are stimulated with 6 or 15mM glucose, 5mM Leucine or 0.75mM Oleic acid/0.75mM palmitic acid as indicated. Samples are stored at -20C until analysis with RIA. Full details are described [here](https://www.medrxiv.org/content/10.1101/2023.05.24.23290298v1.full.pdf). 
+## Donor View [<img src="logo2.png" alt="Logo" style="width:18px; height:18px;">](https://humanislets.com)
 
-## Single-cell Function (electrophysiology)
+The Donor View page allows examination of individual donor, islet isolation, and functional data from each of 540 donors currently in the HumanIslets.com database. Donors can be searched by ADI IsletCore Donor ID or Research Resource ID (RRID). Data categories can be selected in tabs indicated on the left (Donor information; Isolation Information; Static and Dynamic Insulin Secretion; Mitochondrial Function; Electrophysiology, along with an overview of Omics data currently available). These metadata are described in detail in chapters 3 and 4, below.
 
-Human islets are hand picked and dispersed into single cells and plated on 35mm cell culture dishes by the MacDonald lab. 24-72 hours after the dispersion, electrophysiological measurements are recorded. Cell identity is confirmed by immunohistochemistry. 
+Typically, data is shown for selected donor in the context of the entire dataset, allowing for easy inspection and determination of whether a donor falls within the normal range of the population. A few points that are worth noting here:
 
+- *Donor Information* shows the RRID if available. Clicking on this will link out to the NCBI Biosample page for this donor
+- *Isolation Information* also contains the current inventory of snap frozen and cryopreserved islet tubes for that donor (all donors also have paraffin embedded biopsies)
+- *Isolation Information* includes cell type composition calculated by - deconvolution in donors with bulk proteomics data (see section 5.5, below)
+- *Dynamic Insulin* Responses can be shown with or without normalisation to baseline
+- *Mitochondrial Function* (oxygen consumption by Seahorse assay) can be shown with or without normalisation to DNA and baseline
 
+## Feature Search [<img src="logo3.png" alt="Logo" style="width:18px; height:18px;">](https://humanislets.com)
 
+Instead of performing an ‘Omics Analysis’ focused on a particular omics type and metadata variable, users can search for a feature of interest and pull up ALL associations for that particular feature of interest, corrected for common covariates (see section 5.4, below). Searchable features include genes/proteins and also metadata variable. This allows rapid interrogation of precomputed results across all datasets.
+
+Searching for a gene/protein feature generates a table of results ranked by adjusted p-value. Searching for a metadata variable (e.g. BMI) generates a table of feature (gene/protein) results across all omics datasets, ranked by adjusted p-value. Clicking on rows and external links brings up categorical or scatterplots of the association, external pages for the feature of interest, or single-cell RNAseq expression for that feature. Because a large number of associations can be displayed, filtering of the metadata or omics type is enabled by clicking on the column title.
+
+## Data download [<img src="logo4.png" alt="Logo" style="width:18px; height:18px;">](https://humanislets.com)
+
+All data at HumanIslets.com is available for download. Donors of interest can be filtered by Donor Characteristics (see section 3.1) and/or data availability. Advanced filters allow selection of donors of interest by any metadata available. Donors of interest can also be selected by uploading a list of donor IDs (for example, donor IDs obtained from a particular Omics Analysis). Data can be downloaded as Comma separated values (.csv), text (.txt), R object (.rds), or in Excel format (.xlsx) within a zip file. To perform data download:
+
+1. Under ‘Select Donors’ choose filtering parameters, upload a list of donor IDs
+    a. Distribution of chosen donors compared with the entire dataset can be assessed by clicking on the icons at right
+2. Once donors of interest are selected/filtered, click ‘submit’ to choose those donors
+    a. The total number of donors chosen will be displayed
+3. Under ‘Download Data’
+    a. Select the datasets of interest
+    b. Select the data format
+    c. The distribution of datasets selected, compared with the entire database, can be shown by clicking ‘Summary’
+4. Click ‘Download’
 
 

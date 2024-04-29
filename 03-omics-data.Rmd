@@ -1,39 +1,36 @@
 # Overview of Omics Data Types
 
-For each data type, include information on:
-
-- Platform(s)
-- Batches (and whether batch effect is significant)
-- Any logistical (shipping, storage)/lab procedures conducted prior to collecting data (and indicate relevant technical parameters - ie. culture times, etc)
-- Whether data was intentionally collected on specific subsets of donors
-- Raw data processing pipeline
-- Where you can find raw data files
-- Missing value strategy, filtering, and normalization prior to statistical analysis
-- Any additional notes
-- Citations of papers that have published parts of the data
-
 ## Gene expression (bulk RNA-seq)
-RNA-seq profiles were collected starting in <span style="color: blue;">[YEAR]</span>in batches of islets from ~10-20 donors. <span style="color: blue;">[Include information on batches]</span>. Raw reads were aligned to the <span style="color: blue;">[BLANK GENOME]</span> using <span style="color: blue;">[BLANK SOFTWARE version BLANK]</span>. The counts matrix was filtered to remove any genes with fewer than <span style="color: blue;">[X]</span> mean counts. The counts were normalized for sequencing depth and adjusted to account for high variance/high abundant genes using the <span style="color: blue;">[BLANK]</span> method in the limma voom R package (version <span style="color: blue;">#</span>). Batch effect was corrected using the Combat-Seq R package (version <span style="color: blue;">#</span>). Since 
+
+After quality control via FastqQC (v0.11.9), the raw reads were aligned to the human genome reference (GRCh38) using STAR (v2.7.9a) with the gene annotation downloaded from the ENSEMBL database (v110). Gene expression levels were counted using featureCounts (v2.0.3). Raw counts were normalized using the TPM method to adjust sequencing depth.
+
+Ensembl gene IDs were mapped to Entrez IDs and counts from any duplicated Entrez IDs were summed. Transcripts with over 80% zeros were filtered out. The RNAseq dataset contains seven batches, and significant batch effects were observed. Batch effects were corrected for using the Combat-Seq function in the sva R package (version 3.44.0), which preserves the count nature of the data. Counts were converted to log-counts-per-million (logCPM) using the relative log expression (RLE) method in the edgeR R package (version 3.38.4). Transcripts with logCPM variance in the lowest 20th percentile were filtered out. Since the sequencing depth was different across different batches, a substantial number of transcripts had zero counts in some batches and low but robust counts in other batches. These batch-related drop-out patterns led to large numbers of significant differentially expressed features that disappeared if individual batches were held out. To address this problem, counts with a value of zero or one were replaced with NAs, excluding these individual values from all downstream statistical analyses and leading to more stable differential expression analysis results.
+
+The raw RNA sequencing data has been deposited in the European Genome-phenome Archive (EGA) under study number EGAS00001007241.
 
 ## Gene expression (Nanostring)
-50 islets are hand picked in Edmonton. Cells are washed with PBS then collected in 100ul of RLT Beta-mercaptoethanol. Islets arestored at -80C before shipping to the Lynn Lab.
+
+On the day of sample collection (see section 2.5, above) 50 islets are hand-picked at the ADI IsletCore, washed with PBS, then lysed in 100ul of RNeasy Lysis Buffer (RLT, Qiagen) containing 1% beta-mercaptoethanol. Samples are stored at -80oC before running on Nanostring gene expression assay at BC Children Hospital (Vancouver). The assay was updated partway through data collection, where a small number of genes were removed and replaced with others, resulting in two different gene codesets. Briefly, 1ul cell lysate is used for hybridization with customized gene code sets that target 142 pancreatic islet genes and 6 reference genes. Hybridized complex is then loaded on cartridge and Nanostring nCounter to measure the target gene expression. The raw data is analyzed with nSolver4.0 software from Nanostring, producing a table of intensity values where larger values correspond to higher gene expression values. Full details are found [here](https://www.biorxiv.org/content/10.1101/2023.09.08.556709v1). 
+
+*Data Processing*: Significant batch effects were present across codesets, and so transcripts measured in both Nanostring arrays were batch corrected using the Combat function from the sva R package (version 3.44.0). Gene expression intensities were normalized by sample median (each value divided by the median intensity of all genes for that donor) and log2-transformed. Given the much smaller number of transcripts compared to the RNAseq data, no abundance or variance filters were applied.  
 
 ## Protein expression (proteomics)
-Human islets are shipped to Jim Johnson’s lab at UBC. 300 Islets are hand picked, washed with pbs and pellet is snap frozen and stored at -80C. Details of lysis and analysis are found [here](https://www.medrxiv.org/content/10.1101/2023.05.24.23290298v1.full.pdf). 
 
-## Gene expression (single-cell RNA-seq)
+Human islets are shipped to the University of British Columbia, hand-picked and cultured in RPMI for 24-72hrs before the experiment to allow the islets to recover from shipping. After recovery, 300 islets are hand-picked, washed with PBS and the pellet is snap frozen and stored at -80oC. LC-MS/MS analysis is performed with n = 3 technical replicates, using a NanoElute UHPLC system (Bruker Daltonics) with Aurora Series Gen2 (CSI) analytical column coupled to a Trapped Ion Mobility – Time of Flight mass spectrometer (timsTOF Pro; Bruker Daltonics, Germany) operated in Data-Independent Acquisition - Parallel Accumulation- Serial Fragmentation (DIA-PASEF) mode. Details of lysis and analysis are found [here](https://www.medrxiv.org/content/10.1101/2023.05.24.23290298v1.full.pdf). 
+
+Protein abundances were filtered to remove any that had more than 50% missing values, median normalized, and log2 transformed. Missing values were imputed with the missForest method (random forest-based) using the imp4p R package (version 1.2.0). Uniprot IDs were converted to Entrez IDs, and rows with duplicate IDs were aggregated by taking the mean. Proteins with variance in the lowest 20th percentile were filtered out.
+
+Raw proteomics data has been deposited to ProteomExchange via MASSive under dataset number PXD045422.
 
 ## Gene expression (pseudobulk RNA-seq)
-150 islets are hand picked at the University of Alberta and transferred into a tube with 1ml of Trizol reagent. Samples are stored at -80C until shipping to Anna Gloyn’s lab (originally Oxford now Stanford). 
 
+The single-cell counts from patch-seq data (section 3.5, below) were summarized at the donor by separating counts by cell type (alpha and beta). Only cells from donors with at least five cells were retained. Pseudobulk profiles were created by summing counts from all cells derived from the same donor. Ensembl gene IDs were mapped to Entrez IDs and counts from any duplicated Entrez IDs were summed. Each matrix was filtered to remove transcripts with greater than 80% zeros. Counts were converted to logCPM values using the TMM method from the edgeR R package (version 3.38.4). Due to the large variations in sequencing depth across batches, individual transcripts that had zero or one count were replaced with NA values.
 
+## Single-cell gene expression (patch-seq)
 
+The collection and analysis of pancreas patch-seq data is described [here](https://www.sciencedirect.com/science/article/pii/S155041312030187X?via%3Dihub) and [here](https://www.sciencedirect.com/science/article/pii/S1550413121006859?via%3Dihub). Cells were filtered to remove any that were not alpha or beta cells, had fewer than 500 total counts across all transcripts, had fewer than 300 unique transcripts with non-zero count values, or had greater than 20% mitochondrial DNA. Ensembl gene IDs were mapped to Entrez IDs and counts from any duplicated Entrez IDs were summed. Counts were separated by cell type (alpha and beta) and glucose concentration (1, 5, and 10mM), resulting in six different matrices. Each matrix was filtered to remove transcripts with greater than 80% zeros. Counts were converted to logCPM values using the trimmed mean of M-values (TMM) method from the edgeR R package (version 3.38.4). TMM has been shown to perform better for single-cell RNAseq data compared to the RLE method because it is robust to the high drop-out rate. Individual transcripts that had zero counts were replaced with NA.
 
+Raw sequencing reads are available in the NCBI Gene Expression Omnibus (GEO) and Sequence Read Archive (SRA) under accession numbers GSE124742 and GSE164875 and at PancDB (https://hpap.pmacs.upenn.edu/).
 
-
-
-
-
-
-
+## Single-cell RNA-seq
 
