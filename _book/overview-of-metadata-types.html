@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 3 Overview of Metadata Types | Human Islets</title>
+  <meta name="description" content="This is an introduction of the Human Islet project." />
+  <meta name="generator" content="bookdown 0.39 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 3 Overview of Metadata Types | Human Islets" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="This is an introduction of the Human Islet project." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 3 Overview of Metadata Types | Human Islets" />
+  
+  <meta name="twitter:description" content="This is an introduction of the Human Islet project." />
+  
+
+<meta name="author" content="" />
+
+
+<meta name="date" content="2024-04-28" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="using-humanislets.html"/>
+<link rel="next" href="overview-of-omics-data-types.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Human Islets</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> General Introduction</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#land-acknowledgement"><i class="fa fa-check"></i><b>1.1</b> Land Acknowledgement</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#terms-of-use"><i class="fa fa-check"></i><b>1.2</b> Terms of Use</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#financial-support"><i class="fa fa-check"></i><b>1.3</b> Financial Support</a></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#overview-and-sampledata-collection"><i class="fa fa-check"></i><b>1.4</b> Overview and Sample/data Collection</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="using-humanislets.html"><a href="using-humanislets.html"><i class="fa fa-check"></i><b>2</b> Using HumanIslets.com</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="using-humanislets.html"><a href="using-humanislets.html#omics-data-analysis-logo."><i class="fa fa-check"></i><b>2.1</b> Omics Data Analysis <img src="logo1.png" alt="Logo" />.</a></li>
+<li class="chapter" data-level="2.2" data-path="using-humanislets.html"><a href="using-humanislets.html#donor-characteristics"><i class="fa fa-check"></i><b>2.2</b> Donor Characteristics:</a></li>
+<li class="chapter" data-level="2.3" data-path="using-humanislets.html"><a href="using-humanislets.html#organ-characteristics-and-processing"><i class="fa fa-check"></i><b>2.3</b> Organ Characteristics and Processing:</a></li>
+<li class="chapter" data-level="2.4" data-path="using-humanislets.html"><a href="using-humanislets.html#isolation-outcomes"><i class="fa fa-check"></i><b>2.4</b> Isolation Outcomes:</a></li>
+<li class="chapter" data-level="2.5" data-path="using-humanislets.html"><a href="using-humanislets.html#cell-culture-outcomes"><i class="fa fa-check"></i><b>2.5</b> Cell Culture Outcomes:</a></li>
+<li class="chapter" data-level="2.6" data-path="using-humanislets.html"><a href="using-humanislets.html#static-insulin-secretion"><i class="fa fa-check"></i><b>2.6</b> Static Insulin Secretion:</a></li>
+<li class="chapter" data-level="2.7" data-path="using-humanislets.html"><a href="using-humanislets.html#islet-oxygen-consumption-seahorse-assay"><i class="fa fa-check"></i><b>2.7</b> Islet Oxygen Consumption (Seahorse assay):</a></li>
+<li class="chapter" data-level="2.8" data-path="using-humanislets.html"><a href="using-humanislets.html#dynamic-insulin-responses-to-macronutrients"><i class="fa fa-check"></i><b>2.8</b> Dynamic Insulin Responses to Macronutrients:</a></li>
+<li class="chapter" data-level="2.9" data-path="using-humanislets.html"><a href="using-humanislets.html#single-cell-function-electrophysiology"><i class="fa fa-check"></i><b>2.9</b> Single-cell Function (electrophysiology)</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="overview-of-metadata-types.html"><a href="overview-of-metadata-types.html"><i class="fa fa-check"></i><b>3</b> Overview of Metadata Types</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="overview-of-metadata-types.html"><a href="overview-of-metadata-types.html#donor-characteristics-1"><i class="fa fa-check"></i><b>3.1</b> Donor Characteristics:</a></li>
+<li class="chapter" data-level="3.2" data-path="overview-of-metadata-types.html"><a href="overview-of-metadata-types.html#organ-characteristics-and-processing-1"><i class="fa fa-check"></i><b>3.2</b> Organ Characteristics and Processing:</a></li>
+<li class="chapter" data-level="3.3" data-path="overview-of-metadata-types.html"><a href="overview-of-metadata-types.html#isolation-outcomes-1"><i class="fa fa-check"></i><b>3.3</b> Isolation Outcomes:</a></li>
+<li class="chapter" data-level="3.4" data-path="overview-of-metadata-types.html"><a href="overview-of-metadata-types.html#cell-culture-outcomes-1"><i class="fa fa-check"></i><b>3.4</b> Cell Culture Outcomes:</a></li>
+<li class="chapter" data-level="3.5" data-path="overview-of-metadata-types.html"><a href="overview-of-metadata-types.html#static-insulin-secretion-1"><i class="fa fa-check"></i><b>3.5</b> Static Insulin Secretion:</a></li>
+<li class="chapter" data-level="3.6" data-path="overview-of-metadata-types.html"><a href="overview-of-metadata-types.html#islet-oxygen-consumption-seahorse-assay-1"><i class="fa fa-check"></i><b>3.6</b> Islet Oxygen Consumption (Seahorse assay):</a></li>
+<li class="chapter" data-level="3.7" data-path="overview-of-metadata-types.html"><a href="overview-of-metadata-types.html#dynamic-insulin-responses-to-macronutrients-1"><i class="fa fa-check"></i><b>3.7</b> Dynamic Insulin Responses to Macronutrients:</a></li>
+<li class="chapter" data-level="3.8" data-path="overview-of-metadata-types.html"><a href="overview-of-metadata-types.html#single-cell-function-electrophysiology-1"><i class="fa fa-check"></i><b>3.8</b> Single-cell Function (electrophysiology)</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="overview-of-omics-data-types.html"><a href="overview-of-omics-data-types.html"><i class="fa fa-check"></i><b>4</b> Overview of Omics Data Types</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="overview-of-omics-data-types.html"><a href="overview-of-omics-data-types.html#gene-expression-bulk-rna-seq"><i class="fa fa-check"></i><b>4.1</b> Gene expression (bulk RNA-seq)</a></li>
+<li class="chapter" data-level="4.2" data-path="overview-of-omics-data-types.html"><a href="overview-of-omics-data-types.html#gene-expression-nanostring"><i class="fa fa-check"></i><b>4.2</b> Gene expression (Nanostring)</a></li>
+<li class="chapter" data-level="4.3" data-path="overview-of-omics-data-types.html"><a href="overview-of-omics-data-types.html#protein-expression-proteomics"><i class="fa fa-check"></i><b>4.3</b> Protein expression (proteomics)</a></li>
+<li class="chapter" data-level="4.4" data-path="overview-of-omics-data-types.html"><a href="overview-of-omics-data-types.html#gene-expression-single-cell-rna-seq"><i class="fa fa-check"></i><b>4.4</b> Gene expression (single-cell RNA-seq)</a></li>
+<li class="chapter" data-level="4.5" data-path="overview-of-omics-data-types.html"><a href="overview-of-omics-data-types.html#gene-expression-pseudobulk-rna-seq"><i class="fa fa-check"></i><b>4.5</b> Gene expression (pseudobulk RNA-seq)</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="overview-of-statistical-analysis-methods.html"><a href="overview-of-statistical-analysis-methods.html"><i class="fa fa-check"></i><b>5</b> Overview of statistical analysis methods</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="overview-of-statistical-analysis-methods.html"><a href="overview-of-statistical-analysis-methods.html#multiple-linear-regression"><i class="fa fa-check"></i><b>5.1</b> Multiple linear regression</a></li>
+<li class="chapter" data-level="5.2" data-path="overview-of-statistical-analysis-methods.html"><a href="overview-of-statistical-analysis-methods.html#spearman-ranked-correlation"><i class="fa fa-check"></i><b>5.2</b> Spearman ranked correlation</a></li>
+<li class="chapter" data-level="5.3" data-path="overview-of-statistical-analysis-methods.html"><a href="overview-of-statistical-analysis-methods.html#overrepresentation-analysis"><i class="fa fa-check"></i><b>5.3</b> Overrepresentation analysis</a></li>
+<li class="chapter" data-level="5.4" data-path="overview-of-statistical-analysis-methods.html"><a href="overview-of-statistical-analysis-methods.html#gene-set-enrichment-analysis"><i class="fa fa-check"></i><b>5.4</b> Gene set enrichment analysis</a></li>
+<li class="chapter" data-level="5.5" data-path="overview-of-statistical-analysis-methods.html"><a href="overview-of-statistical-analysis-methods.html#pipelines-to-generate-significant-feature-associations-for-feature-search-page"><i class="fa fa-check"></i><b>5.5</b> Pipelines to generate significant feature associations for feature search page</a></li>
+<li class="chapter" data-level="5.6" data-path="overview-of-statistical-analysis-methods.html"><a href="overview-of-statistical-analysis-methods.html#sources-of-annotation-files-pathway-libraries-link-to-code-repository"><i class="fa fa-check"></i><b>5.6</b> Sources of annotation files, pathway libraries, &amp; link to code repository</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Human Islets</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="overview-of-metadata-types" class="section level1 hasAnchor" number="3">
+<h1><span class="header-section-number">Chapter 3</span> Overview of Metadata Types<a href="overview-of-metadata-types.html#overview-of-metadata-types" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>For each outcome type, include information on:</p>
+<ul>
+<li>Overview of experimental procedures performed prior to collecting the data (and relevant technical parameters) -&gt; refer to timeline diagram</li>
+<li>Glossary of every variable in the tool: what precisely does it mean, what are the units, etc</li>
+<li>Who collected the data (institution)</li>
+<li>Replicates - were there any, are they different groups of islets, different individual cells, etc</li>
+<li>Explanation of any changes in protocols (ie. switch to different GSIS concentrations, maybe different platform used halfway through, etc)</li>
+<li>Whether data was intentionally collected on specific subsets of donors</li>
+<li>Versions of data available for download</li>
+<li>Data processing prior to statistical analysis (merging replicates, transformations, removed outliers, definition of any computed/normalized values)</li>
+<li>Any additional notes</li>
+<li>Citations of papers that have published parts of the data</li>
+</ul>
+<div id="donor-characteristics-1" class="section level2 hasAnchor" number="3.1">
+<h2><span class="header-section-number">3.1</span> Donor Characteristics:<a href="overview-of-metadata-types.html#donor-characteristics-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Donor characteristics are provided to the Isletcore team through the organ procurement programs. These characteristics can come from the family and aren’t always accurate reflections of the medical history. Hba1c measurements are performed in the Isletcore when the donor blood sample is available.</p>
+</div>
+<div id="organ-characteristics-and-processing-1" class="section level2 hasAnchor" number="3.2">
+<h2><span class="header-section-number">3.2</span> Organ Characteristics and Processing:<a href="overview-of-metadata-types.html#organ-characteristics-and-processing-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Organ characteristic and processing data is recorded during the islet isolation by the lead technician. Cold Ischemia time will be calculated based on the cross clamp time during organ procurement until the start of the isolation in Edmonton.</p>
+</div>
+<div id="isolation-outcomes-1" class="section level2 hasAnchor" number="3.3">
+<h2><span class="header-section-number">3.3</span> Isolation Outcomes:<a href="overview-of-metadata-types.html#isolation-outcomes-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Islet purity, IEQ, % trapped, IPI are determined by the lead technician. Full details on determining IEQ, purity etc can be found <a href="https://www.protocols.io/view/human-islet-quantification-and-purity-assessment-14egnxxwml5d/v3/">here</a> or in our <a href="http://www.bcell.org/uploads/5/1/3/3/51338649/adi_isletcore_welcome_booklet.pdf">IsletCore</a> welcome booklet. Details on determining Insulin and DNA samples can always be found <a href="https://www.protocols.io/view/sampling-of-human-islets-for-quality-control-purpo-j8nlk553dl5r/v2">here</a>. Cell proportion data is determined through our proteomics data. Proteomics samples are shipped to Jim Johnson’s lab at UBC. Samples are then hand picked and snap frozen for processing.</p>
+</div>
+<div id="cell-culture-outcomes-1" class="section level2 hasAnchor" number="3.4">
+<h2><span class="header-section-number">3.4</span> Cell Culture Outcomes:<a href="overview-of-metadata-types.html#cell-culture-outcomes-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>On the day of shipping, Islets are recounted to determine IEQ, % recovery, IPI after culture. Culture time is determined by the end of the isolation until approximately 9am on a shipping day. Post culture samples are collected for insulin and DNA as <a href="https://www.protocols.io/view/sampling-of-human-islets-for-quality-control-purpo-j8nlk553dl5r/v2">previously described</a>.</p>
+</div>
+<div id="static-insulin-secretion-1" class="section level2 hasAnchor" number="3.5">
+<h2><span class="header-section-number">3.5</span> Static Insulin Secretion:<a href="overview-of-metadata-types.html#static-insulin-secretion-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>In triplicates, 15 hand picked islets from each donor were sequentially treated with low glucose for 1 hour followed by high glucose 1 hour. Collected supernatant for low glucose, high glucose or insulin content are measured by ELISA and recorded in the database. For each donor, there are multiple glucose combinations that may have been used. Glucose pairs are 1mM to 10mM glucose, 1mM to 16.7mM glucose or 2.8mM glucose to 16.7mM glucose. Islets used in the 1mM to 10mM group are unique from the 1mM to 16.7mM group. The secretion data are commonly presented as a percentage of the total content (secreted insulin/total insulin *100), and as a stimulation index (high glucose secretion/low glucose secretion). Biological outliers were defined as “Seth is coming up with the definition now”, and identified outliers were removed from the dataset. The data for each replicate (after outlier removal) can be downloaded from the data export page. The total insulin content, secretion percentages, and stimulation indices, averaged across replicates, can be queried, analyzed, and visualized in the other parts of the tool. Complete experimental details can be found <a href="https://www.protocols.io/view/static-glucose-stimulated-insulin-secretion-gsis-p-n2bvjkzxgk5w/v3">here</a>.</p>
+</div>
+<div id="islet-oxygen-consumption-seahorse-assay-1" class="section level2 hasAnchor" number="3.6">
+<h2><span class="header-section-number">3.6</span> Islet Oxygen Consumption (Seahorse assay):<a href="overview-of-metadata-types.html#islet-oxygen-consumption-seahorse-assay-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+</div>
+<div id="dynamic-insulin-responses-to-macronutrients-1" class="section level2 hasAnchor" number="3.7">
+<h2><span class="header-section-number">3.7</span> Dynamic Insulin Responses to Macronutrients:<a href="overview-of-metadata-types.html#dynamic-insulin-responses-to-macronutrients-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Human islets are shipped to Jim Johnson’s lab at UBC. Islets are hand picked and cultured in RPMI for 24-72hrs before the experiment to allow the islets to recover from shipping. 65 islets are loaded per chamber and pre-incubated for 1 hour. Islets are stimulated with 6 or 15mM glucose, 5mM Leucine or 0.75mM Oleic acid/0.75mM palmitic acid as indicated. Samples are stored at -20C until analysis with RIA. Full details are described <a href="https://www.medrxiv.org/content/10.1101/2023.05.24.23290298v1.full.pdf">here</a>.</p>
+</div>
+<div id="single-cell-function-electrophysiology-1" class="section level2 hasAnchor" number="3.8">
+<h2><span class="header-section-number">3.8</span> Single-cell Function (electrophysiology)<a href="overview-of-metadata-types.html#single-cell-function-electrophysiology-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Human islets are hand picked and dispersed into single cells and plated on 35mm cell culture dishes by the MacDonald lab. 24-72 hours after the dispersion, electrophysiological measurements are recorded. Cell identity is confirmed by immunohistochemistry.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="using-humanislets.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="overview-of-omics-data-types.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/yao-lzy/HumanIslets/edit/main/02-metadata.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

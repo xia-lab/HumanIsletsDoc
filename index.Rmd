@@ -12,15 +12,46 @@ description: |
 
 # General Introduction
 
-The HumanIslets tool houses data collected from or associated with human islets procured by the University of Alberta. The data includes clinical metadata
+## Land Acknowledgement
+The Alberta Diabetes Institute IsletCore is located on Treaty 6 territory, a traditional gathering place for diverse Indigenous peoples including the Cree, Blackfoot, Métis, Nakota Sioux, Iroquois, Dene, Ojibway/ Saulteaux/Anishinaabe, Inuit, and many others.
 
-I envision a branching timeline, so that you can visualize everything that happened to an islet sample prior to the collection of each data type. Here is a rough outline of steps (I know it’s incomplete/wrong - will look at some of the guides on the IsletCore website to better sketch out)
+The University of British Columbia is located on the unceded territory of the Coast Salish Peoples, including the territories of the xwməθkwəy̓əm (Musqueam), Skwxwú7mesh (Squamish), Stó:lō and Səl̓ílwətaʔ/Selilwitulh (Tsleil- Waututh) Nations.
 
-   1. Pancreas procurement
-   2. Shipping to Edmonton
-   3. Islet isolation (more details here - I assume many/multiple steps)
-   4. GSIS outcomes
-   5. Other outcomes at UofA
-   6. Shipping to other labs for seahorse, perifusion, omics
-   7. Shipping to other labs (not in project)
+McGill University is situated on the traditional territory of the Kanien’kehà:ka, a of meeting amongst many First Nations including the Kanien’kehá:ka of the Haudenosaunee Confederacy, Huron/Wendat, Abenaki, and Anishinaabeg.
+
+Carleton University is located on the homelands of the Wahpekute and Mdewakanton* bands of the Dakota Nation.
+
+## Terms of Use
+
+Users are required to cite the use of this resource in any publication arising from its use or access. This can be done by citing **Ewald et al., in preparation** and via the following acknowledgement: 
+
+
+> *"This work includes data and/or analyses from HumanIslets.com funded by the Canadian Institutes of Health Research, JDRF Canada, and Diabetes Canada (5-SRA-2021-1149-S-B/TG 179092) with data from islets isolated by the Alberta Diabetes Institute IsletCore with the support of the Human Organ Procurement and Exchange (HOPE) program, Trillium Gift of Life Network (TGLN), and other Canadian organ procurement organizations with written informed donor consent as approved by the Human Research Ethics Board at the University of Alberta (Pro00013094)."*
+
+
+The HumanIslets tool relies on statistical methods and R packages published by others. We encourage researchers to cite these publications in addition to our manuscript, based on the citations and links provided throughout the tool interface, manuscript methods, and in this Documentation resource.
+
+Data and analysis tools are provided without warranty, and are not for clinical use, and should not be used directly or indirectly to inform clinical diagnoses or treatment decisions. While every effort has been made to ensure the accuracy, integrity, and validity of the data and analyses presented here for research purposes only, users are solely responsible for any results and interpretations.
+
+Because datasets are occasionally updated, which may impact normalization and analyses, **_users should report the date of web tool access, analysis, and/or data download._**
+
+## Financial Support
+
+Data collection has been supported by research grants from the Canadian Institutes of Health Research (MacDonald - 186226, 148451; Johnson - 168857), JDRF (MacDonald - 2-SRA-2019-698-S-B), BCCHRI Child Health Integrative Partnership Strategy Funding (Verchere, Levings and Lynn), the National Institutes of Health (MacDonald - U01-DK-120447; MacDonald/Gloyn - U01-DK-123716; Gloyn - U01-DK105535, U01-DK085545, UM-1DK126185), and the Wellcome Trust (Gloyn - 095101, 200837, 106130, 203141). Proteomics infrastructure and analysis was supported by the UBC Life Sciences 50 Institute, Canada Foundation for Innovation, BC Knowledge Development Fund, and Genome Canada/BC (PRO264).
+
+Some data used in this web tool includes patch-seq data, and single-cell RNAseq used for cell type expression analysis, from the Human Pancreas Analysis Program (HPAP-RRID:SCR_016202) Database (https://hpap.pmacs.upenn.edu), a Human Islet Research Network (RRID:SCR_014393) consortium (UC4-DK-112217, U01-DK-123594, UC4-DK-112232, and U01-DK-123716).
+
+Consolidation of datasets and web tool development was supported by a research grant funded by the Canadian Institutes of Health Research, JDRF Canada, and Diabetes Canada (5-SRA-2021-1149-S-B/TG 179092) to MacDonald (Alberta), Xia (McGill), Johnson (UBC) and Bruin (Carleton)  with collaborators Gloyn (Stanford), Foster (UBC), Atlas (Ottawa), Mulvihill (Ottawa), Lynn (UBC), and Verchere (UBC).
+
+## Overview and Sample/data Collection
+
+The purpose of the HumanIslets.com tool is to allow exploration and analysis of, and access to data from, human islet molecular and functional phenotyping studies. We hope this resource will facilitate research and hypothesis generation in a manner that is accessible to both experts and non-experts in data analysis. The **below figure** illustrates general workflows, samples, and datasets collected as part of this initiative Data noted in <span style='color: blue;'>blue</span> are currently included within the web tool, while those in grey are are planned for addition at a later date.
+
+
+<figure>
+  <img src="Picture1.png">
+</figure>
+
+
+
 
