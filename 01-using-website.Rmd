@@ -40,7 +40,7 @@ Typically, data is shown for selected donor in the context of the entire dataset
 - *Dynamic Insulin* Responses can be shown with or without normalisation to baseline
 - *Mitochondrial Function* (oxygen consumption by Seahorse assay) can be shown with or without normalisation to DNA and baseline
 
-## Feature Search [<img src="logo3.png" alt="Logo" style="width:18px; height:18px;">](https://humanislets.com)
+## Feature View [<img src="logo3.png" alt="Logo" style="width:18px; height:18px;">](https://humanislets.com)
 
 Instead of performing an ‘Omics Analysis’ focused on a particular omics type and metadata variable, users can search for a feature of interest and pull up ALL associations for that particular feature of interest, corrected for common covariates (see section 5.4, below). Searchable features include genes/proteins and also metadata variable. This allows rapid interrogation of precomputed results across all datasets.
 

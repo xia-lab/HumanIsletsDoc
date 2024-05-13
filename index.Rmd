@@ -33,7 +33,7 @@ The HumanIslets tool relies on statistical methods and R packages published by o
 
 Data and analysis tools are provided without warranty, and are not for clinical use, and should not be used directly or indirectly to inform clinical diagnoses or treatment decisions. While every effort has been made to ensure the accuracy, integrity, and validity of the data and analyses presented here for research purposes only, users are solely responsible for any results and interpretations.
 
-Because datasets are occasionally updated, which may impact normalization and analyses, **_users should report the date of web tool access, analysis, and/or data download._**
+Because datasets are occasionally updated, which may impact normalization and analyses, **_users should report the date of web tool access, analysis, and/or data download._**  To facilitate this, data downloads are provided with a time/date stamp.
 
 ## Financial Support
 
