@@ -15,9 +15,9 @@ description: |
 ## Land Acknowledgement
 The Alberta Diabetes Institute IsletCore is located on Treaty 6 territory, a traditional gathering place for diverse Indigenous peoples including the Cree, Blackfoot, Métis, Nakota Sioux, Iroquois, Dene, Ojibway/ Saulteaux/Anishinaabe, Inuit, and many others.
 
-The University of British Columbia is located on the unceded territory of the Coast Salish Peoples, including the territories of the xwməθkwəy̓əm (Musqueam), Skwxwú7mesh (Squamish), Stó:lō and Səl̓ílwətaʔ/Selilwitulh (Tsleil- Waututh) Nations.
-
 McGill University is situated on the traditional territory of the Kanien’kehà:ka, a of meeting amongst many First Nations including the Kanien’kehá:ka of the Haudenosaunee Confederacy, Huron/Wendat, Abenaki, and Anishinaabeg.
+
+The University of British Columbia is located on the unceded territory of the Coast Salish Peoples, including the territories of the xwməθkwəy̓əm (Musqueam), Skwxwú7mesh (Squamish), Stó:lō and Səl̓ílwətaʔ/Selilwitulh (Tsleil- Waututh) Nations.
 
 Carleton University is located on the homelands of the Wahpekute and Mdewakanton* bands of the Dakota Nation.
 
