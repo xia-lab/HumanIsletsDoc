@@ -6,7 +6,7 @@ overview-and-sampledata-collection
 using-humanislets.com
 omics-data-analysis
 donor-view
-feature-search
+feature-view
 data-download
 overview-of-primary-metadata
 donor-characteristics
