@@ -8,6 +8,7 @@ HumanIslet.com presently includes information from 540 human research islet isol
 1. Selecting the ‘Omics Type’ of interest
 2. Selecting the ‘Primary Metadata’ to be analysed, and ‘Comparison of Interest’ if applicable
 3. Choosing covariates to control for
+     a. Many covariates are available for correction and selection may depend on comparisons being made or the objective of the user. Note however we have reported important impacts of correcting for ‘culture time’, particularly when examining RNAseq data, and ‘Non-endocrine cell proportion (computed)’ when comparing groups with dramatically different preparation purities.
 4. Selecting donors to include
       a. Choosing ‘Subset’ will open a window that allows for filtering by donor characteristics and data availability, or upload of a list of donor IDs or RRIDs of interest
 5. Selecting a p-value cutoff, and the use of adjusted p-values

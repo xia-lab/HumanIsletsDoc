@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 4 Overview of Omics Data Types | Human Islets</title>
   <meta name="description" content="This is an introduction of the Human Islet project." />
-  <meta name="generator" content="bookdown 0.39 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.40 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 4 Overview of Omics Data Types | Human Islets" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="" />
 
 
-<meta name="date" content="2024-06-24" />
+<meta name="date" content="2024-08-26" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -164,7 +164,7 @@
 <div id="single-cell-gene-expression-patch-seq" class="section level2 hasAnchor" number="4.5">
 <h2><span class="header-section-number">4.5</span> Single-cell gene expression (patch-seq)<a href="overview-of-omics-data-types.html#single-cell-gene-expression-patch-seq" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The collection and analysis of pancreas patch-seq data is described <a href="https://www.sciencedirect.com/science/article/pii/S155041312030187X?via%3Dihub">here</a> and <a href="https://www.sciencedirect.com/science/article/pii/S1550413121006859?via%3Dihub">here</a>. Reads from FASTQ files were trimmed using TrimGalore version 0.6.5 with auto-detection of adapter sequence, then aligned and counted using STAR version 2.7.9a to the GRCh38 human genome (Ensembl release 104). Cell count matrices were loaded into R and a Seurat object was generated using the Seurat R package (version 4.3.0). Only cells with patch-clamp data were included; data for additional cells are available from the listed accession numbers below. Cell types were identified by projection, using the MapQuery command from the R package Seurat, onto a large set of human islet single cell RNAseq data generated from publically available data (see below). Cells were filtered to remove any that were not alpha or beta cells, had fewer than 500 total counts across all transcripts, had fewer than 300 unique transcripts with non-zero count values, or had greater than 20% mitochondrial DNA. Ensembl gene IDs were mapped to Entrez IDs and counts from any duplicated Entrez IDs were summed. Counts were separated by cell type (alpha and beta) and glucose concentration (1, 5, and 10mM), resulting in six different matrices. Each matrix was filtered to remove transcripts with greater than 80% zeros. Counts were converted to logCPM values using the trimmed mean of M-values (TMM) method from the edgeR R package (version 3.38.4). TMM has been shown to perform better for single-cell RNAseq data compared to the RLE method because it is robust to the high drop-out rate. Individual transcripts that had zero counts were replaced with NA.</p>
-<p>Raw sequencing reads are available in the NCBI Gene Expression Omnibus (GEO) and Sequence Read Archive (SRA) under accession numbers <a href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE124742">GSE124742</a> and <a href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE164875">GSE164875</a> and at PancDB (<a href="https://hpap.pmacs.upenn.edu/" class="uri">https://hpap.pmacs.upenn.edu/</a>).Some unpublished data remain to be deposited upon publication.</p>
+<p>Raw sequencing reads are available in the NCBI Gene Expression Omnibus (GEO) and Sequence Read Archive (SRA) under accession numbers <a href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE124742">GSE124742</a> and <a href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE164875">GSE164875</a> and <a href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE270484">GSE270484</a> at PancDB (<a href="https://hpap.pmacs.upenn.edu/" class="uri">https://hpap.pmacs.upenn.edu/</a>).</p>
 </div>
 <div id="single-cell-rna-seq" class="section level2 hasAnchor" number="4.6">
 <h2><span class="header-section-number">4.6</span> Single-cell RNA-seq<a href="overview-of-omics-data-types.html#single-cell-rna-seq" class="anchor-section" aria-label="Anchor link to header"></a></h2>
