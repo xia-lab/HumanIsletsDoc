@@ -31,7 +31,7 @@ The ‘Pathway Results’ will be displayed in both graphical and table format, 
 
 ## Donor View [<img src="logo2.png" alt="Logo" style="width:18px; height:18px;">](https://humanislets.com)
 
-The Donor View page allows examination of individual donor, islet isolation, and functional data from each of 540 donors currently in the HumanIslets.com database. Donors can be searched by ADI IsletCore Donor ID or Research Resource ID (RRID). Data categories can be selected in tabs indicated on the left (Donor information; Isolation Information; Static and Dynamic Insulin Secretion; Mitochondrial Function; Electrophysiology, along with an overview of Omics data currently available). These metadata are described in detail in chapters 3 and 4, below.
+The Donor View page allows examination of individual donor, islet isolation, and functional data from each of 626 donors currently in the HumanIslets.com database. Donors can be searched by ADI IsletCore Donor ID or Research Resource ID (RRID). Data categories can be selected in tabs indicated on the left (Donor information; Isolation Information; Static and Dynamic Insulin Secretion; Mitochondrial Function; Electrophysiology, along with an overview of Omics data currently available). These metadata are described in detail in chapters 3 and 4, below.
 
 Typically, data is shown for selected donor in the context of the entire dataset, allowing for easy inspection and determination of whether a donor falls within the normal range of the population. A few points that are worth noting here:
 
@@ -61,4 +61,30 @@ All data at HumanIslets.com is available for download. Donors of interest can be
     c. The distribution of datasets selected, compared with the entire database, can be shown by clicking ‘Summary’
 4. Click ‘Download’
 
+
+## Phenotype View [<img src="logo3.png" alt="Logo" style="width:18px; height:18px;">](https://humanislets.com/meta)
+
+The Phenotype View lets users probe relationships among the 198 phenotype variables in the database (donor characteristics, isolation outcomes, secretion, mitochondrial function, perifusion, electrophysiology). Pairwise correlation heatmaps, scatter/box plots, and Spearman/Pearson correlations are available without selecting any omics type. *(Added 2025-07.)*
+
+## Multi-Omics Analysis [<img src="logo1.png" alt="Logo" style="width:18px; height:18px;">](https://humanislets.com/multiomics)
+
+Integrative analyses across two or three omics types using three methods:
+
+- **WGCNA** — builds co-expression modules within each omics layer, then correlates module eigengenes across omics to surface cross-layer signal (unsupervised).
+- **MOFA** — matrix factorization learning shared latent factors across omics layers (unsupervised).
+- **DIABLO** — supervised integration finding correlated features across omics that best discriminate two sample groups; requires a primary metadata variable.
+
+Inputs are the same omics tables used elsewhere on the site; outputs include cross-omics correlation tables, module/factor summaries, Sankey flow diagrams, and downloadable feature lists. *(Added 2025-10.)*
+
+## Cluster Explorer [<img src="logo2.png" alt="Logo" style="width:18px; height:18px;">](https://humanislets.com/cluster-compare)
+
+Donors are stratified into subgroups using a Variational Autoencoder (VAE) trained on multi-omics data, then extended to all 626 donors via a phenotype-based classifier. The Cluster Explorer view shows each cluster's distinctive phenotype and omics profile; per-cluster detail pages report module enrichments, characteristic features, and external validation. *(Added 2026-01.)*
+
+## Metabolic Atlas [<img src="logo3.png" alt="Logo" style="width:18px; height:18px;">](https://humanislets.com/atlas)
+
+An interactive metro-map visualization of genome-scale metabolic flux (Human1-based GEM, 2,771 reactions across 375 donors). Subsystems render as colored "metro lines" with metabolite "stations". Flux data from low- vs. high-glucose conditions can be overlaid via colour or animated particle flow, and omics layers (gene/protein expression) can be projected onto the network to contextualize molecular measurements within metabolism. *(Added 2025-08.)*
+
+## Knowledge Search [<img src="logo4.png" alt="Logo" style="width:18px; height:18px;">](https://humanislets.com/kg-search)
+
+A query interface combining three evidence sources: (i) a curated knowledge graph linking genes, proteins, pathways, reactions, phenotypes, and donor clusters with external validation from QTL databases and the T2D Knowledge Portal; (ii) cohort statistics computed from the HumanIslets donor data; and (iii) an AI-generated synthesis layered on top. Users can search a gene/protein/metabolite/reaction symbol or a phenotype and explore the integrated evidence. *(Added 2026-02; currently labelled BETA.)*
 
