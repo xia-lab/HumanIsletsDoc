@@ -10,13 +10,6 @@ description: |
   This is the documentation for HumanIslets 2.0.
 ---
 
-::: {style="background:#e8f5e9; border-left:4px solid #00AA5B; padding:14px 18px; margin:0 0 24px 0; border-radius:4px;"}
-**You are viewing documentation for HumanIslets 2.0 (v2).**
-The previous version of the documentation remains available at
-[doc.humanislets.com](https://doc.humanislets.com/), and continues to support the
-original HumanIslets website. Switch back to [v1 docs](https://doc.humanislets.com/) at any time.
-:::
-
 # General Introduction
 
 ## Land Acknowledgement
