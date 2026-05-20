@@ -1,6 +1,6 @@
 # Using HumanIslets.com
 
-## Omics Data Analysis [<img src="logo1.png" alt="Logo" style="width:18px; height:18px;">](https://humanislets.com)
+## Omics Data Analysis [<img src="logo1.png" alt="Logo" style="width:18px; height:18px;">](https://dev.humanislets.com)
 
 
 HumanIslet.com presently includes information from 540 human research islet isolations that includes donor and technical metadata, islet and islet cell function, and omics. Omics datasets include bulk proteomics, bulk RNAseq, gene panels (Nanostring), patch-seq, and pseudobulk RNAseq for alpha- and beta-cells. Omics-metadata relationships can be analysed by:
@@ -29,7 +29,7 @@ The third tab under the ‘Feature Association Results’ pulls up a Pathway Ana
 
 The ‘Pathway Results’ will be displayed in both graphical and table format, selected by clicking on the appropriate tab. As above, both results and analysis pipeline can be downloaded by clicking on the appropriate button. In the interactive graphical view, significant pathways (based on FDR cutoff) are shown as ridgeplots. Clicking on these will raise heatmaps showing the contribution of individual genes/proteins.
 
-## Donor View [<img src="logo2.png" alt="Logo" style="width:18px; height:18px;">](https://humanislets.com)
+## Donor View [<img src="logo2.png" alt="Logo" style="width:18px; height:18px;">](https://dev.humanislets.com)
 
 The Donor View page allows examination of individual donor, islet isolation, and functional data from each of 626 donors currently in the HumanIslets.com database. Donors can be searched by ADI IsletCore Donor ID or Research Resource ID (RRID). Data categories can be selected in tabs indicated on the left (Donor information; Isolation Information; Static and Dynamic Insulin Secretion; Mitochondrial Function; Electrophysiology, along with an overview of Omics data currently available). These metadata are described in detail in chapters 3 and 4, below.
 
@@ -41,13 +41,13 @@ Typically, data is shown for selected donor in the context of the entire dataset
 - *Dynamic Insulin* Responses can be shown with or without normalisation to baseline
 - *Mitochondrial Function* (oxygen consumption by Seahorse assay) can be shown with or without normalisation to DNA and baseline
 
-## Feature View [<img src="logo3.png" alt="Logo" style="width:18px; height:18px;">](https://humanislets.com)
+## Feature View [<img src="logo3.png" alt="Logo" style="width:18px; height:18px;">](https://dev.humanislets.com)
 
 Instead of performing an ‘Omics Analysis’ focused on a particular omics type and metadata variable, users can search for a feature of interest and pull up ALL associations for that particular feature of interest, corrected for common covariates (see section 5.4, below). Searchable features include genes/proteins and also metadata variable. This allows rapid interrogation of precomputed results across all datasets.
 
 Searching for a gene/protein feature generates a table of results ranked by adjusted p-value. Searching for a metadata variable (e.g. BMI) generates a table of feature (gene/protein) results across all omics datasets, ranked by adjusted p-value. Clicking on rows and external links brings up categorical or scatterplots of the association, external pages for the feature of interest, or single-cell RNAseq expression for that feature. Because a large number of associations can be displayed, filtering of the metadata or omics type is enabled by clicking on the column title.
 
-## Data download [<img src="logo4.png" alt="Logo" style="width:18px; height:18px;">](https://humanislets.com)
+## Data download [<img src="logo4.png" alt="Logo" style="width:18px; height:18px;">](https://dev.humanislets.com)
 
 All data at HumanIslets.com is available for download. Donors of interest can be filtered by Donor Characteristics (see section 3.1) and/or data availability. Advanced filters allow selection of donors of interest by any metadata available. Donors of interest can also be selected by uploading a list of donor IDs (for example, donor IDs obtained from a particular Omics Analysis). Data can be downloaded as Comma separated values (.csv), text (.txt), R object (.rds), or in Excel format (.xlsx) within a zip file. To perform data download:
 
@@ -62,11 +62,11 @@ All data at HumanIslets.com is available for download. Donors of interest can be
 4. Click ‘Download’
 
 
-## Phenotype View [<img src="logo3.png" alt="Logo" style="width:18px; height:18px;">](https://humanislets.com/meta)
+## Phenotype View [<img src="logo3.png" alt="Logo" style="width:18px; height:18px;">](https://dev.humanislets.com/meta)
 
 The Phenotype View lets users probe relationships among the 198 phenotype variables in the database (donor characteristics, isolation outcomes, secretion, mitochondrial function, perifusion, electrophysiology). Pairwise correlation heatmaps, scatter/box plots, and Spearman/Pearson correlations are available without selecting any omics type. *(Added 2025-07.)*
 
-## Multi-Omics Analysis [<img src="logo1.png" alt="Logo" style="width:18px; height:18px;">](https://humanislets.com/multiomics)
+## Multi-Omics Analysis [<img src="logo1.png" alt="Logo" style="width:18px; height:18px;">](https://dev.humanislets.com/multiomics)
 
 Integrative analyses across two or three omics types using three methods:
 
@@ -76,15 +76,15 @@ Integrative analyses across two or three omics types using three methods:
 
 Inputs are the same omics tables used elsewhere on the site; outputs include cross-omics correlation tables, module/factor summaries, Sankey flow diagrams, and downloadable feature lists. *(Added 2025-10.)*
 
-## Cluster Explorer [<img src="logo2.png" alt="Logo" style="width:18px; height:18px;">](https://humanislets.com/cluster-compare)
+## Cluster Explorer [<img src="logo2.png" alt="Logo" style="width:18px; height:18px;">](https://dev.humanislets.com/cluster-compare)
 
 Donors are stratified into subgroups using a Variational Autoencoder (VAE) trained on multi-omics data, then extended to all 626 donors via a phenotype-based classifier. The Cluster Explorer view shows each cluster's distinctive phenotype and omics profile; per-cluster detail pages report module enrichments, characteristic features, and external validation. *(Added 2026-01.)*
 
-## Metabolic Atlas [<img src="logo3.png" alt="Logo" style="width:18px; height:18px;">](https://humanislets.com/atlas)
+## Metabolic Atlas [<img src="logo3.png" alt="Logo" style="width:18px; height:18px;">](https://dev.humanislets.com/atlas)
 
 An interactive metro-map visualization of genome-scale metabolic flux (Human1-based GEM, 2,771 reactions across 375 donors). Subsystems render as colored "metro lines" with metabolite "stations". Flux data from low- vs. high-glucose conditions can be overlaid via colour or animated particle flow, and omics layers (gene/protein expression) can be projected onto the network to contextualize molecular measurements within metabolism. *(Added 2025-08.)*
 
-## Knowledge Search [<img src="logo4.png" alt="Logo" style="width:18px; height:18px;">](https://humanislets.com/kg-search)
+## Knowledge Search [<img src="logo4.png" alt="Logo" style="width:18px; height:18px;">](https://dev.humanislets.com/kg-search)
 
 A query interface combining three evidence sources: (i) a curated knowledge graph linking genes, proteins, pathways, reactions, phenotypes, and donor clusters with external validation from QTL databases and the T2D Knowledge Portal; (ii) cohort statistics computed from the HumanIslets donor data; and (iii) an AI-generated synthesis layered on top. Users can search a gene/protein/metabolite/reaction symbol or a phenotype and explore the integrated evidence. *(Added 2026-02; currently labelled BETA.)*
 
