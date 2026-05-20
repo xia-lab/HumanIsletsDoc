@@ -84,7 +84,7 @@ Polygenic risk scores are reported for both type 1 and type 2 diabetes.
 
 **T2D Genetic Risk Score (T2D-GRS).** Partitioned polygenic scores are computed under two complementary frameworks: a soft-clustering framework in which variants contribute to multiple clusters with varying weights (Smith et al. [2024](https://pubmed.ncbi.nlm.nih.gov/38443691/), *Nature Medicine*), and a hard-clustering framework in which each variant is uniquely assigned to a single cluster (Suzuki et al. [2024](https://pubmed.ncbi.nlm.nih.gov/38374256/), *Nature*); Udler et al. (2018) provides the earlier soft-clustering basis.
 
-Both ancestry and GRS data were contributed by the lab of Dr. Anna Gloyn (Stanford); see the [Contributors](https://humanislets.com/contributors) page.
+Both ancestry and GRS data were contributed by the lab of Dr. Anna Gloyn (Stanford); see the [Contributors](https://dev.humanislets.com/contributors) page.
 
 ## Pancreas Lipid Extraction
 
