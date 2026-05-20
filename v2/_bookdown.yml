@@ -1,0 +1,6 @@
+book_filename: "HumanIsletsDoc_v2"
+output_dir: ../docs/v2
+delete_merged_file: true
+language:
+  ui:
+    chapter_name: "Chapter "

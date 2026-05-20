@@ -1,0 +1,64 @@
+# Using HumanIslets.com
+
+## Omics Data Analysis [<img src="logo1.png" alt="Logo" style="width:18px; height:18px;">](https://humanislets.com)
+
+
+HumanIslet.com presently includes information from 540 human research islet isolations that includes donor and technical metadata, islet and islet cell function, and omics. Omics datasets include bulk proteomics, bulk RNAseq, gene panels (Nanostring), patch-seq, and pseudobulk RNAseq for alpha- and beta-cells. Omics-metadata relationships can be analysed by:
+
+1. Selecting the ‘Omics Type’ of interest
+2. Selecting the ‘Primary Metadata’ to be analysed, and ‘Comparison of Interest’ if applicable
+3. Choosing covariates to control for
+     a. Many covariates are available for correction and selection may depend on comparisons being made or the objective of the user. Note however we have reported important impacts of correcting for ‘culture time’, particularly when examining RNAseq data, and ‘Non-endocrine cell proportion (computed)’ when comparing groups with dramatically different preparation purities.
+4. Selecting donors to include
+      a. Choosing ‘Subset’ will open a window that allows for filtering by donor characteristics and data availability, or upload of a list of donor IDs or RRIDs of interest
+5. Selecting a p-value cutoff, and the use of adjusted p-values
+6. Click ‘submit’
+
+The number of donors included in the analysis will be displayed. If too few donors are available for the chosen analysis (<10), an error message will be shown. Results of the analysis will be shown under ‘Feature Association Results’, and both results and analysis pipeline can be downloaded by clicking on the appropriate button. Results are shown as a graphical representation (volcano plot) or table, accessible by clicking on the appropriate tab. Clicking on features (points in the volcano plot, or table entries) will raise a graph showing categorical or scatterplot representations of the data/feature of interest. Clicking on individual donors within those plots will take you to the ‘Donor View’ page for that donor (section 2.2, below), allowing for inspection of potential outlier donors. In the Results Table, clicking on the feature name will take you to the ‘Feature Search’ page (section 2.3, below) for that gene/protein. At the right are links to the NCBI gene page and T2D Knowledge Portal (T2DKP) entries for each feature (external sites), and to a single-cell RNAseq reference dataset (SC) to inspect cell-type specific expression of the feature.
+
+
+The third tab under the ‘Feature Association Results’ pulls up a Pathway Analysis tool for common Overrepresentation Analysis (ORA) or Gene Set Enrichment Analysis (GSEA) on the results. To perform pathway analysis:
+
+1. Select ORA or GSEA
+    a. ORA is performed on significant hits based on the p-value threshold set above
+    b. GSEA can be performed using log2FC/coefficient or T-statistic for ranking, and can be performed even in cases when no individual features are marked as significant
+2. Select whether to collapse redundant pathways
+3. Choose a false discovery rate (FDR) cutoff
+4. Choose among common pathway libraries to query
+5. Click ‘submit’
+
+The ‘Pathway Results’ will be displayed in both graphical and table format, selected by clicking on the appropriate tab. As above, both results and analysis pipeline can be downloaded by clicking on the appropriate button. In the interactive graphical view, significant pathways (based on FDR cutoff) are shown as ridgeplots. Clicking on these will raise heatmaps showing the contribution of individual genes/proteins.
+
+## Donor View [<img src="logo2.png" alt="Logo" style="width:18px; height:18px;">](https://humanislets.com)
+
+The Donor View page allows examination of individual donor, islet isolation, and functional data from each of 540 donors currently in the HumanIslets.com database. Donors can be searched by ADI IsletCore Donor ID or Research Resource ID (RRID). Data categories can be selected in tabs indicated on the left (Donor information; Isolation Information; Static and Dynamic Insulin Secretion; Mitochondrial Function; Electrophysiology, along with an overview of Omics data currently available). These metadata are described in detail in chapters 3 and 4, below.
+
+Typically, data is shown for selected donor in the context of the entire dataset, allowing for easy inspection and determination of whether a donor falls within the normal range of the population. A few points that are worth noting here:
+
+- *Donor Information* shows the RRID if available. Clicking on this will link out to the NCBI Biosample page for this donor
+- *Isolation Information* also contains the current inventory of snap frozen and cryopreserved islet tubes for that donor (all donors also have paraffin embedded biopsies)
+- *Isolation Information* includes cell type composition calculated by - deconvolution in donors with bulk proteomics data (see section 5.5, below)
+- *Dynamic Insulin* Responses can be shown with or without normalisation to baseline
+- *Mitochondrial Function* (oxygen consumption by Seahorse assay) can be shown with or without normalisation to DNA and baseline
+
+## Feature View [<img src="logo3.png" alt="Logo" style="width:18px; height:18px;">](https://humanislets.com)
+
+Instead of performing an ‘Omics Analysis’ focused on a particular omics type and metadata variable, users can search for a feature of interest and pull up ALL associations for that particular feature of interest, corrected for common covariates (see section 5.4, below). Searchable features include genes/proteins and also metadata variable. This allows rapid interrogation of precomputed results across all datasets.
+
+Searching for a gene/protein feature generates a table of results ranked by adjusted p-value. Searching for a metadata variable (e.g. BMI) generates a table of feature (gene/protein) results across all omics datasets, ranked by adjusted p-value. Clicking on rows and external links brings up categorical or scatterplots of the association, external pages for the feature of interest, or single-cell RNAseq expression for that feature. Because a large number of associations can be displayed, filtering of the metadata or omics type is enabled by clicking on the column title.
+
+## Data download [<img src="logo4.png" alt="Logo" style="width:18px; height:18px;">](https://humanislets.com)
+
+All data at HumanIslets.com is available for download. Donors of interest can be filtered by Donor Characteristics (see section 3.1) and/or data availability. Advanced filters allow selection of donors of interest by any metadata available. Donors of interest can also be selected by uploading a list of donor IDs (for example, donor IDs obtained from a particular Omics Analysis). Data can be downloaded as Comma separated values (.csv), text (.txt), R object (.rds), or in Excel format (.xlsx) within a zip file. To perform data download:
+
+1. Under ‘Select Donors’ choose filtering parameters, upload a list of donor IDs
+    a. Distribution of chosen donors compared with the entire dataset can be assessed by clicking on the icons at right
+2. Once donors of interest are selected/filtered, click ‘submit’ to choose those donors
+    a. The total number of donors chosen will be displayed
+3. Under ‘Download Data’
+    a. Select the datasets of interest
+    b. Select the data format
+    c. The distribution of datasets selected, compared with the entire database, can be shown by clicking ‘Summary’
+4. Click ‘Download’
+
+
