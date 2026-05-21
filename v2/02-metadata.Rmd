@@ -72,19 +72,39 @@ Prohormone expression measurements (insulin, glucagon and processing intermediat
 
 *Current coverage: 404 donors.*
 
-Genetic ancestry is inferred using the Gloyn-lab [GeneticAncestry pipeline](https://github.com/gloynlab/GeneticAncestry). Primary ancestry probabilities are reported on the outer ring and secondary (sub-ancestry) probabilities on the inner ring, aligned with the 1000 Genomes Project primary populations. See the [1000 Genomes population descriptions](https://www.internationalgenome.org/dataportal/population) for the reference panels used.
+Donor DNA is extracted from acinar tissue and genotyped on the **Illumina Omni2.5Exome BeadChip** (~2.5M variants, V1.5 / V1.6 from October 2024 onward) at the Stanford Functional Genomics Core. Array-level QC requires minor allele frequency > 1%, SNP missing-genotype rate < 1%, donor missing-genotype rate < 3%, and reported-vs-genetic sex matching. The genotypes are then imputed against the NIH TOPMed reference panel via the [BioData Catalyst TOPMed Imputation Server](https://imputation.biodatacatalyst.nhlbi.nih.gov/) (variants called to GRCh38, aligned to the + strand, imputation quality R² > 0.3), yielding more than **41 million high-quality variants** per donor. These imputed genotypes feed both the ancestry inference described here and the genetic risk scores in the next section.
+
+Genetic ancestry is inferred from the imputed genotypes using the Gloyn-lab [GeneticAncestry pipeline](https://github.com/gloynlab/GeneticAncestry) ([DOI:10.5281/zenodo.18157870](https://doi.org/10.5281/zenodo.18157870)). The pipeline first reduces the genotype matrix to its principal components, then classifies each donor with an ensemble of supervised models (Random Forest, SVM, XGBoost, LightGBM, and a multi-layer perceptron) trained on the 1000 Genomes high-coverage, unrelated sequencing samples (where ancestry is known). Two levels of ancestry assignment are produced and shown in the donor's donut chart:
+
+- **Primary ancestry** (super-population, 5 categories) on the outer ring of the donut, aligned with the 1000 Genomes primary populations.
+- **Secondary ancestry** (sub-population, 26 categories) on the inner ring, providing the finer-grained breakdown within the primary population.
+
+See the [1000 Genomes population descriptions](https://www.internationalgenome.org/dataportal/population) for the reference panels and population definitions, and the [HIGI Pipeline methods PDF](https://iidp.coh.org/portals/0/documents/HIGI_Pipeline_January_2026.pdf) for the full Stanford pipeline overview.
+
+<span style="color:#b00020; font-weight:600;">[Needs confirmation from the Gloyn lab.]</span>
 
 ## Genetic Risk Scores
 
 *Current coverage: 404 donors.*
 
-Polygenic risk scores are reported for both type 1 and type 2 diabetes.
+Polygenic risk scores are computed from the same TOPMed-imputed genotypes described in the previous section. All scores undergo a **static min-max normalization** based on the theoretical minimum and maximum genetic-risk contributions (i.e. no risk alleles up to all risk alleles), mapping each raw PRS onto a 0–1 scale. The displayed risk is then expressed as a percentile against the current IIDP donor data freeze (e.g. *"Risk > 19% of IIDP donors"*), and for donors of European ancestry it is additionally expressed against the UK Biobank reference population (e.g. *"Risk > 25.27% of the European Population (UKBB)"*). The Stanford implementation lives at [github.com/sethsh7/PRSedm](https://github.com/sethsh7/PRSedm) ([DOI:10.5281/zenodo.17903985](https://doi.org/10.5281/zenodo.17903985)); the full pipeline methods document is the [HIGI Pipeline PDF](https://iidp.coh.org/portals/0/documents/HIGI_Pipeline_January_2026.pdf).
 
-**T1D Genetic Risk Score (T1D-GRS).** Multiple T1D-GRS variants are computed: the 67-variant standardized score from Luckett et al. ([2025](https://pubmed.ncbi.nlm.nih.gov/40267362/), *Diabetes Care*); the GRS2 PRS with 4 African-ancestry SNPs from Qu et al. ([2022](https://pubmed.ncbi.nlm.nih.gov/34997821/), *Pediatric Diabetes*); and the TOPMED-R2 version of GRS2 from Sharp et al. ([2019](https://pubmed.ncbi.nlm.nih.gov/30655379/), *Diabetes Care*).
+**T1D Genetic Risk Score (T1D-GRS).** Multiple published T1D-GRS variants are computed for each donor and selectable from the model dropdown in the donor view:
 
-**T2D Genetic Risk Score (T2D-GRS).** Partitioned polygenic scores are computed under two complementary frameworks: a soft-clustering framework in which variants contribute to multiple clusters with varying weights (Smith et al. [2024](https://pubmed.ncbi.nlm.nih.gov/38443691/), *Nature Medicine*), and a hard-clustering framework in which each variant is uniquely assigned to a single cluster (Suzuki et al. [2024](https://pubmed.ncbi.nlm.nih.gov/38374256/), *Nature*); Udler et al. (2018) provides the earlier soft-clustering basis.
+- *t1dgrs2-luckett25* — the 67-variant standardized score from Luckett et al. ([2025](https://pubmed.ncbi.nlm.nih.gov/40267362/), *Diabetes Care*, doi:10.2337/dc25-0142).
+- *t1dgrs2-qu22* — the original GRS2 PRS with 4 additional African-ancestry SNPs (from Onengut) proposed by Qu et al. ([2022](https://pubmed.ncbi.nlm.nih.gov/34997821/), *Pediatric Diabetes*) and used in eMERGE.
+- *t1dgrs2-sharp21* — the TOPMED-R2 version of GRS2 from Sharp et al. ([2019](https://pubmed.ncbi.nlm.nih.gov/30655379/), *Diabetes Care*, doi:10.2337/dc18-1785).
 
-Both ancestry and GRS data were contributed by the lab of Dr. Anna Gloyn (Stanford); see the [Contributors](https://dev.humanislets.com/contributors) page.
+Beyond the overall score, each donor's T1D-GRS is decomposed into **HLA Class 1**, **HLA Class 2**, and **Non-HLA** contributions, and the donor's **DR3 / DR4 haplotype** call is also reported (available via the IIDP Resource Data Repository). The trans-ancestry T1D-PRS is also downloadable from the RDR.
+
+**T2D Genetic Risk Score (T2D-GRS).** The genome-wide T2D-GRS is computed from the **1,232,226 variants** of the multi-ancestry GWAS in Suzuki et al. ([2024](https://pubmed.ncbi.nlm.nih.gov/38374256/), *Nature*). Each donor is additionally given **partitioned polygenic scores (pPS)** that decompose their overall T2D risk into mechanistically distinct components, under a choice of two clustering frameworks:
+
+- **Soft clustering** (Smith et al. [2024](https://pubmed.ncbi.nlm.nih.gov/38443691/), *Nature Medicine*) — variants can contribute to multiple clusters with varying weights, allowing overlap and continuity across mechanisms. The clusters surfaced in the donor view include β-cell dysfunction (two), obesity, lipodystrophy (two), proinsulin, bilirubin, cholesterol, liver lipid, hyperinsulin, SHBGi-LpA, and Alp-negative.
+- **Hard clustering** (Suzuki et al. [2024](https://pubmed.ncbi.nlm.nih.gov/38374256/), *Nature*) — each variant is uniquely assigned to a single cluster, representing relatively discrete genetic mechanisms. The clusters include residual glycemic, body fat, metabolic syndrome, obesity, β-cell PI+, β-cell PI−, lipodystrophy, and liver-and-lipid metabolism.
+
+Both the ancestry and GRS pipelines are contributed by the lab of Dr. Anna Gloyn (Stanford); see the [Contributors](https://dev.humanislets.com/contributors) page. All data are released in versioned freezes: **Version 2** is the current default (uses Suzuki 2024 for the T2D-GRS), while **Version 1** is archived from the previous release (which used Mahajan et al. 2022 for the T2D-GRS and DiCorpo et al. 2022 for the partitioned scores). Both versions are accessible from the version dropdown in the donor view.
+
+<span style="color:#b00020; font-weight:600;">[Needs confirmation from the Gloyn lab.]</span>
 
 ## Pancreas Lipid Extraction
 
