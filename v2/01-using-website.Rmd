@@ -8,7 +8,7 @@ The Omics block holds the analyses that operate primarily on feature-level molec
 
 ### Omics View &mdash; individual omics analysis [<img src="logo1.png" alt="Logo" style="width:18px; height:18px;">](https://dev.humanislets.com/omics)
 
-HumanIslet.com presently includes information from 626 human research islet isolations that includes donor and technical metadata, islet and islet cell function, and omics. Omics datasets include bulk proteomics, bulk RNAseq, gene panels (Nanostring), patch-seq, and pseudobulk RNAseq for alpha- and beta-cells. Omics-metadata relationships can be analysed by:
+HumanIslet.com presently includes information from 625 human research islet isolations that includes donor and technical metadata, islet and islet cell function, and omics. Omics datasets include bulk proteomics, bulk RNAseq, gene panels (Nanostring), patch-seq, and pseudobulk RNAseq for alpha- and beta-cells. Omics-metadata relationships can be analysed by:
 
 1. Selecting the ‘Omics Type’ of interest
 2. Selecting the ‘Primary Metadata’ to be analysed, and ‘Comparison of Interest’ if applicable
@@ -116,7 +116,7 @@ The Donor & Phenotype block groups the views that browse the cohort at the donor
 
 ### Donor View [<img src="logo2.png" alt="Logo" style="width:18px; height:18px;">](https://dev.humanislets.com/donor)
 
-The Donor View page allows examination of individual donor, islet isolation, and functional data from each of 626 donors currently in the HumanIslets.com database. Donors can be searched by ADI IsletCore Donor ID or Research Resource ID (RRID). Data categories can be selected from the left-hand menu, organized into four groups: *Metadata* (Donor Information, Isolation Information); *Genetic Variables* (Ancestry, Genetic Risk Score); *Insulin Secretion* (Static GSIS plus separate Dynamic Insulin Response views for Glucose, Leucine, and Palmitate); and *Other* (Prohormone Expression, Mitochondrial Function, Single-cell electrophysiology, Pancreas Lipid Extraction, and Omics Availability). These metadata are described in detail in chapters 3 and 4, below.
+The Donor View page allows examination of individual donor, islet isolation, and functional data from each of 625 donors currently in the HumanIslets.com database. Donors can be searched by ADI IsletCore Donor ID or Research Resource ID (RRID). Data categories can be selected from the left-hand menu, organized into four groups: *Metadata* (Donor Information, Isolation Information); *Genetic Variables* (Ancestry, Genetic Risk Score); *Insulin Secretion* (Static GSIS plus separate Dynamic Insulin Response views for Glucose, Leucine, and Palmitate); and *Other* (Prohormone Expression, Mitochondrial Function, Single-cell electrophysiology, Pancreas Lipid Extraction, and Omics Availability). These metadata are described in detail in chapters 3 and 4, below.
 
 Typically, data is shown for selected donor in the context of the entire dataset, allowing for easy inspection and determination of whether a donor falls within the normal range of the population. A few points that are worth noting here:
 

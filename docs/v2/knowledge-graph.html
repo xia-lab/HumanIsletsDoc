@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 6 Knowledge Graph | Human Islets (v2)</title>
+  <title>Chapter 6 Knowledge Graph | HumanIslets.com (v2)</title>
   <meta name="description" content="This is the documentation for HumanIslets 2.0." />
   <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 6 Knowledge Graph | Human Islets (v2)" />
+  <meta property="og:title" content="Chapter 6 Knowledge Graph | HumanIslets.com (v2)" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="This is the documentation for HumanIslets 2.0." />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 6 Knowledge Graph | Human Islets (v2)" />
+  <meta name="twitter:title" content="Chapter 6 Knowledge Graph | HumanIslets.com (v2)" />
   
   <meta name="twitter:description" content="This is the documentation for HumanIslets 2.0." />
   
@@ -76,6 +76,22 @@
   }
 </style>
 
+<script>
+  // Make every external link (http/https) open in a new tab.
+  // Internal navigation (relative anchors and same-domain chapter links) is unaffected.
+  document.addEventListener('DOMContentLoaded', function() {
+    var host = window.location.host;
+    document.querySelectorAll('a[href^="http://"], a[href^="https://"]').forEach(function(a) {
+      var url;
+      try { url = new URL(a.href); } catch (e) { return; }
+      if (url.host && url.host !== host) {
+        a.setAttribute('target', '_blank');
+        a.setAttribute('rel', 'noopener noreferrer');
+      }
+    });
+  });
+</script>
+
 
 
 <style type="text/css">
@@ -96,7 +112,7 @@
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">Human Islets (v2)</a></li>
+<li><a href="./">HumanIslets.com (v2)</a></li>
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> General Introduction</a>
@@ -157,6 +173,7 @@
 <li class="chapter" data-level="4.7" data-path="overview-of-omics-data-types.html"><a href="overview-of-omics-data-types.html#metabolomics"><i class="fa fa-check"></i><b>4.7</b> Metabolomics</a></li>
 <li class="chapter" data-level="4.8" data-path="overview-of-omics-data-types.html"><a href="overview-of-omics-data-types.html#environmental-contaminants"><i class="fa fa-check"></i><b>4.8</b> Environmental Contaminants</a></li>
 <li class="chapter" data-level="4.9" data-path="overview-of-omics-data-types.html"><a href="overview-of-omics-data-types.html#metabolic-flux"><i class="fa fa-check"></i><b>4.9</b> Metabolic Flux</a></li>
+<li class="chapter" data-level="4.10" data-path="overview-of-omics-data-types.html"><a href="overview-of-omics-data-types.html#dna-methylation"><i class="fa fa-check"></i><b>4.10</b> DNA Methylation</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="overview-of-statistical-analysis-methods.html"><a href="overview-of-statistical-analysis-methods.html"><i class="fa fa-check"></i><b>5</b> Overview of statistical analysis methods</a>
 <ul>
@@ -203,7 +220,7 @@
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Human Islets (v2)</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">HumanIslets.com (v2)</a>
           </h1>
         </div>
 
@@ -276,7 +293,7 @@ External APIs (called on-demand to enrich a query)</code></pre>
 <li>Omics feature → phenotype variable associations (the same tables that drive the Feature View; see chapter 5).</li>
 <li>QTL evidence computed within the HumanIslets donor cohort.</li>
 </ul>
-<p>This is the layer that turns a public-knowledge query into a HumanIslets-specific answer (e.g. “how is this gene associated with phenotypes in our 626-donor cohort?”).</p>
+<p>This is the layer that turns a public-knowledge query into a HumanIslets-specific answer (e.g. “how is this gene associated with phenotypes in our 625-donor cohort?”).</p>
 </div>
 <div id="layer-4-rag-cache" class="section level3 hasAnchor" number="6.2.5">
 <h3><span class="header-section-number">6.2.5</span> Layer 4 — RAG cache<a href="knowledge-graph.html#layer-4-rag-cache" class="anchor-section" aria-label="Anchor link to header"></a></h3>

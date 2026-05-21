@@ -41,6 +41,7 @@ single-cell-rna-seq
 metabolomics
 environmental-contaminants
 metabolic-flux
+dna-methylation
 overview-of-statistical-analysis-methods
 multiple-linear-regression
 spearman-ranked-correlation

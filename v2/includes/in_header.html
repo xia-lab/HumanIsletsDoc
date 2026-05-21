@@ -21,3 +21,19 @@
     text-decoration: underline;
   }
 </style>
+
+<script>
+  // Make every external link (http/https) open in a new tab.
+  // Internal navigation (relative anchors and same-domain chapter links) is unaffected.
+  document.addEventListener('DOMContentLoaded', function() {
+    var host = window.location.host;
+    document.querySelectorAll('a[href^="http://"], a[href^="https://"]').forEach(function(a) {
+      var url;
+      try { url = new URL(a.href); } catch (e) { return; }
+      if (url.host && url.host !== host) {
+        a.setAttribute('target', '_blank');
+        a.setAttribute('rel', 'noopener noreferrer');
+      }
+    });
+  });
+</script>

@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 4 Overview of Omics Data Types | Human Islets (v2)</title>
+  <title>Chapter 4 Overview of Omics Data Types | HumanIslets.com (v2)</title>
   <meta name="description" content="This is the documentation for HumanIslets 2.0." />
   <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 4 Overview of Omics Data Types | Human Islets (v2)" />
+  <meta property="og:title" content="Chapter 4 Overview of Omics Data Types | HumanIslets.com (v2)" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="This is the documentation for HumanIslets 2.0." />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 4 Overview of Omics Data Types | Human Islets (v2)" />
+  <meta name="twitter:title" content="Chapter 4 Overview of Omics Data Types | HumanIslets.com (v2)" />
   
   <meta name="twitter:description" content="This is the documentation for HumanIslets 2.0." />
   
@@ -76,6 +76,22 @@
   }
 </style>
 
+<script>
+  // Make every external link (http/https) open in a new tab.
+  // Internal navigation (relative anchors and same-domain chapter links) is unaffected.
+  document.addEventListener('DOMContentLoaded', function() {
+    var host = window.location.host;
+    document.querySelectorAll('a[href^="http://"], a[href^="https://"]').forEach(function(a) {
+      var url;
+      try { url = new URL(a.href); } catch (e) { return; }
+      if (url.host && url.host !== host) {
+        a.setAttribute('target', '_blank');
+        a.setAttribute('rel', 'noopener noreferrer');
+      }
+    });
+  });
+</script>
+
 
 
 <style type="text/css">
@@ -96,7 +112,7 @@
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">Human Islets (v2)</a></li>
+<li><a href="./">HumanIslets.com (v2)</a></li>
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> General Introduction</a>
@@ -157,6 +173,7 @@
 <li class="chapter" data-level="4.7" data-path="overview-of-omics-data-types.html"><a href="overview-of-omics-data-types.html#metabolomics"><i class="fa fa-check"></i><b>4.7</b> Metabolomics</a></li>
 <li class="chapter" data-level="4.8" data-path="overview-of-omics-data-types.html"><a href="overview-of-omics-data-types.html#environmental-contaminants"><i class="fa fa-check"></i><b>4.8</b> Environmental Contaminants</a></li>
 <li class="chapter" data-level="4.9" data-path="overview-of-omics-data-types.html"><a href="overview-of-omics-data-types.html#metabolic-flux"><i class="fa fa-check"></i><b>4.9</b> Metabolic Flux</a></li>
+<li class="chapter" data-level="4.10" data-path="overview-of-omics-data-types.html"><a href="overview-of-omics-data-types.html#dna-methylation"><i class="fa fa-check"></i><b>4.10</b> DNA Methylation</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="overview-of-statistical-analysis-methods.html"><a href="overview-of-statistical-analysis-methods.html"><i class="fa fa-check"></i><b>5</b> Overview of statistical analysis methods</a>
 <ul>
@@ -203,7 +220,7 @@
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Human Islets (v2)</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">HumanIslets.com (v2)</a>
           </h1>
         </div>
 
@@ -281,6 +298,11 @@
 <li>Both conditions are simulated under glucose-only media and under glucose plus amino-acid supplementation (with fixed uptake rates for glutamine, alanine, serine, etc.); the amino-acid scenario opens alternative carbon entry into the TCA cycle.</li>
 </ul>
 <p>For each donor × condition, <strong>Flux Variability Analysis (FVA)</strong> is run on the entire reaction network at a 90% optimality fraction; the platform stores the FVA minimum, maximum, centre, and span per reaction. <strong>OptGP flux sampling</strong> (5,000 samples, thinning = 100) is run on top of FVA to capture the achievable flux distribution; from the samples the pipeline records the mean, median, standard deviation, and 25/75% quartiles per reaction. Per-reaction flux values are signed-log2 transformed and z-scored within each donor before being loaded into the analysis tables so the downstream limma model sees comparable distributions across reactions. The HG/LG ratio table stores the per-reaction log-ratio between high glucose and low glucose conditions, capturing each donor’s glucose responsiveness at the flux level.</p>
+</div>
+<div id="dna-methylation" class="section level2 hasAnchor" number="4.10">
+<h2><span class="header-section-number">4.10</span> DNA Methylation<a href="overview-of-omics-data-types.html#dna-methylation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><em>Coming soon — data forthcoming from collaborators in Singapore.</em></p>
+<p>Donor islet DNA methylation profiling will be added to the platform once the data are received from our Singapore-based collaborators. Methods, donor coverage, and analysis options will be added to this section at that time.</p>
 
 </div>
 </div>
