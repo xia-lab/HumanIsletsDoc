@@ -41,48 +41,72 @@ The ‘Pathway Results’ will be displayed in both graphical and table format, 
 
 ### Multi-Omics Analysis [<img src="logo1.png" alt="Logo" style="width:18px; height:18px;">](https://dev.humanislets.com/multiomics)
 
-The Multi-Omics Analysis page lets users explore integrated analyses across two or three omics layers selected from a single dropdown (combinations are pre-computed; eligibility requires at least 20 donors with measurements in every selected omics). Three complementary methods are available — WGCNA, MOFA, and DIABLO — each unlocked by selecting it from the **Method** dropdown. A help (`?`) tooltip next to the dropdown summarises the three methods at a glance. Full methodology and parameter choices for each method are in chapter 5; this section focuses on what users see on the page.
+The Multi-Omics Analysis page lets users explore integrated analyses across two or three omics layers selected from a single dropdown (combinations are pre-computed; eligibility requires at least 20 donors with measurements in every selected omics). Three complementary methods are available, each answering a slightly different question and unlocked by selecting it from the **Method** dropdown:
 
-**Common controls.** For all three methods, users pick the Method, the omics types to integrate (Omics Type I, II, optionally III, with cell-type and glucose-condition selectors for patch-seq and metabolite/flux), and — for DIABLO only — a Primary Metadata variable plus the contrast levels. Clicking **Submit** runs the analysis (or, more precisely, fetches the precomputed result for that combination) and unlocks the result tabs.
+- **WGCNA** (Weighted Gene Co-expression Network Analysis) is **unsupervised**. It groups features that move together across donors into *modules*, then summarises each module by a single representative value (its *eigengene*) so that module-level signal can be compared across omics and against the platform's phenotype variables. Use WGCNA when the question is *which features behave like a co-regulated programme, and does any module track a phenotype?*
+- **MOFA** (Multi-Omics Factor Analysis) is also **unsupervised**, but rather than discrete modules it learns continuous *latent factors* — directions of variation that several omics share. The same factor often explains a substantial chunk of variance in two or more views, which makes MOFA a good fit when the goal is to *find the shared axes of variation across omics types*. Donors with only partial omics coverage are still usable thanks to MOFA's NA-tolerant fit.
+- **DIABLO** (Data Integration Analysis for Biomarker discovery using Latent cOmponents) is **supervised**: it requires a primary metadata variable as the target and finds the smallest set of correlated features across omics that best discriminates two groups (or predicts a continuous outcome). Use DIABLO when the question is phrased as *which combined feature signature best separates these donor groups?*
 
-**WGCNA results layout.** Five tabs:
+A help (`?`) tooltip next to the dropdown summarises these three methods inline. Full methodology and parameter choices are in chapter 5; here we walk through how to use each method on the page.
 
-1. **Overview** — module composition summary across the selected omics combination, including how many modules were found and the omics composition of each.
-2. **Multi-Omics Flow** — Sankey diagram of how features flow between omics within and across modules (shown when applicable to the selected combination).
-3. **Trait Associations** — module eigengene associations against the platform's phenotype variables.
-4. **Features** — per-module feature table with module membership ranking and omics-type tags.
-5. **Network** — interactive node/edge view of the top topological-overlap edges, with nodes coloured by omics type and modules.
+To run a multi-omics analysis:
 
-**MOFA results layout.** Seven tabs:
+1. Pick the **Method** (WGCNA, MOFA, or DIABLO) from the dropdown
+2. Choose **Omics Type I** and **Omics Type II** (and optionally **Omics Type III**) — the combinations are precomputed, so the choices that have ≥ 20 shared donors will be selectable
+    a. For patch-seq, an extra **cell type** selector appears (α / β / δ / PP)
+    b. For metabolite and flux, an extra **glucose condition** selector appears (low / high / ratio)
+3. For **DIABLO only**, pick a **Primary Metadata** variable and (for binary outcomes) the two contrast levels. WGCNA and MOFA are unsupervised and skip this step.
+4. Click **Submit**
 
-1. **Overview** — summary of the fitted MOFA model: number of active factors, donors included, and high-level health indicators.
-2. **Multi-Omics Flow** — Sankey diagram of feature contribution across omics for selected factors (shown when applicable).
-3. **Variance Decomposition** — per-factor per-view variance heatmap.
-4. **Trait Associations** — factor scores correlated with the platform's phenotype variables.
-5. **Feature Loadings** — top-weighted features per factor per omics.
-6. **Feature Network** — feature-level co-loading network across omics.
-7. **Factor Space** — donors plotted in factor space, with metadata-colouring options.
+The result tabs (described below per method) then become available. Because every eligible combination is precomputed on the server, Submit returns almost instantly.
 
-**DIABLO results layout.** Four tabs (only populated when an analysis variable is selected):
+**WGCNA results layout.** Four tabs:
+
+1. **Overview** — a heatmap with **modules on the rows and core phenotypes on the columns**. Each cell shows the module–phenotype association: **Pearson** *r* (signed, −1 to +1) for continuous and binary phenotypes, or **ANOVA-derived effect size** (unsigned, 0 to 1) for multi-level categoricals. Cells carry significance asterisks (* *p*<sub>adj</sub>&lt;0.05, ** &lt;0.01, *** &lt;0.001), and hovering any cell reveals the full *r* / *p* / *p*<sub>adj</sub> / *n*. A *Select Phenotypes* button opens a dialog to choose which phenotypes appear on the columns (with a *Reset to defaults* shortcut), and the heatmap can be exported as PNG (image) or CSV (underlying matrix). This is the entry-point view for "which module tracks which phenotype, at a glance".
+2. **Trait Associations** — drill-down view for a single phenotype chosen from the *Group* / *Phenotype* selectors; shows that phenotype's association across **every** module in the combination (not just the curated "core" phenotype set in the Overview).
+3. **Features** — per-module feature table with module membership ranking and omics-type tags.
+4. **Network** — interactive node/edge view of the top topological-overlap edges, with nodes coloured by omics type and modules.
+
+**MOFA results layout.** Six tabs:
+
+1. **Overview** — a heatmap with **MOFA factors on the rows and core phenotypes on the columns**, using the same conventions as the WGCNA Overview: **Pearson** *r* for continuous/binary, **effect size** for multi-level categoricals, the same asterisk-based significance markers, the same hover detail, the same *Select Phenotypes* / *Reset* / PNG / CSV controls. This is the place to start when asking "which MOFA factor tracks which phenotype".
+2. **Variance Decomposition** — per-factor per-view variance heatmap.
+3. **Trait Associations** — drill-down view for a single phenotype across every MOFA factor (analogue of WGCNA's Trait Associations tab).
+4. **Feature Loadings** — top-weighted features per factor per omics.
+5. **Feature Network** — feature-level co-loading network across omics.
+6. **Factor Space** — donors plotted in factor space, with metadata-colouring options.
+
+**DIABLO results layout.** Three tabs (only populated when an analysis variable is selected):
 
 1. **Significant Features** — features selected by DIABLO across the selected omics, with their loadings and per-omics ranking.
 2. **Correlation Network** — cross-omics feature correlation network for the selected features.
-3. **Multi-Omics Flow** — Sankey diagram of cross-omics feature relationships from the fitted DIABLO model.
-4. **Pathway Analysis** — ORA / GSEA on the DIABLO-selected feature list against the standard pathway libraries.
+3. **Pathway Analysis** — ORA / GSEA on the DIABLO-selected feature list against the standard pathway libraries.
 
 All tables are downloadable as CSV from the corresponding tab.
 
-### Metabolic Atlas [<img src="logo1.png" alt="Logo" style="width:18px; height:18px;">](https://dev.humanislets.com/atlas)
+### Metabolic Atlas (should be Hide?) [<img src="logo1.png" alt="Logo" style="width:18px; height:18px;">](https://dev.humanislets.com/atlas)
 
 The Metabolic Atlas is the platform's interactive view of human islet metabolism. Users browse the metabolic network reaction by reaction, overlay HumanIslets data (predicted flux, gene or protein expression, scRNA-seq, etc.) on top of it, and ask comparative questions such as *how does this pathway differ between donor groups*, *which reactions are tied to this gene*, or *where in metabolism does this metabolite sit*. Behind the scenes the network is the Human-GEM v1.19.0 genome-scale metabolic reconstruction; the underlying flux methodology is documented in chapter 4 (Metabolic Flux).
 
-When the page loads, the metabolic network appears in the centre of the screen and the **Pathways legend** opens on the left listing the colour-coded pathway categories (with each pathway's colour dot and name accessible by expanding the category). Users can pan and zoom the network freely; clicking any edge opens a small detail dialog listing the reaction(s) on that edge and their flux value, and opening a pathway from the legend brings up a full pathway view using the platform's general-purpose pathway viewer.
+When the page loads, the metabolic network appears in the centre of the screen, with the **Pathways legend** on the left listing the colour-coded pathway categories (and, when expanded, each individual pathway by name) — the legend is informational, used as a colour key for the network. The network itself can be panned and zoomed; clicking any edge opens a small detail dialog with the reaction(s) on that edge and their flux value, and clicking any node opens the **Pathway Detail dialog** for the pathway that node sits on.
 
-To overlay data on the network, users click **Add Layers** in the top toolbar. The Add Data Layers dialog asks for a *Layer Type* and an *Omics Type*, then surfaces the additional fields that match the chosen omics — for example a cell type and glucose concentration (scRNA-seq), a glucose condition (flux), a donor ID or a cluster, or — in comparison mode — a primary metadata variable with a class-1/class-2 contrast, covariates to control for, the donor scope (all donors or a subset), and a *p*-value cutoff with optional adjustment. Clicking *Add Layer* applies the layer to the network; multiple layers can be added in succession to compare conditions side by side.
+The **Pathway Detail dialog** is a draggable, resizable window that renders the selected pathway's reaction–metabolite graph in full. When an enrichment overlay is in effect (for example after adding a flux or metabolomics layer), the dialog shows a coloured legend at the top: in metabolite-set mode, red nodes are increased, blue are decreased, and orange are not in the analysis set, with node size and colour intensity proportional to enrichment magnitude; reaction-set mode uses gradient bars rather than dot colours for the same direction encoding. A toolbar above the graph provides view controls (pan mode toggle, selection-area mode, *Stretch / Compress edges* for a selected region, *Reset Pathway*, *Save Layout*), labelling toggles (*Show / Hide cofactor labels*, *Show / Hide metabolite labels*, *Show / Hide control nodes* and control points), an *Add / Delete Flux* control for manual annotation, and PNG / SVG export buttons. A right-side **Node Settings** panel adjusts node size and colour, and an **Edge Settings** panel adjusts edge width and colour.
 
-Once a layer is active a second legend appears below the Pathways legend, naming the active layer and showing its flux gradient bar (min / 0 / max), up- and down-regulation swatches, the *Signal strength (node size)* indicator (weak → strong), and a small summary of the matched pathway count plus the top up- and down-regulated pathways for that layer.
+To overlay data on the network:
 
-The toolbar also provides the rest of the common controls: **Reset View** restores the default layout, and a small menu toggle exposes *Show / Hide Compartments*, *Show / Hide Legend*, *Download Plot* (exports the current view as an image), and *Download Pathway Results* (downloads the layer's per-pathway statistics, enabled once at least one data layer is present).
+1. Click **Add Layers** in the top toolbar to open the Add Data Layers dialog
+2. Pick a **Layer Type** and an **Omics Type** — the dialog then surfaces the additional fields that match the chosen omics:
+    a. **Patch-seq (scRNA-seq)** — choose cell type and glucose concentration
+    b. **Flux** — choose glucose condition (low / high / ratio)
+    c. **Donor mode** — type or pick a donor ID
+    d. **Cluster mode** — pick a VAE cluster
+    e. **Comparison mode** — pick a primary metadata variable, the two contrast levels (class-1 / class-2), covariates to control for, the donor scope (all donors or a subset), and a *p*-value cutoff with optional FDR adjustment
+3. Click **Add Layer** to apply it to the network. Multiple layers can be added in succession to compare conditions side by side.
+4. Click any node on the network to drill down — this opens the *Pathway Detail dialog* (described below) for that node's pathway, with the active layer's enrichment overlaid on the reactions and metabolites inside the pathway, so users can inspect *where inside the pathway* the signal is coming from. (The Pathways legend on the left is informational — used to colour-code categories — and is not itself clickable.)
+
+Once a layer is active, a second legend appears below the Pathways legend naming the active layer and showing the flux gradient bar (min / 0 / max), up- and down-regulation swatches, the *Signal strength (node size)* indicator (weak → strong), and a short summary listing how many pathways are matched plus the top up- and down-regulated pathways for the layer.
+
+The rest of the toolbar covers the common controls: **Reset View** restores the default layout, and the small menu toggle exposes *Show / Hide Compartments*, *Show / Hide Legend*, *Download Plot* (exports the current view as an image), and *Download Pathway Results* (downloads the layer's per-pathway statistics, enabled once at least one layer is added).
 
 
 
@@ -92,15 +116,19 @@ The Donor & Phenotype block groups the views that browse the cohort at the donor
 
 ### Donor View [<img src="logo2.png" alt="Logo" style="width:18px; height:18px;">](https://dev.humanislets.com/donor)
 
-The Donor View page allows examination of individual donor, islet isolation, and functional data from each of 626 donors currently in the HumanIslets.com database. Donors can be searched by ADI IsletCore Donor ID or Research Resource ID (RRID). Data categories can be selected in tabs indicated on the left (Donor information; Isolation Information; Static and Dynamic Insulin Secretion; Mitochondrial Function; Electrophysiology, along with an overview of Omics data currently available). These metadata are described in detail in chapters 3 and 4, below.
+The Donor View page allows examination of individual donor, islet isolation, and functional data from each of 626 donors currently in the HumanIslets.com database. Donors can be searched by ADI IsletCore Donor ID or Research Resource ID (RRID). Data categories can be selected from the left-hand menu, organized into four groups: *Metadata* (Donor Information, Isolation Information); *Genetic Variables* (Ancestry, Genetic Risk Score); *Insulin Secretion* (Static GSIS plus separate Dynamic Insulin Response views for Glucose, Leucine, and Palmitate); and *Other* (Prohormone Expression, Mitochondrial Function, Single-cell electrophysiology, Pancreas Lipid Extraction, and Omics Availability). These metadata are described in detail in chapters 3 and 4, below.
 
 Typically, data is shown for selected donor in the context of the entire dataset, allowing for easy inspection and determination of whether a donor falls within the normal range of the population. A few points that are worth noting here:
 
 - *Donor Information* shows the RRID if available. Clicking on this will link out to the NCBI Biosample page for this donor
 - *Isolation Information* also contains the current inventory of snap frozen and cryopreserved islet tubes for that donor (all donors also have paraffin embedded biopsies)
-- *Isolation Information* includes cell type composition calculated by - deconvolution in donors with bulk proteomics data (see section 5.5, below)
+- *Isolation Information* includes cell type composition calculated by deconvolution in donors with bulk proteomics data (see section 5.5, below)
+- *Ancestry* renders the donor's ancestry as a donut chart with **primary ancestry on the outer ring and secondary (sub-) ancestry on the inner ring** (1000 Genomes-aligned), accompanied by tables of the underlying probabilities
+- *Genetic Risk Score* shows **T1D-GRS and T2D-GRS** separately, with a dropdown that lets users switch between published scoring models (e.g. the 67-variant Luckett 2025, GRS2-Qu 2022, and Sharp 2021 for T1D; soft- and hard-clustering partitioned T2D scores under Smith 2024 / Suzuki 2024); each model shows the donor's overall score plus a histogram of the donor's position in the cohort distribution
 - *Dynamic Insulin* Responses can be shown with or without normalisation to baseline
 - *Mitochondrial Function* (oxygen consumption by Seahorse assay) can be shown with or without normalisation to DNA and baseline
+- *Prohormone Expression* shows the donor's **C-peptide, proinsulin, and proinsulin:C-peptide ratio** concentrations as values plus per-readout cohort histograms, with a selector to switch between the measured conditions
+- *Pancreas Lipid Extraction* shows the donor's **total cholesterol (TC), triglycerides (TG), and free cholesterol (FC)** (mg/g tissue) as values plus per-lipid cohort histograms
 
 ### Phenotype View [<img src="logo2.png" alt="Logo" style="width:18px; height:18px;">](https://dev.humanislets.com/meta)
 

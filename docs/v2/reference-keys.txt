@@ -7,7 +7,7 @@ using-humanislets.com
 omics
 omics-view-individual-omics-analysis
 multi-omics-analysis
-metabolic-atlas
+metabolic-atlas-should-be-hide
 donor-phenotype
 donor-view
 phenotype-view
