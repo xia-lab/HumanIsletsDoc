@@ -1,0 +1,98 @@
+# Knowledge Graph
+
+The Knowledge Search page (chapter 2) is powered by a server-side knowledge graph (KG) that integrates the HumanIslets cohort's own evidence with several curated public databases and live external APIs. This chapter documents what is in the KG, where it comes from, and when it is refreshed.
+
+## Architecture overview
+
+```
+Angular frontend (Knowledge Search page)
+        │
+        ▼
+FastAPI backend
+  ├── /chat/ask          NL question → Cypher → answer
+  ├── /search/*          entity search, neighbours, paths
+  ├── /external/*        T2DKP, OpenTargets, etc. proxy
+  └── 4-level cache      exact → semantic → Neo4j → RAG
+        │
+        ▼
+Neo4j graph database (5 layers)
+        │
+        ▼
+External APIs (called on-demand to enrich a query)
+```
+
+The graph is stored in **Neo4j** and queried by the FastAPI backend, which exposes endpoints for natural-language Q&A (`/chat/ask`), structured graph search (`/search/*`), and live external-API proxies (`/external/*`). A four-tier cache (exact match → semantic similarity → Neo4j hit → on-demand RAG) keeps response latency low for repeat queries.
+
+## Layers in the graph
+
+The Neo4j database is layered so that each evidence type can be refreshed independently:
+
+### Layer 0 — Backbone
+
+Two curated biomedical knowledge graphs form the backbone:
+
+- **PrimeKG** &mdash; a precision-medicine knowledge graph integrating 20+ resources spanning diseases, genes/proteins, pathways, drugs, anatomy, phenotypes, side-effects, and exposures.
+  *Reference:* Chandak P, Huang K, Zitnik M. Building a knowledge graph to enable precision medicine. *Sci Data.* 2023;10(1):67. [doi:10.1038/s41597-023-01960-3](https://doi.org/10.1038/s41597-023-01960-3).
+- **Hetionet** &mdash; a heterogeneous network integrating 29 public databases (Reactome, GO, DisGeNET, DrugBank, MeSH, UniProt, LINCS L1000, …) with edge-prediction-style relationships.
+  *Reference:* Himmelstein DS, Lizee A, Hessler C, et al. Systematic integration of biomedical knowledge prioritizes drugs for repurposing. *eLife.* 2017;6:e26726. [doi:10.7554/eLife.26726](https://doi.org/10.7554/eLife.26726).
+
+Together these provide the gene/protein/disease/pathway/drug/anatomy scaffolding that every query is interpreted against.
+
+### Layer 1 — Islet genetics
+
+Islet-specific genetic evidence:
+
+- **TIGER** &mdash; Translational human pancreatic Islet Genotype tissue-Expression Resource: islet-specific eQTLs, sQTLs, and associated regulatory annotations.
+  *Reference:* Alonso L, Piron A, Morán I, et al. TIGER: the gene expression regulatory variation landscape of human pancreatic islets. *Cell Rep.* 2021;37(6):109807. [doi:10.1016/j.celrep.2021.109807](https://doi.org/10.1016/j.celrep.2021.109807).
+- **GTEx eQTLs** &mdash; tissue-matched expression QTLs (pancreas, liver, adipose, muscle) for context outside the islet itself.
+  *Reference:* GTEx Consortium. The GTEx Consortium atlas of genetic regulatory effects across human tissues. *Science.* 2020;369(6509):1318–1330. [doi:10.1126/science.aaz1776](https://doi.org/10.1126/science.aaz1776).
+
+### Layer 2 — Literature
+
+Text-mined relationships from the biomedical literature:
+
+- **PubTator 3.0** &mdash; pre-computed gene/disease/chemical/mutation named-entity recognition and relation extraction across all of PubMed.
+  *Reference:* Wei C-H, Allot A, Lai P-T, et al. PubTator 3.0: an AI-powered literature resource for unlocking biomedical knowledge. *Nucleic Acids Res.* 2024;52(W1):W540–W546. [doi:10.1093/nar/gkae235](https://doi.org/10.1093/nar/gkae235).
+- **Gemini-assisted RAG** &mdash; for less-studied entities not well covered by PubTator, abstracts are retrieved from PubMed E-utilities at query time and Gemini extracts structured assertions, which are then cached back into the graph.
+  *Tooling:* [Gemini API (Google)](https://ai.google.dev/gemini-api/docs).
+
+### Layer 3 — Local evidence
+
+The HumanIslets cohort's own pre-computed associations:
+
+- Omics feature → phenotype variable associations (the same tables that drive the Feature View; see chapter 5).
+- QTL evidence computed within the HumanIslets donor cohort.
+
+This is the layer that turns a public-knowledge query into a HumanIslets-specific answer (e.g. "how is this gene associated with phenotypes in our 626-donor cohort?").
+
+### Layer 4 — RAG cache
+
+Previously synthesised answers are cached back into Neo4j so the same query returns in milliseconds the next time, and so the RAG-extracted assertions from Layer 2 accumulate over time rather than being re-mined per query.
+
+## External APIs called at query time
+
+When a query lands on an entity that the cached graph cannot fully answer, the backend reaches out to these external services on demand:
+
+| API | What it provides |
+|---|---|
+| **PubMed E-utilities** | Abstract search and metadata for the queried entity |
+| **PubTator 3.0** | Pre-mined named-entity recognition and relation extraction over PubMed |
+| **GWAS evidence (see next section)** | Gene- and SNP-level GWAS associations for diabetes and related traits |
+| **OpenTargets** | Variant-to-gene scoring, drug-target tractability and modality, disease–target association evidence. *Reference:* Ochoa D, Hercules A, Carmona M, et al. The next-generation Open Targets Platform: reimagined, redesigned, rebuilt. *Nucleic Acids Res.* 2023;51(D1):D1353–D1359. [doi:10.1093/nar/gkac1046](https://doi.org/10.1093/nar/gkac1046). |
+| **Gemini API** | Natural-language → Cypher translation, and synthesis of the evidence collected from the layers above into a user-facing summary |
+
+All external-API responses are cached on the server side (Layer 4) so that repeated queries do not re-hit the upstream service.
+
+## GWAS evidence
+
+Gene- and SNP-level GWAS associations are pulled from four sources, in this order of priority:
+
+| Source | What it adds | Reference |
+|---|---|---|
+| **Type 2 Diabetes Knowledge Portal (T2DKP)** — *https://t2d.hugeamp.org* | Curated T2D-focused GWAS summary statistics, eQTL colocalization, gene-level evidence aggregation, and the T2DKP "burden of evidence" gene scoring | Costanzo MC, von Grotthuss M, Massung J, et al. *Cell Metab.* 2023;35(4):695–710.e6. [doi:10.1016/j.cmet.2023.03.001](https://doi.org/10.1016/j.cmet.2023.03.001). |
+| **Type 1 Diabetes Knowledge Portal (T1DKP)** — *https://t1d.hugeamp.org* | T1D-focused GWAS summary statistics and gene-level evidence, the T1D analogue of T2DKP | Hosted under the HuGeAMP umbrella (same publication as T2DKP above). |
+| **HuGeAMP** (Human Genetics Amplifier) — *https://hugeamp.org* | The broader umbrella covering T2DKP/T1DKP and adjacent portals (CVDKP, KPNDKP, etc.), used to retrieve cross-trait GWAS evidence | Hosted by the Accelerating Medicines Partnership; see the T2DKP paper above. |
+| **NHGRI-EBI GWAS Catalog** — *https://www.ebi.ac.uk/gwas* | The community-wide reference catalogue of published GWAS lead variants, used as the fallback when an entity has no representation in the diabetes-focused portals | Sollis E, Mosaku A, Abid A, et al. The NHGRI-EBI GWAS Catalog: knowledgebase and deposition resource. *Nucleic Acids Res.* 2023;51(D1):D977–D985. [doi:10.1093/nar/gkac1010](https://doi.org/10.1093/nar/gkac1010). |
+
+For any gene query, the platform displays in the result page's *External validation* panel: the gene's T2DKP gene page (with burden-of-evidence tier), its T1DKP gene page if applicable, the relevant HuGeAMP portal entries, and matching lead-variant entries from the GWAS Catalog. SNP queries resolve directly to the SNP's pages across the same four sources.
+

@@ -1,9 +1,14 @@
 # Using HumanIslets.com
 
-## Omics Data Analysis [<img src="logo1.png" alt="Logo" style="width:18px; height:18px;">](https://dev.humanislets.com)
+The platform's left-hand navigation groups features into four blocks — **Omics**, **Donor & Phenotype**, **Search & Discovery**, and **Data Download**. This chapter is organized in the same order, with one section per page in the sidebar.
 
+## Omics
 
-HumanIslet.com presently includes information from 540 human research islet isolations that includes donor and technical metadata, islet and islet cell function, and omics. Omics datasets include bulk proteomics, bulk RNAseq, gene panels (Nanostring), patch-seq, and pseudobulk RNAseq for alpha- and beta-cells. Omics-metadata relationships can be analysed by:
+The Omics block holds the analyses that operate primarily on feature-level molecular data: differential-expression-style omics analysis, multi-omics integration, and the genome-scale flux atlas.
+
+### Omics View &mdash; individual omics analysis [<img src="logo1.png" alt="Logo" style="width:18px; height:18px;">](https://dev.humanislets.com/omics)
+
+HumanIslet.com presently includes information from 626 human research islet isolations that includes donor and technical metadata, islet and islet cell function, and omics. Omics datasets include bulk proteomics, bulk RNAseq, gene panels (Nanostring), patch-seq, and pseudobulk RNAseq for alpha- and beta-cells. Omics-metadata relationships can be analysed by:
 
 1. Selecting the ‘Omics Type’ of interest
 2. Selecting the ‘Primary Metadata’ to be analysed, and ‘Comparison of Interest’ if applicable
@@ -14,22 +19,78 @@ HumanIslet.com presently includes information from 540 human research islet isol
 5. Selecting a p-value cutoff, and the use of adjusted p-values
 6. Click ‘submit’
 
-The number of donors included in the analysis will be displayed. If too few donors are available for the chosen analysis (<10), an error message will be shown. Results of the analysis will be shown under ‘Feature Association Results’, and both results and analysis pipeline can be downloaded by clicking on the appropriate button. Results are shown as a graphical representation (volcano plot) or table, accessible by clicking on the appropriate tab. Clicking on features (points in the volcano plot, or table entries) will raise a graph showing categorical or scatterplot representations of the data/feature of interest. Clicking on individual donors within those plots will take you to the ‘Donor View’ page for that donor (section 2.2, below), allowing for inspection of potential outlier donors. In the Results Table, clicking on the feature name will take you to the ‘Feature Search’ page (section 2.3, below) for that gene/protein. At the right are links to the NCBI gene page and T2D Knowledge Portal (T2DKP) entries for each feature (external sites), and to a single-cell RNAseq reference dataset (SC) to inspect cell-type specific expression of the feature.
+The number of donors included in the analysis will be displayed. If too few donors are available for the chosen analysis (<10), an error message will be shown. Results of the analysis will be shown under ‘Feature Association Results’, and both results and analysis pipeline can be downloaded by clicking on the appropriate button. Results are shown as a graphical representation (volcano plot) or table, accessible by clicking on the appropriate tab. Clicking on features (points in the volcano plot, or table entries) will raise a graph showing categorical or scatterplot representations of the data/feature of interest. Clicking on individual donors within those plots will take you to the ‘Donor View’ page for that donor, allowing for inspection of potential outlier donors. In the Results Table, clicking on the feature name will take you to the ‘Feature Search’ page for that gene/protein. At the right are links to the NCBI gene page and T2D Knowledge Portal (T2DKP) entries for each feature (external sites), to a single-cell RNAseq reference dataset (SC) to inspect cell-type specific expression of the feature, and to the platform's own **Knowledge Search (KG)** page (section 2.3.1) for an integrated multi-source view of the feature.
 
+The third tab under the ‘Feature Association Results’ pulls up a Pathway Analysis tool. The enrichment method offered depends on the omics type, because gene-based, metabolite-based, and reaction-based feature lists each require matched annotation libraries:
 
-The third tab under the ‘Feature Association Results’ pulls up a Pathway Analysis tool for common Overrepresentation Analysis (ORA) or Gene Set Enrichment Analysis (GSEA) on the results. To perform pathway analysis:
+- **Gene-based omics** (RNA-seq, Nanostring, proteomics, pseudobulk, patch-seq) — **Overrepresentation Analysis (ORA)** and **Gene Set Enrichment Analysis (GSEA)** against KEGG, Reactome, GO, and the GEM gene libraries.
+- **Metabolomics** — **MSEA** (Metabolite Set Enrichment Analysis), the metabolomics analogue of GSEA, implemented via xialab's MetaboAnalyst and ranking metabolites against curated metabolite sets (KEGG human metabolite-centred pathways and the GEM metabolite groupings).
+- **Metabolic flux** — **RSEA** (Reaction Set Enrichment Analysis), ranking reactions against Human-GEM subsystem groupings (glycolysis, TCA cycle, fatty-acid metabolism, etc.). This is the analogue of GSEA at the reaction level.
 
-1. Select ORA or GSEA
+To perform pathway / metabolite / reaction analysis:
+
+1. Select **ORA** or **GSEA / MSEA / RSEA** as appropriate for the omics type
     a. ORA is performed on significant hits based on the p-value threshold set above
-    b. GSEA can be performed using log2FC/coefficient or T-statistic for ranking, and can be performed even in cases when no individual features are marked as significant
-2. Select whether to collapse redundant pathways
+    b. GSEA / MSEA / RSEA can be performed using log2FC/coefficient or T-statistic for ranking, and can be performed even in cases when no individual features are marked as significant
+2. Select whether to collapse redundant pathways / sets
 3. Choose a false discovery rate (FDR) cutoff
-4. Choose among common pathway libraries to query
+4. Choose among the available libraries for the matched omics type
 5. Click ‘submit’
 
 The ‘Pathway Results’ will be displayed in both graphical and table format, selected by clicking on the appropriate tab. As above, both results and analysis pipeline can be downloaded by clicking on the appropriate button. In the interactive graphical view, significant pathways (based on FDR cutoff) are shown as ridgeplots. Clicking on these will raise heatmaps showing the contribution of individual genes/proteins.
 
-## Donor View [<img src="logo2.png" alt="Logo" style="width:18px; height:18px;">](https://dev.humanislets.com)
+### Multi-Omics Analysis [<img src="logo1.png" alt="Logo" style="width:18px; height:18px;">](https://dev.humanislets.com/multiomics)
+
+The Multi-Omics Analysis page lets users explore integrated analyses across two or three omics layers selected from a single dropdown (combinations are pre-computed; eligibility requires at least 20 donors with measurements in every selected omics). Three complementary methods are available — WGCNA, MOFA, and DIABLO — each unlocked by selecting it from the **Method** dropdown. A help (`?`) tooltip next to the dropdown summarises the three methods at a glance. Full methodology and parameter choices for each method are in chapter 5; this section focuses on what users see on the page.
+
+**Common controls.** For all three methods, users pick the Method, the omics types to integrate (Omics Type I, II, optionally III, with cell-type and glucose-condition selectors for patch-seq and metabolite/flux), and — for DIABLO only — a Primary Metadata variable plus the contrast levels. Clicking **Submit** runs the analysis (or, more precisely, fetches the precomputed result for that combination) and unlocks the result tabs.
+
+**WGCNA results layout.** Five tabs:
+
+1. **Overview** — module composition summary across the selected omics combination, including how many modules were found and the omics composition of each.
+2. **Multi-Omics Flow** — Sankey diagram of how features flow between omics within and across modules (shown when applicable to the selected combination).
+3. **Trait Associations** — module eigengene associations against the platform's phenotype variables.
+4. **Features** — per-module feature table with module membership ranking and omics-type tags.
+5. **Network** — interactive node/edge view of the top topological-overlap edges, with nodes coloured by omics type and modules.
+
+**MOFA results layout.** Seven tabs:
+
+1. **Overview** — summary of the fitted MOFA model: number of active factors, donors included, and high-level health indicators.
+2. **Multi-Omics Flow** — Sankey diagram of feature contribution across omics for selected factors (shown when applicable).
+3. **Variance Decomposition** — per-factor per-view variance heatmap.
+4. **Trait Associations** — factor scores correlated with the platform's phenotype variables.
+5. **Feature Loadings** — top-weighted features per factor per omics.
+6. **Feature Network** — feature-level co-loading network across omics.
+7. **Factor Space** — donors plotted in factor space, with metadata-colouring options.
+
+**DIABLO results layout.** Four tabs (only populated when an analysis variable is selected):
+
+1. **Significant Features** — features selected by DIABLO across the selected omics, with their loadings and per-omics ranking.
+2. **Correlation Network** — cross-omics feature correlation network for the selected features.
+3. **Multi-Omics Flow** — Sankey diagram of cross-omics feature relationships from the fitted DIABLO model.
+4. **Pathway Analysis** — ORA / GSEA on the DIABLO-selected feature list against the standard pathway libraries.
+
+All tables are downloadable as CSV from the corresponding tab.
+
+### Metabolic Atlas [<img src="logo1.png" alt="Logo" style="width:18px; height:18px;">](https://dev.humanislets.com/atlas)
+
+The Metabolic Atlas is the platform's interactive view of human islet metabolism. Users browse the metabolic network reaction by reaction, overlay HumanIslets data (predicted flux, gene or protein expression, scRNA-seq, etc.) on top of it, and ask comparative questions such as *how does this pathway differ between donor groups*, *which reactions are tied to this gene*, or *where in metabolism does this metabolite sit*. Behind the scenes the network is the Human-GEM v1.19.0 genome-scale metabolic reconstruction; the underlying flux methodology is documented in chapter 4 (Metabolic Flux).
+
+When the page loads, the metabolic network appears in the centre of the screen and the **Pathways legend** opens on the left listing the colour-coded pathway categories (with each pathway's colour dot and name accessible by expanding the category). Users can pan and zoom the network freely; clicking any edge opens a small detail dialog listing the reaction(s) on that edge and their flux value, and opening a pathway from the legend brings up a full pathway view using the platform's general-purpose pathway viewer.
+
+To overlay data on the network, users click **Add Layers** in the top toolbar. The Add Data Layers dialog asks for a *Layer Type* and an *Omics Type*, then surfaces the additional fields that match the chosen omics — for example a cell type and glucose concentration (scRNA-seq), a glucose condition (flux), a donor ID or a cluster, or — in comparison mode — a primary metadata variable with a class-1/class-2 contrast, covariates to control for, the donor scope (all donors or a subset), and a *p*-value cutoff with optional adjustment. Clicking *Add Layer* applies the layer to the network; multiple layers can be added in succession to compare conditions side by side.
+
+Once a layer is active a second legend appears below the Pathways legend, naming the active layer and showing its flux gradient bar (min / 0 / max), up- and down-regulation swatches, the *Signal strength (node size)* indicator (weak → strong), and a small summary of the matched pathway count plus the top up- and down-regulated pathways for that layer.
+
+The toolbar also provides the rest of the common controls: **Reset View** restores the default layout, and a small menu toggle exposes *Show / Hide Compartments*, *Show / Hide Legend*, *Download Plot* (exports the current view as an image), and *Download Pathway Results* (downloads the layer's per-pathway statistics, enabled once at least one data layer is present).
+
+
+
+## Donor & Phenotype
+
+The Donor & Phenotype block groups the views that browse the cohort at the donor level: per-donor profiles, phenotype-only exploration, and multi-omics-derived donor stratification.
+
+### Donor View [<img src="logo2.png" alt="Logo" style="width:18px; height:18px;">](https://dev.humanislets.com/donor)
 
 The Donor View page allows examination of individual donor, islet isolation, and functional data from each of 626 donors currently in the HumanIslets.com database. Donors can be searched by ADI IsletCore Donor ID or Research Resource ID (RRID). Data categories can be selected in tabs indicated on the left (Donor information; Isolation Information; Static and Dynamic Insulin Secretion; Mitochondrial Function; Electrophysiology, along with an overview of Omics data currently available). These metadata are described in detail in chapters 3 and 4, below.
 
@@ -41,13 +102,92 @@ Typically, data is shown for selected donor in the context of the entire dataset
 - *Dynamic Insulin* Responses can be shown with or without normalisation to baseline
 - *Mitochondrial Function* (oxygen consumption by Seahorse assay) can be shown with or without normalisation to DNA and baseline
 
-## Feature View [<img src="logo3.png" alt="Logo" style="width:18px; height:18px;">](https://dev.humanislets.com)
+### Phenotype View [<img src="logo2.png" alt="Logo" style="width:18px; height:18px;">](https://dev.humanislets.com/meta)
+
+The Phenotype View lets users probe relationships among the 198 phenotype variables in the database (donor characteristics, isolation outcomes, secretion, mitochondrial function, perifusion, electrophysiology) without selecting any omics type. The page has a left-hand menu with three options:
+
+- **Overview** — donor-level visualization across phenotype variables, with a *Visual Filter* control (None / Donor / Phenotype) that lets users narrow the cohort by selecting specific donors or by setting phenotype-value criteria. The filtered donor list can be exported as a downloadable list for use elsewhere in the platform.
+- **Correlation** — an interactive chord diagram showing pairwise correlations among phenotype variables. Users set a correlation cutoff (default 0 to ±1 with 0.01 resolution) to control which pairs appear; clicking a ribbon between two variables opens the underlying scatter plot for that pair. The legend lets users toggle whole variable groups on and off.
+- **Phenotype PCA** — Probabilistic PCA (PPCA) on the phenotype matrix, surfacing the dominant patterns and outlier donors. PPCA is used (rather than standard PCA) because it handles the missing-value pattern typical of phenotype data. A *Color by* selector lets users colour the donor points by any metadata variable.
+
+
+
+### Cluster Explorer [<img src="logo2.png" alt="Logo" style="width:18px; height:18px;">](https://dev.humanislets.com/aidemo)
+
+The Cluster Explorer presents a multi-omics-derived stratification of the cohort into five donor subgroups. The underlying clustering uses a multi-view Variational Autoencoder (VAE) trained on bulk RNA-seq and proteomics for the 387 donors with at least one of those omics; cluster labels are then extended to the 238 remaining donors using a LightGBM classifier trained on unbiased demographic and isolation features. The full pipeline (architecture, training, classifier extension, stability metrics) is described in chapter 5. The sidebar entry is "Cluster Explorer"; the page itself is titled **Donor Explorer**.
+
+**Results layout.** The page is organized into three top-level sections plus two modal dialogs:
+
+1. **Donor UMAP Embedding + Donor Clusters** (side by side).
+    - *Left:* a UMAP embedding of all donors, with a *Color by* selector (any phenotype) and a 2D / 3D dimension toggle. Network edges connect each donor to its 5 nearest neighbours in UMAP space; cross-cluster dashed edges link the closest donor pairs between clusters. Node size reflects connection degree.
+    - *Right:* a scrollable list of cluster cards with a *Compare* action that opens the per-cluster detail page.
+2. **Donor Explorer**.
+    - A donor-selection dropdown (currently 233 donors available for detailed inspection).
+    - *Donor Details* — selected donor's age, BMI, HbA1c, diabetes diagnosis, sex, cluster assignment, and omics/predicted badge.
+    - *Donor vs Cluster Comparison* — per-phenotype Z-scores and percentiles for the donor against their cluster (showing only phenotypes deviating by > 0.8 SD).
+    - *Similar Donors* — ranked list of the most similar donors with similarity bars and cluster affiliation; for donors with omics this is cosine similarity in the VAE fused latent space, for predicted-only donors it is cluster probability agreement.
+3. **Cluster-Phenotype Enrichments** (heatmap).
+    - A heatmap of phenotype effect sizes (Cohen's *d*) per cluster vs. rest, with tabs for *Omics only*, *All donors*, and (when available) a *3-view* split.
+    - Clicking a cell opens an *Enrichment Detail* side panel with the cluster/phenotype names, effect size with directional arrow, *p*-value badge, cluster demographics, and related enrichments.
+
+The page also surfaces two modal dialogs on demand: an **AI Insight Dialog** (cluster analysis summary, phenotypes grouped by category, top 10 DE genes, AI interpretation) and a **Similarity Breakdown Dialog** for any selected donor pair (per-view breakdown bars for omics, most-similar-phenotype comparison table).
+
+**Per-cluster detail page** (reached from any cluster card on the right, route `/cluster-detail/:id`). Each cluster has its own page with these sections in order:
+
+- **Header** — cluster name (e.g. *C1*), donor count, omics/predicted breakdown, and an *AI Interpretation* button (the AI summary appears inline when generated).
+- **Demographics** — stat cards (Avg Age, Avg BMI, % Male, Avg HbA1c).
+- **Diagnosis Breakdown** — badges with diagnosis label and count.
+- **Data Availability** — badges listing omics modalities present in the cluster with their coverage (X / N donors).
+- **Phenotype Enrichment** — paginated table of phenotype variables with the cluster's effect direction, effect size, *p*-value, adjusted *p*-value, and per-cluster vs. outside means. Only *held-out* phenotype features are tested so that variables used as classifier input are excluded.
+- **Differential Expression** — paginated table of RNA-seq and proteomics features with direction, log₂FC, *t*-statistic, raw *p*, and adjusted *p*. Filter buttons let users restrict by modality or to significant only.
+- **Enriched Pathways** — paginated table from pre-ranked GSEA (KEGG 2021, Reactome 2022, GO MF 2023; pre-ranked GSEA with `limma` *t*-statistic ranking; raw *p* < 0.05 shown), with direction (↑ enriched in up-regulated, ↓ in down-regulated) and a clickable gene list.
+- **Explore Further** — navigation cards linking to Omics Analysis, Multi-Omics (WGCNA), Metabolic Atlas, Knowledge Search, and Cluster Comparison.
+
+**Cluster Comparison page** (route `/cluster-compare`, reached either from a single cluster's *Explore Further → Cluster Comparison* card or directly from any cluster card's *Compare* action). Users pick **two clusters to compare** side by side and the page produces:
+
+- A **Phenotype Radar** plot summarising how the two clusters differ across the platform's phenotype variables.
+- A **Significant Phenotype Differences** table listing the phenotypes that differ at *p* < 0.05 between the two clusters, with the effect direction (*Enriched in C1* / *Enriched in C2*).
+- A **Pairwise DE Genes** table listing the differentially expressed genes/proteins between the two clusters (*p* < 0.05), with filters for *RNA-seq* / *Proteomics* and a Source / Term filter for pathway-enrichment annotations.
+- A toggle to restrict the comparison to *Omics Only* donors (those who contributed to the VAE) versus *All Donors* (including phenotype-classifier-extended donors), so users can see whether a comparison is driven by the omics evidence directly.
+
+
+
+## Search & Discovery
+
+The Search & Discovery block groups feature-centric and entity-centric exploration: ask a question about a gene/phenotype, or jump from one feature to all its associations.
+
+### Knowledge Search [<img src="logo4.png" alt="Logo" style="width:18px; height:18px;">](https://dev.humanislets.com/kg-search)
+
+The Knowledge Search page lets users query any gene, protein, metabolite, reaction, or phenotype and returns integrated evidence about the entity. Users can either type a free-form natural-language question (e.g. *"What does TCF7L2 do in beta cells?"*) or enter a single symbol and the page resolves it to the right entity automatically.
+
+**Results layout.** The page opens with the search bar plus a row of example-question chips users can click as starter queries. After a query is run, the result renders as a tabbed card; the tab set depends on the kind of entity that was queried:
+
+- **Gene result — 4 tabs**: *Knowledge Graph Findings*, *Findings from Our Cohort*, *External Validation*, *AI Interpretation*.
+- **Phenotype / Pathway / Reaction / Metabolite / Contaminant result — 3 tabs**: *Knowledge Graph Findings*, *Findings from Our Cohort*, *AI Interpretation* (External Validation is folded into the KG / Cohort tabs for these entity types).
+- **Question result (free-form NL question) — 3 tabs**: same trio plus an inline AI-suggestion banner above the tabs when the cohort can't match the question directly, offering suggested cohort-mode chips, GWAS chips, and general/research-area chips to refine the question.
+
+**What each tab shows** (gene example; other entity types use the same conventions):
+
+- **Knowledge Graph Findings** — disease associations (from PrimeKG), drug interactions (DrugBank/PrimeKG), biological pathways (Reactome/PrimeKG), Gene Ontology terms (biological process + molecular function), tissue expression with islet/pancreas highlighted, gene regulatory edges from Hetionet (with direction colour-coded), environmental exposures (CTD), and curated + on-demand literature evidence from PubMed/PubTator 3. Each item is clickable and drills into related entities.
+- **Findings from Our Cohort** — the gene's detection across HumanIslets omics datasets; direct phenotype correlations (with FDR/raw threshold radio + slider + *Apply*); multivariate predictors (with filter sliders for |importance|, model quality, and minimum number of methods); KEGG pathway annotations as a chip cloud; metabolic reactions from the GEM with high- and low-glucose flux; and the donor-subgroup (VAE cluster) context.
+- **External Validation** (gene only) — database annotations (GWAS, NHGRI-EBI GWAS Catalog, local cohort QTL, TIGER islet eQTL, GTEx v8 eGene), a collapsible GWAS evidence tree (T2D / T1D / beta-cell trait groups with HuGE scores and a variants table), local cohort QTL details, TIGER islet eQTL details, and GTEx eGene tissue table.
+- **AI Interpretation** — a generated natural-language summary of the above evidence. Explicitly framed as a *hypothesis-generation* aid for users to verify against the cited evidence and primary literature, not as a stand-alone authority.
+
+How the knowledge graph is built and what external sources feed each tab is documented in chapter 6 (Knowledge Graph).
+
+The page is currently labelled **BETA** while we collect feedback on the AI synthesis quality.
+
+### Feature View [<img src="logo3.png" alt="Logo" style="width:18px; height:18px;">](https://dev.humanislets.com/feature)
 
 Instead of performing an ‘Omics Analysis’ focused on a particular omics type and metadata variable, users can search for a feature of interest and pull up ALL associations for that particular feature of interest, corrected for common covariates (see section 5.4, below). Searchable features include genes/proteins and also metadata variable. This allows rapid interrogation of precomputed results across all datasets.
 
 Searching for a gene/protein feature generates a table of results ranked by adjusted p-value. Searching for a metadata variable (e.g. BMI) generates a table of feature (gene/protein) results across all omics datasets, ranked by adjusted p-value. Clicking on rows and external links brings up categorical or scatterplots of the association, external pages for the feature of interest, or single-cell RNAseq expression for that feature. Because a large number of associations can be displayed, filtering of the metadata or omics type is enabled by clicking on the column title.
 
-## Data download [<img src="logo4.png" alt="Logo" style="width:18px; height:18px;">](https://dev.humanislets.com)
+## Data Download
+
+The Data Download page is a standalone top-level entry in the sidebar; it does not belong to one of the analytical categories above.
+
+### Data download [<img src="logo4.png" alt="Logo" style="width:18px; height:18px;">](https://dev.humanislets.com/download)
 
 All data at HumanIslets.com is available for download. Donors of interest can be filtered by Donor Characteristics (see section 3.1) and/or data availability. Advanced filters allow selection of donors of interest by any metadata available. Donors of interest can also be selected by uploading a list of donor IDs (for example, donor IDs obtained from a particular Omics Analysis). Data can be downloaded as Comma separated values (.csv), text (.txt), R object (.rds), or in Excel format (.xlsx) within a zip file. To perform data download:
 
@@ -61,30 +201,4 @@ All data at HumanIslets.com is available for download. Donors of interest can be
     c. The distribution of datasets selected, compared with the entire database, can be shown by clicking ‘Summary’
 4. Click ‘Download’
 
-
-## Phenotype View [<img src="logo3.png" alt="Logo" style="width:18px; height:18px;">](https://dev.humanislets.com/meta)
-
-The Phenotype View lets users probe relationships among the 198 phenotype variables in the database (donor characteristics, isolation outcomes, secretion, mitochondrial function, perifusion, electrophysiology). Pairwise correlation heatmaps, scatter/box plots, and Spearman/Pearson correlations are available without selecting any omics type. *(Added 2025-07.)*
-
-## Multi-Omics Analysis [<img src="logo1.png" alt="Logo" style="width:18px; height:18px;">](https://dev.humanislets.com/multiomics)
-
-Integrative analyses across two or three omics types using three methods:
-
-- **WGCNA** — builds co-expression modules within each omics layer, then correlates module eigengenes across omics to surface cross-layer signal (unsupervised).
-- **MOFA** — matrix factorization learning shared latent factors across omics layers (unsupervised).
-- **DIABLO** — supervised integration finding correlated features across omics that best discriminate two sample groups; requires a primary metadata variable.
-
-Inputs are the same omics tables used elsewhere on the site; outputs include cross-omics correlation tables, module/factor summaries, Sankey flow diagrams, and downloadable feature lists. *(Added 2025-10.)*
-
-## Cluster Explorer [<img src="logo2.png" alt="Logo" style="width:18px; height:18px;">](https://dev.humanislets.com/cluster-compare)
-
-Donors are stratified into subgroups using a Variational Autoencoder (VAE) trained on multi-omics data, then extended to all 626 donors via a phenotype-based classifier. The Cluster Explorer view shows each cluster's distinctive phenotype and omics profile; per-cluster detail pages report module enrichments, characteristic features, and external validation. *(Added 2026-01.)*
-
-## Metabolic Atlas [<img src="logo3.png" alt="Logo" style="width:18px; height:18px;">](https://dev.humanislets.com/atlas)
-
-An interactive metro-map visualization of genome-scale metabolic flux (Human1-based GEM, 2,771 reactions across 375 donors). Subsystems render as colored "metro lines" with metabolite "stations". Flux data from low- vs. high-glucose conditions can be overlaid via colour or animated particle flow, and omics layers (gene/protein expression) can be projected onto the network to contextualize molecular measurements within metabolism. *(Added 2025-08.)*
-
-## Knowledge Search [<img src="logo4.png" alt="Logo" style="width:18px; height:18px;">](https://dev.humanislets.com/kg-search)
-
-A query interface combining three evidence sources: (i) a curated knowledge graph linking genes, proteins, pathways, reactions, phenotypes, and donor clusters with external validation from QTL databases and the T2D Knowledge Portal; (ii) cohort statistics computed from the HumanIslets donor data; and (iii) an AI-generated synthesis layered on top. Users can search a gene/protein/metabolite/reaction symbol or a phenotype and explore the integrated evidence. *(Added 2026-02; currently labelled BETA.)*
 

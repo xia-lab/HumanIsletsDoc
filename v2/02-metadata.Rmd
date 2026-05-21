@@ -64,19 +64,19 @@ For earlier donors, only ‘total exocytosis’ in response to a series of 10 me
 
 ## Prohormone Expression
 
-*Current coverage: 126 donors.* *(Added 2025-02.)*
+*Current coverage: 126 donors.*
 
-Prohormone expression measurements (insulin, glucagon and processing intermediates) are provided for islets from a subset of donors. Data appear in the Donor View as a dedicated tab. *Detailed protocol to be added in a follow-up update.*
+Prohormone expression measurements (insulin, glucagon and processing intermediates) are contributed by the lab of Dr. Bruce Verchere (University of British Columbia) and appear in the Donor View as a dedicated tab. <span style="color:#b00020; font-weight:600;">[Author to double-check protocol details — methodology from a forthcoming Verchere-lab publication.]</span>
 
 ## Ancestry
 
-*Current coverage: 404 donors.* *(Added 2024-12.)*
+*Current coverage: 404 donors.*
 
 Genetic ancestry is inferred using the Gloyn-lab [GeneticAncestry pipeline](https://github.com/gloynlab/GeneticAncestry). Primary ancestry probabilities are reported on the outer ring and secondary (sub-ancestry) probabilities on the inner ring, aligned with the 1000 Genomes Project primary populations. See the [1000 Genomes population descriptions](https://www.internationalgenome.org/dataportal/population) for the reference panels used.
 
 ## Genetic Risk Scores
 
-*Current coverage: 404 donors.* *(Added 2024-12.)*
+*Current coverage: 404 donors.*
 
 Polygenic risk scores are reported for both type 1 and type 2 diabetes.
 
@@ -90,7 +90,7 @@ Both ancestry and GRS data were contributed by the lab of Dr. Anna Gloyn (Stanfo
 
 *Current coverage: 149 donors.*
 
-Lipid extraction is performed on whole pancreas samples (not isolated islets) for a subset of donors. Data appear in the Donor View as a dedicated tab. *Detailed protocol to be added in a follow-up update.*
+Lipid extraction is performed on whole pancreas samples (not isolated islets) for a subset of donors, contributed by the lab of Dr. Erin Mulvihill (University of Ottawa). Data appear in the Donor View as a dedicated tab. <span style="color:#b00020; font-weight:600;">[Author to double-check protocol details — methodology from a forthcoming Mulvihill-lab publication.]</span>
 
 
 

@@ -51,20 +51,36 @@ Data are from the NCBI Gene Expression Omnibus (GEO) and Sequence Read Archive (
 
 ## Metabolomics
 
-*Current coverage: 215 metabolite features across 43 donors, measured at low (2.8 mM) and high (16.7 mM) glucose, with ratio also reported.* *(Added 2024-10; expanded 2026-02.)*
+*Current coverage: 215 annotated metabolite features across 43 donors, measured at low (2.8 mM) and high (16.7 mM) glucose, with ratio also reported.*
 
-Metabolomics profiling is performed on islet samples collected at the ADI IsletCore. Compounds are reported at the metabolite-ratio level and grouped by main class, sub class, and HMDB ID. *Detailed protocol and methods to be added in a follow-up update.*
+Metabolomics samples are collected on islets handled at the ADI IsletCore and analysed by liquid chromatography–mass spectrometry. Raw mzML spectra are acquired across two batches (B1 and B2) in both positive- and negative-ion modes. Peak picking is performed with **Asari** (xialab's open-source MS preprocessor), producing per-mode preferred feature tables and a feature-level annotation file. Feature tables are then processed in **MetaboAnalyst** (xialab's metabolomics platform; see https://www.metaboanalyst.ca/).
+
+Post-processing of the MetaboAnalyst output is implemented in a custom R pipeline:
+
+- **Blank filtering** — features that are not appreciably elevated over process blanks are dropped.
+- **Detection (QC) filtering** — features whose intensity is unstable across pooled QC injections are dropped.
+- **Normalization** — median normalisation (each sample divided by its median feature intensity) followed by log transform.
+- **Batch correction** — the production pipeline uses **ComBat** (parametric empirical Bayes, `sva` R package), with donor diabetes status included as a protected covariate so the inter-batch correction preserves biological T2D-versus-no-diabetes signal. Three alternatives were benchmarked during method selection — WaveICA 2.0 (wavelet + ICA, no batch labels required), QC-RLSC (QC-based LOESS signal correction), and median-only — and ComBat-with-diagnosis was selected on the basis of PCA separation and downstream replicability.
+- **MS2 annotation** — once corrected, the feature tables are merged with MS2-level annotations (HMDB IDs, main class, sub class) to produce the final 215 annotated metabolites surfaced in the platform.
+
+Positive- and negative-mode results are combined into a single donor × metabolite matrix at low glucose, high glucose, and as the HG/LG log-ratio.
 
 ## Environmental Contaminants
 
-*Current coverage: 234 contaminant features across 34 donors. Some entries gated to authorized users pending publication.* *(Added 2025-04.)*
+*Current coverage: 234 contaminant features across 34 donors. Some entries gated to authorized users pending publication.*
 
-Environmental chemical contaminants are quantified in islet and tissue samples. Because contaminant data are typically zero-inflated and non-normal, in-tool analyses use Kendall rank correlation (partial Kendall when covariates are supplied) rather than the moderated-t approach used for transcriptomics/proteomics. *Detailed protocol and provider information to be added in a follow-up update.*
+Environmental chemical contaminants are quantified in islet and tissue samples by the lab of Dr. Jenny Bruin (Carleton University). Because contaminant data are typically zero-inflated and non-normal, in-tool analyses use Kendall rank correlation (partial Kendall when covariates are supplied) rather than the moderated-*t* approach used for transcriptomics/proteomics; see chapter 5 (Kendall rank correlation) for details. The detailed measurement and quality-control protocol is described in Hoyeck et al. (2026) *Nature Communications*, [doi:10.1038/s41467-026-71847-5](https://doi.org/10.1038/s41467-026-71847-5). <span style="color:#b00020; font-weight:600;">[Author to double-check this summary against the Hoyeck 2026 paper for accuracy.]</span>
 
 ## Metabolic Flux
 
-*Current coverage: 2,771 reactions at high glucose (2,775 at low glucose; 2,765 in ratio form) across 375 donors.* *(Added 2025-10.)*
+*Current coverage: 2,771 reactions at high glucose (2,775 at low glucose; 2,765 in ratio form) across 375 donors.*
 
-Donor-specific genome-scale metabolic models (GEMs) are built using the tINIT algorithm, integrating each donor's bulk RNA-seq profile into the Human1 generic metabolic reconstruction. Flux is inferred via Flux Variability Analysis (FVA) at 90% optimality combined with OptGP flux sampling, with ATP hydrolysis as the objective function. Each donor is simulated at low (2.8 mM, fasting) and high (16.7 mM, post-meal) glucose; the ratio captures glucose responsiveness at the metabolic level. *Full methods to be added in a follow-up update.*
+Donor-specific genome-scale metabolic models (GEMs) are built from the **Human-GEM v1.19.0** reconstruction and loaded into COBRApy from per-donor MATLAB-format model files. ATP hydrolysis (Human-GEM reaction `MAR03964`) is set as the cellular objective. The platform simulates two glucose conditions and two media compositions:
+
+- **Low glucose (LG):** glucose uptake bounded at 2 mM (`–2.0` flux on the glucose exchange).
+- **High glucose (HG):** glucose uptake bounded at 10 mM (`–10.0`).
+- Both conditions are simulated under glucose-only media and under glucose plus amino-acid supplementation (with fixed uptake rates for glutamine, alanine, serine, etc.); the amino-acid scenario opens alternative carbon entry into the TCA cycle.
+
+For each donor × condition, **Flux Variability Analysis (FVA)** is run on the entire reaction network at a 90% optimality fraction; the platform stores the FVA minimum, maximum, centre, and span per reaction. **OptGP flux sampling** (5,000 samples, thinning = 100) is run on top of FVA to capture the achievable flux distribution; from the samples the pipeline records the mean, median, standard deviation, and 25/75% quartiles per reaction. Per-reaction flux values are signed-log2 transformed and z-scored within each donor before being loaded into the analysis tables so the downstream limma model sees comparable distributions across reactions. The HG/LG ratio table stores the per-reaction log-ratio between high glucose and low glucose conditions, capturing each donor's glucose responsiveness at the flux level.
 
 
