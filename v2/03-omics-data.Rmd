@@ -53,7 +53,7 @@ Data are from the NCBI Gene Expression Omnibus (GEO) and Sequence Read Archive (
 
 *Current coverage: 215 annotated metabolite features across 43 donors, measured at low (2.8 mM) and high (16.7 mM) glucose, with ratio also reported.*
 
-Metabolomics samples are collected on islets handled at the ADI IsletCore and analysed by liquid chromatography–mass spectrometry. Raw mzML spectra are acquired across two batches (B1 and B2) in both positive- and negative-ion modes. Peak picking is performed with **Asari** (xialab's open-source MS preprocessor), producing per-mode preferred feature tables and a feature-level annotation file. Feature tables are then processed in **MetaboAnalyst** (xialab's metabolomics platform; see https://www.metaboanalyst.ca/).
+Metabolomics samples are collected on islets handled at the ADI IsletCore under the same two glucose conditions used elsewhere in the platform — **low glucose (LG, 2.8 mM)** and **high glucose (HG, 16.7 mM)** — so that metabolite intensities can be compared at fasting-like versus stimulation-like conditions and an HG/LG ratio can be reported alongside each absolute value. Samples are analysed by liquid chromatography–mass spectrometry. Raw mzML spectra are acquired across two batches (B1 and B2) in both positive- and negative-ion modes. Peak picking is performed with **Asari** (xialab's open-source MS preprocessor), producing per-mode preferred feature tables and a feature-level annotation file. Feature tables are then processed in **MetaboAnalyst** (xialab's metabolomics platform; see https://www.metaboanalyst.ca/).
 
 Post-processing of the MetaboAnalyst output is implemented in a custom R pipeline:
 
@@ -77,8 +77,8 @@ Environmental chemical contaminants are quantified in islet and tissue samples b
 
 Donor-specific genome-scale metabolic models (GEMs) are built from the **Human-GEM v1.19.0** reconstruction and loaded into COBRApy from per-donor MATLAB-format model files. ATP hydrolysis (Human-GEM reaction `MAR03964`) is set as the cellular objective. The platform simulates two glucose conditions and two media compositions:
 
-- **Low glucose (LG):** glucose uptake bounded at 2 mM (`–2.0` flux on the glucose exchange).
-- **High glucose (HG):** glucose uptake bounded at 10 mM (`–10.0`).
+- **Low glucose (LG):** approximately 2.8 mM (the glucose exchange reaction is bounded at −2.0 flux units, matching the GSIS / perifusion / metabolomics LG condition).
+- **High glucose (HG):** approximately 16.7 mM (glucose exchange bounded at −10.0 flux units, matching the platform's HG stimulation condition).
 - Both conditions are simulated under glucose-only media and under glucose plus amino-acid supplementation (with fixed uptake rates for glutamine, alanine, serine, etc.); the amino-acid scenario opens alternative carbon entry into the TCA cycle.
 
 For each donor × condition, **Flux Variability Analysis (FVA)** is run on the entire reaction network at a 90% optimality fraction; the platform stores the FVA minimum, maximum, centre, and span per reaction. **OptGP flux sampling** (5,000 samples, thinning = 100) is run on top of FVA to capture the achievable flux distribution; from the samples the pipeline records the mean, median, standard deviation, and 25/75% quartiles per reaction. Per-reaction flux values are signed-log2 transformed and z-scored within each donor before being loaded into the analysis tables so the downstream limma model sees comparable distributions across reactions. The HG/LG ratio table stores the per-reaction log-ratio between high glucose and low glucose conditions, capturing each donor's glucose responsiveness at the flux level.
