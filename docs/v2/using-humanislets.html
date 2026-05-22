@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 2 Using HumanIslets.com | Human Islets (v2)</title>
+  <title>Chapter 2 Using HumanIslets.com | HumanIslets.com (v2)</title>
   <meta name="description" content="This is the documentation for HumanIslets 2.0." />
   <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 2 Using HumanIslets.com | Human Islets (v2)" />
+  <meta property="og:title" content="Chapter 2 Using HumanIslets.com | HumanIslets.com (v2)" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="This is the documentation for HumanIslets 2.0." />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 2 Using HumanIslets.com | Human Islets (v2)" />
+  <meta name="twitter:title" content="Chapter 2 Using HumanIslets.com | HumanIslets.com (v2)" />
   
   <meta name="twitter:description" content="This is the documentation for HumanIslets 2.0." />
   
@@ -76,6 +76,22 @@
   }
 </style>
 
+<script>
+  // Make every external link (http/https) open in a new tab.
+  // Internal navigation (relative anchors and same-domain chapter links) is unaffected.
+  document.addEventListener('DOMContentLoaded', function() {
+    var host = window.location.host;
+    document.querySelectorAll('a[href^="http://"], a[href^="https://"]').forEach(function(a) {
+      var url;
+      try { url = new URL(a.href); } catch (e) { return; }
+      if (url.host && url.host !== host) {
+        a.setAttribute('target', '_blank');
+        a.setAttribute('rel', 'noopener noreferrer');
+      }
+    });
+  });
+</script>
+
 
 
 <style type="text/css">
@@ -96,7 +112,7 @@
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">Human Islets (v2)</a></li>
+<li><a href="./">HumanIslets.com (v2)</a></li>
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> General Introduction</a>
@@ -157,6 +173,7 @@
 <li class="chapter" data-level="4.7" data-path="overview-of-omics-data-types.html"><a href="overview-of-omics-data-types.html#metabolomics"><i class="fa fa-check"></i><b>4.7</b> Metabolomics</a></li>
 <li class="chapter" data-level="4.8" data-path="overview-of-omics-data-types.html"><a href="overview-of-omics-data-types.html#environmental-contaminants"><i class="fa fa-check"></i><b>4.8</b> Environmental Contaminants</a></li>
 <li class="chapter" data-level="4.9" data-path="overview-of-omics-data-types.html"><a href="overview-of-omics-data-types.html#metabolic-flux"><i class="fa fa-check"></i><b>4.9</b> Metabolic Flux</a></li>
+<li class="chapter" data-level="4.10" data-path="overview-of-omics-data-types.html"><a href="overview-of-omics-data-types.html#dna-methylation"><i class="fa fa-check"></i><b>4.10</b> DNA Methylation</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="overview-of-statistical-analysis-methods.html"><a href="overview-of-statistical-analysis-methods.html"><i class="fa fa-check"></i><b>5</b> Overview of statistical analysis methods</a>
 <ul>
@@ -203,7 +220,7 @@
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Human Islets (v2)</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">HumanIslets.com (v2)</a>
           </h1>
         </div>
 
@@ -222,7 +239,7 @@
 <p>The Omics block holds the analyses that operate primarily on feature-level molecular data: differential-expression-style omics analysis, multi-omics integration, and the genome-scale flux atlas.</p>
 <div id="omics-view-individual-omics-analysis" class="section level3 hasAnchor" number="2.1.1">
 <h3><span class="header-section-number">2.1.1</span> Omics View — individual omics analysis <a href="https://dev.humanislets.com/omics"><img src="logo1.png" alt="Logo" style="width:18px; height:18px;"></a><a href="using-humanislets.html#omics-view-individual-omics-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>HumanIslet.com presently includes information from 626 human research islet isolations that includes donor and technical metadata, islet and islet cell function, and omics. Omics datasets include bulk proteomics, bulk RNAseq, gene panels (Nanostring), patch-seq, and pseudobulk RNAseq for alpha- and beta-cells. Omics-metadata relationships can be analysed by:</p>
+<p>HumanIslet.com presently includes information from 625 human research islet isolations that includes donor and technical metadata, islet and islet cell function, and omics. Omics datasets include bulk proteomics, bulk RNAseq, gene panels (Nanostring), patch-seq, and pseudobulk RNAseq for alpha- and beta-cells. Omics-metadata relationships can be analysed by:</p>
 <ol style="list-style-type: decimal">
 <li>Selecting the ‘Omics Type’ of interest</li>
 <li>Selecting the ‘Primary Metadata’ to be analysed, and ‘Comparison of Interest’ if applicable</li>
@@ -331,7 +348,7 @@
 <p>The Donor &amp; Phenotype block groups the views that browse the cohort at the donor level: per-donor profiles, phenotype-only exploration, and multi-omics-derived donor stratification.</p>
 <div id="donor-view" class="section level3 hasAnchor" number="2.2.1">
 <h3><span class="header-section-number">2.2.1</span> Donor View <a href="https://dev.humanislets.com/donor"><img src="logo2.png" alt="Logo" style="width:18px; height:18px;"></a><a href="using-humanislets.html#donor-view" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>The Donor View page allows examination of individual donor, islet isolation, and functional data from each of 626 donors currently in the HumanIslets.com database. Donors can be searched by ADI IsletCore Donor ID or Research Resource ID (RRID). Data categories can be selected from the left-hand menu, organized into four groups: <em>Metadata</em> (Donor Information, Isolation Information); <em>Genetic Variables</em> (Ancestry, Genetic Risk Score); <em>Insulin Secretion</em> (Static GSIS plus separate Dynamic Insulin Response views for Glucose, Leucine, and Palmitate); and <em>Other</em> (Prohormone Expression, Mitochondrial Function, Single-cell electrophysiology, Pancreas Lipid Extraction, and Omics Availability). These metadata are described in detail in chapters 3 and 4, below.</p>
+<p>The Donor View page allows examination of individual donor, islet isolation, and functional data from each of 625 donors currently in the HumanIslets.com database. Donors can be searched by ADI IsletCore Donor ID or Research Resource ID (RRID). Data categories can be selected from the left-hand menu, organized into four groups: <em>Metadata</em> (Donor Information, Isolation Information); <em>Genetic Variables</em> (Ancestry, Genetic Risk Score); <em>Insulin Secretion</em> (Static GSIS plus separate Dynamic Insulin Response views for Glucose, Leucine, and Palmitate); and <em>Other</em> (Prohormone Expression, Mitochondrial Function, Single-cell electrophysiology, Pancreas Lipid Extraction, and Omics Availability). These metadata are described in detail in chapters 3 and 4, below.</p>
 <p>Typically, data is shown for selected donor in the context of the entire dataset, allowing for easy inspection and determination of whether a donor falls within the normal range of the population. A few points that are worth noting here:</p>
 <ul>
 <li><em>Donor Information</em> shows the RRID if available. Clicking on this will link out to the NCBI Biosample page for this donor</li>

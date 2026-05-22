@@ -6,7 +6,7 @@ bookdown::gitbook:
   config:
     toc:
       before: |
-        <li><a href="./">Human Islets (v2)</a></li>
+        <li><a href="./">HumanIslets.com (v2)</a></li>
 
     edit: https://github.com/xia-lab/HumanIsletsDoc/blob/main/v2/%s
     download: ["pdf", "epub"]

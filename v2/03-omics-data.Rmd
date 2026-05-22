@@ -83,4 +83,10 @@ Donor-specific genome-scale metabolic models (GEMs) are built from the **Human-G
 
 For each donor × condition, **Flux Variability Analysis (FVA)** is run on the entire reaction network at a 90% optimality fraction; the platform stores the FVA minimum, maximum, centre, and span per reaction. **OptGP flux sampling** (5,000 samples, thinning = 100) is run on top of FVA to capture the achievable flux distribution; from the samples the pipeline records the mean, median, standard deviation, and 25/75% quartiles per reaction. Per-reaction flux values are signed-log2 transformed and z-scored within each donor before being loaded into the analysis tables so the downstream limma model sees comparable distributions across reactions. The HG/LG ratio table stores the per-reaction log-ratio between high glucose and low glucose conditions, capturing each donor's glucose responsiveness at the flux level.
 
+## DNA Methylation
+
+*Coming soon &mdash; data forthcoming from collaborators in Singapore.*
+
+Donor islet DNA methylation profiling will be added to the platform once the data are received from our Singapore-based collaborators. Methods, donor coverage, and analysis options will be added to this section at that time.
+
 

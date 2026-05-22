@@ -63,7 +63,7 @@ The HumanIslets cohort's own pre-computed associations:
 - Omics feature → phenotype variable associations (the same tables that drive the Feature View; see chapter 5).
 - QTL evidence computed within the HumanIslets donor cohort.
 
-This is the layer that turns a public-knowledge query into a HumanIslets-specific answer (e.g. "how is this gene associated with phenotypes in our 626-donor cohort?").
+This is the layer that turns a public-knowledge query into a HumanIslets-specific answer (e.g. "how is this gene associated with phenotypes in our 625-donor cohort?").
 
 ### Layer 4 — RAG cache
 
