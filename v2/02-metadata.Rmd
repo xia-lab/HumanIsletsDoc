@@ -44,7 +44,7 @@ Following isolation, islets are cultured prior to shipment and sample collection
 
 *Current coverage: 508 donors.*
 
-On the day of sample collection (see section 2.5, above) islets are handpicked to 100% purity and cultured overnight at 37°C with 5% CO2. In triplicates, 15 hand-picked islets from each donor are pre-incubated at low glucose for 2 x 1 hours consecutively, and then sequentially treated with low glucose for 1 hour followed by high glucose 1 hour. Collected supernatant for low glucose, high glucose or insulin content are measured by ELISA (ALPCO STELLUX Chemiluminescence). For each donor, there are multiple glucose combinations that are used. Experimental details can be found [here](https://www.protocols.io/view/static-glucose-stimulated-insulin-secretion-gsis-p-n2bvjkzxgk5w/v3). Glucose pairs are:
+On the day of sample collection (see section 3.5, above) islets are handpicked to 100% purity and cultured overnight at 37°C with 5% CO2. In triplicates, 15 hand-picked islets from each donor are pre-incubated at low glucose for 2 x 1 hours consecutively, and then sequentially treated with low glucose for 1 hour followed by high glucose 1 hour. Collected supernatant for low glucose, high glucose or insulin content are measured by ELISA (ALPCO STELLUX Chemiluminescence). For each donor, there are multiple glucose combinations that are used. Experimental details can be found [here](https://www.protocols.io/view/static-glucose-stimulated-insulin-secretion-gsis-p-n2bvjkzxgk5w/v3). Glucose pairs are:
 
 1. 1mM → 10mM glucose
 2. 1mM → 16.7mM glucose

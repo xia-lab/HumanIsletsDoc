@@ -40,8 +40,8 @@ single-cell-gene-expression-patch-seq
 single-cell-rna-seq
 metabolomics
 environmental-contaminants
-metabolic-flux
 dna-methylation
+metabolic-flux
 overview-of-statistical-analysis-methods
 multiple-linear-regression
 spearman-ranked-correlation

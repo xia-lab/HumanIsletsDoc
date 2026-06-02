@@ -57,19 +57,38 @@ Metabolomics samples are collected on islets handled at the ADI IsletCore under 
 
 Post-processing of the MetaboAnalyst output is implemented in a custom R pipeline:
 
-- **Blank filtering** — features that are not appreciably elevated over process blanks are dropped.
-- **Detection (QC) filtering** — features whose intensity is unstable across pooled QC injections are dropped.
-- **Normalization** — median normalisation (each sample divided by its median feature intensity) followed by log transform.
-- **Batch correction** — the production pipeline uses **ComBat** (parametric empirical Bayes, `sva` R package), with donor diabetes status included as a protected covariate so the inter-batch correction preserves biological T2D-versus-no-diabetes signal. Three alternatives were benchmarked during method selection — WaveICA 2.0 (wavelet + ICA, no batch labels required), QC-RLSC (QC-based LOESS signal correction), and median-only — and ComBat-with-diagnosis was selected on the basis of PCA separation and downstream replicability.
-- **MS2 annotation** — once corrected, the feature tables are merged with MS2-level annotations (HMDB IDs, main class, sub class) to produce the final 215 annotated metabolites surfaced in the platform.
+- **Blank filtering:** features that are not appreciably elevated over process blanks are dropped.
+- **Detection (QC) filtering:** features whose intensity is unstable across pooled QC injections are dropped.
+- **Normalization:** median normalisation (each sample divided by its median feature intensity) followed by log transform.
+- **Batch correction:** the production pipeline uses **ComBat** (parametric empirical Bayes, `sva` R package), with donor diabetes status included as a protected covariate so the inter-batch correction preserves biological T2D-versus-no-diabetes signal. Three alternatives were benchmarked during method selection — WaveICA 2.0 (wavelet + ICA, no batch labels required), QC-RLSC (QC-based LOESS signal correction), and median-only — and ComBat-with-diagnosis was selected on the basis of PCA separation and downstream replicability.
+- **MS2 annotation:** once corrected, the feature tables are merged with MS2-level annotations (HMDB IDs, main class, sub class) to produce the final 215 annotated metabolites surfaced in the platform.
 
 Positive- and negative-mode results are combined into a single donor × metabolite matrix at low glucose, high glucose, and as the HG/LG log-ratio.
 
 ## Environmental Contaminants
 
-*Current coverage: 234 contaminant features across 34 donors. Some entries gated to authorized users pending publication.*
+*Current coverage: 58 contaminant measurements across 31 donors.*
 
-Environmental chemical contaminants are quantified in islet and tissue samples by the lab of Dr. Jenny Bruin (Carleton University). Because contaminant data are typically zero-inflated and non-normal, in-tool analyses use Kendall rank correlation (partial Kendall when covariates are supplied) rather than the moderated-*t* approach used for transcriptomics/proteomics; see chapter 5 (Kendall rank correlation) for details. The detailed measurement and quality-control protocol is described in Hoyeck et al. (2026) *Nature Communications*, [doi:10.1038/s41467-026-71847-5](https://doi.org/10.1038/s41467-026-71847-5). <span style="color:#b00020; font-weight:600;">[Author to double-check this summary against the Hoyeck 2026 paper for accuracy.]</span>
+Environmental contaminants were quantified in pancreas and adipose tissue samples by the lab of Dr. Jenny Bruin (Carleton University). For each donor, multiple ~5 mm cubic biopsies of pancreas and peripancreatic adipose tissue were collected and flash frozen. The frozen tissue biopsies were sent to SGS AXYS (Sidney, BC, Canada) to measure a panel of 17 dioxin/furan, 16 PCB, and 28 OCP analytes using GC-MS/MS; SGS AXYS is ISO 17025 accredited by the Canadian Association for Laboratory Accreditation. Sample concentrations were determined based on labelled surrogate standard quantification and sample weight, and were adjusted for percent recovery. Sample limits of detection (LOD) were established based on a 3:1 signal-to-background-noise ratio.
+
+Analytes that had NDR flags (defined by SGS AXYS as a peak that was detected but did not meet quantification criteria) in more than 40% of donors were excluded from the dataset. This included 2 dioxin/furans in adipose, 1 dioxin/furan in pancreas, and 2 OCPs in both adipose and pancreas, leaving a total of 57 and 58 analytes in adipose and pancreas, respectively. Analytes that passed the NDR inclusion criteria were blank-adjusted using batch-specific lab blank values (labelled "Blank adjusted" on the web tool). Data are also provided as "Blank and LOD adjusted": for these data, if a donor had a non-detect (ND) flag for an analyte that met the NDR criteria, it was assigned a value equivalent to half the batch-specific LOD for that analyte.
+
+In addition to individual analyte concentrations, arithmetic sums are provided for dioxins/furans and PCBs. For PCBs, the sums of dioxin-like (DL) PCBs, non-dioxin-like (NDL) PCBs, and all PCBs are provided.
+
+Because contaminant data are typically zero-inflated and non-normal, in-tool analyses use Kendall rank correlation (partial Kendall when covariates are supplied) rather than the moderated-*t* approach used for transcriptomics/proteomics; see chapter 5 (Kendall rank correlation) for details. The detailed measurement and quality-control protocol is described in Hoyeck et al. (2026) *Nature Communications*, [doi:10.1038/s41467-026-71847-5](https://doi.org/10.1038/s41467-026-71847-5).
+
+The first cohort for contaminant analysis includes 14 females and 17 males, with ages ranging from 25–70, BMI ranging from 12.8–40.3, and HbA1c ranging from 3.6–8.6%. Of the 31 donors, 4 were clinically diagnosed with T2D and 1 had an HbA1c in the pre-T2D range. This cohort is described in detail in Hoyeck et al. (2026) *Nature Communications*, [doi:10.1038/s41467-026-71847-5](https://doi.org/10.1038/s41467-026-71847-5). Additional environmental contaminant data on a larger cohort of donors are forthcoming.
+
+## DNA Methylation
+
+*Current coverage: 729,123 CpG sites across 50 donors (Illumina Infinium MethylationEPIC v2.0 array).*
+
+Genome-wide DNA methylation is profiled on the Illumina Infinium MethylationEPIC v2.0 (EPICv2) BeadChip, contributed by our collaborators in Singapore. Raw β-values (the methylated fraction at each probe, 0–1) are reported for 784,789 probes per donor and processed into the platform's analysis tables through a custom R pipeline:
+
+- **Probe filtering:** only cg (CpG) probes are kept (control, SNP and non-CpG probes are dropped) and sex-chromosome probes are removed; the sesame recommended EPICv2 mask (all-ancestry union at 1% minor-allele frequency) is then applied to drop poor-mapping, cross-reactive and polymorphic probes, leaving 729,123 CpG sites.
+- **Replicate collapse:** EPICv2 carries several replicate probes per CpG; these are averaged to a single value per CpG.
+- **β and M values:** both scales are stored — β (0–1, used for interpretation and display) and M = log2(β / (1 − β)), the variance-stabilised scale used for statistical testing.
+- **Annotation:** each CpG is annotated on hg38 using the Bioconductor EPICv2 annotation: genomic coordinate, UCSC RefGene gene and gene region, and CpG-island relation (Island / Shore / Shelf / OpenSea). As is typical for EPIC arrays, roughly one third of CpGs fall within a RefGene gene and the remainder lie in intergenic / open-sea regions.
 
 ## Metabolic Flux
 
@@ -82,11 +101,5 @@ Donor-specific genome-scale metabolic models (GEMs) are built from the **Human-G
 - Both conditions are simulated under glucose-only media and under glucose plus amino-acid supplementation (with fixed uptake rates for glutamine, alanine, serine, etc.); the amino-acid scenario opens alternative carbon entry into the TCA cycle.
 
 For each donor × condition, **Flux Variability Analysis (FVA)** is run on the entire reaction network at a 90% optimality fraction; the platform stores the FVA minimum, maximum, centre, and span per reaction. **OptGP flux sampling** (5,000 samples, thinning = 100) is run on top of FVA to capture the achievable flux distribution; from the samples the pipeline records the mean, median, standard deviation, and 25/75% quartiles per reaction. Per-reaction flux values are signed-log2 transformed and z-scored within each donor before being loaded into the analysis tables so the downstream limma model sees comparable distributions across reactions. The HG/LG ratio table stores the per-reaction log-ratio between high glucose and low glucose conditions, capturing each donor's glucose responsiveness at the flux level.
-
-## DNA Methylation
-
-*Coming soon &mdash; data forthcoming from collaborators in Singapore.*
-
-Donor islet DNA methylation profiling will be added to the platform once the data are received from our Singapore-based collaborators. Methods, donor coverage, and analysis options will be added to this section at that time.
 
 
