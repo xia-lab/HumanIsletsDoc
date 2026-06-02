@@ -350,7 +350,7 @@
 <ul>
 <li><strong>KEGG human metabolite-centred pathways:</strong> KEGG pathways organised around the participating metabolites rather than the catalysing enzymes.</li>
 <li><strong>Human1 GEM reactions grouped by participating metabolite:</strong> useful when ranking metabolite-feature association results into the broader metabolic context.</li>
-<li><strong>Human1 GEM reactions grouped by metabolic subsystem</strong> (e.g., glycolysis, TCA cycle, amino-acid metabolism) — the most commonly used GEM library when ranking flux-feature association results.</li>
+<li><strong>Human1 GEM reactions grouped by metabolic subsystem</strong> (e.g., glycolysis, TCA cycle, amino-acid metabolism): the most commonly used GEM library when ranking flux-feature association results.</li>
 </ul>
 <p>The same <code>fgsea::fora()</code> (ORA) and <code>fgsea::fgsea()</code> (GSEA) implementations described above are used; the only thing that changes is which annotation object the library is loaded from. Path-collapse (redundancy removal) is also supported via the corresponding <code>fgsea::collapsePathways()</code> / <code>collapsePathwaysORA()</code> helpers, so users can collapse highly overlapping reaction sets when the resulting hit list is long.</p>
 </div>

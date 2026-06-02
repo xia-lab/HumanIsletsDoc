@@ -125,7 +125,7 @@ Typically, data is shown for selected donor in the context of the entire dataset
 
 - *Donor Information* shows the RRID if available. Clicking on this will link out to the NCBI Biosample page for this donor
 - *Isolation Information* also contains the current inventory of snap frozen and cryopreserved islet tubes for that donor (all donors also have paraffin embedded biopsies)
-- *Isolation Information* includes cell type composition calculated by deconvolution in donors with bulk proteomics data (see section 5.5, below)
+- *Isolation Information* includes cell type composition calculated by deconvolution in donors with bulk proteomics data (see section 5.6, below)
 - *Ancestry* renders the donor's ancestry as a donut chart with **primary ancestry on the outer ring and secondary (sub-) ancestry on the inner ring** (1000 Genomes-aligned), accompanied by tables of the underlying probabilities
 - *Genetic Risk Score* shows **T1D-GRS and T2D-GRS** separately, with a dropdown that lets users switch between published scoring models (e.g. the 67-variant Luckett 2025, GRS2-Qu 2022, and Sharp 2021 for T1D; soft- and hard-clustering partitioned T2D scores under Smith 2024 / Suzuki 2024); each model shows the donor's overall score plus a histogram of the donor's position in the cohort distribution
 - *Dynamic Insulin* Responses can be shown with or without normalisation to baseline
@@ -220,7 +220,7 @@ The page is currently labelled **BETA** while we collect feedback on the AI synt
 
 ### Feature View [<img src="logo3.png" alt="Logo" style="width:18px; height:18px;">](https://dev.humanislets.com/feature)
 
-Instead of performing an ‘Omics Analysis’ focused on a particular omics type and metadata variable, users can search for a feature of interest and pull up ALL associations for that particular feature of interest, corrected for common covariates (see section 5.4, below). Searchable features include genes/proteins and also metadata variable. This allows rapid interrogation of precomputed results across all datasets.
+Instead of performing an ‘Omics Analysis’ focused on a particular omics type and metadata variable, users can search for a feature of interest and pull up ALL associations for that particular feature of interest, corrected for common covariates (see section 5.5, below). Searchable features include genes/proteins and also metadata variable. This allows rapid interrogation of precomputed results across all datasets.
 
 Searching for a gene/protein feature generates a table of results ranked by adjusted p-value. Searching for a metadata variable (e.g. BMI) generates a table of feature (gene/protein) results across all omics datasets, ranked by adjusted p-value. Clicking on rows and external links brings up categorical or scatterplots of the association, external pages for the feature of interest, or single-cell RNAseq expression for that feature. Because a large number of associations can be displayed, filtering of the metadata or omics type is enabled by clicking on the column title.
 
