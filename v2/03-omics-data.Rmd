@@ -71,6 +71,17 @@ Positive- and negative-mode results are combined into a single donor × metaboli
 
 Environmental chemical contaminants are quantified in islet and tissue samples by the lab of Dr. Jenny Bruin (Carleton University). Because contaminant data are typically zero-inflated and non-normal, in-tool analyses use Kendall rank correlation (partial Kendall when covariates are supplied) rather than the moderated-*t* approach used for transcriptomics/proteomics; see chapter 5 (Kendall rank correlation) for details. The detailed measurement and quality-control protocol is described in Hoyeck et al. (2026) *Nature Communications*, [doi:10.1038/s41467-026-71847-5](https://doi.org/10.1038/s41467-026-71847-5). <span style="color:#b00020; font-weight:600;">[Author to double-check this summary against the Hoyeck 2026 paper for accuracy.]</span>
 
+## DNA Methylation
+
+*Current coverage: 729,123 CpG sites across 50 donors (Illumina Infinium MethylationEPIC v2.0 array).*
+
+Genome-wide DNA methylation is profiled on the Illumina Infinium MethylationEPIC v2.0 (EPICv2) BeadChip, contributed by our collaborators in Singapore. Raw β-values (the methylated fraction at each probe, 0–1) are reported for 784,789 probes per donor and processed into the platform's analysis tables through a custom R pipeline:
+
+- **Probe filtering:** only cg (CpG) probes are kept (control, SNP and non-CpG probes are dropped) and sex-chromosome probes are removed; the sesame recommended EPICv2 mask (all-ancestry union at 1% minor-allele frequency) is then applied to drop poor-mapping, cross-reactive and polymorphic probes, leaving 729,123 CpG sites.
+- **Replicate collapse:** EPICv2 carries several replicate probes per CpG; these are averaged to a single value per CpG.
+- **β and M values:** both scales are stored — β (0–1, used for interpretation and display) and M = log2(β / (1 − β)), the variance-stabilised scale used for statistical testing.
+- **Annotation:** each CpG is annotated on hg38 using the Bioconductor EPICv2 annotation: genomic coordinate, UCSC RefGene gene and gene region, and CpG-island relation (Island / Shore / Shelf / OpenSea). As is typical for EPIC arrays, roughly one third of CpGs fall within a RefGene gene and the remainder lie in intergenic / open-sea regions.
+
 ## Metabolic Flux
 
 *Current coverage: 2,771 reactions at high glucose (2,775 at low glucose; 2,765 in ratio form) across 375 donors.*
@@ -82,11 +93,5 @@ Donor-specific genome-scale metabolic models (GEMs) are built from the **Human-G
 - Both conditions are simulated under glucose-only media and under glucose plus amino-acid supplementation (with fixed uptake rates for glutamine, alanine, serine, etc.); the amino-acid scenario opens alternative carbon entry into the TCA cycle.
 
 For each donor × condition, **Flux Variability Analysis (FVA)** is run on the entire reaction network at a 90% optimality fraction; the platform stores the FVA minimum, maximum, centre, and span per reaction. **OptGP flux sampling** (5,000 samples, thinning = 100) is run on top of FVA to capture the achievable flux distribution; from the samples the pipeline records the mean, median, standard deviation, and 25/75% quartiles per reaction. Per-reaction flux values are signed-log2 transformed and z-scored within each donor before being loaded into the analysis tables so the downstream limma model sees comparable distributions across reactions. The HG/LG ratio table stores the per-reaction log-ratio between high glucose and low glucose conditions, capturing each donor's glucose responsiveness at the flux level.
-
-## DNA Methylation
-
-*Coming soon &mdash; data forthcoming from collaborators in Singapore.*
-
-Donor islet DNA methylation profiling will be added to the platform once the data are received from our Singapore-based collaborators. Methods, donor coverage, and analysis options will be added to this section at that time.
 
 
