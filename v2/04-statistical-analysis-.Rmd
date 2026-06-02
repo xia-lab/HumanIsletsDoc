@@ -87,8 +87,8 @@ Per-cluster downstream analyses (precomputed) include limma differential express
 
  Pathway analysis in HumanIslets supports three GEM-based libraries in addition to the standard KEGG / Reactome / Gene Ontology / PANTHER options, selectable from the same library dropdown used for the standard pathway libraries:
 
-- **KEGG human metabolite-centred pathways** — KEGG pathways organised around the participating metabolites rather than the catalysing enzymes.
-- **Human1 GEM reactions grouped by participating metabolite** — useful when ranking metabolite-feature association results into the broader metabolic context.
+- **KEGG human metabolite-centred pathways:** KEGG pathways organised around the participating metabolites rather than the catalysing enzymes.
+- **Human1 GEM reactions grouped by participating metabolite:** useful when ranking metabolite-feature association results into the broader metabolic context.
 - **Human1 GEM reactions grouped by metabolic subsystem** (e.g., glycolysis, TCA cycle, amino-acid metabolism) — the most commonly used GEM library when ranking flux-feature association results.
 
 The same `fgsea::fora()` (ORA) and `fgsea::fgsea()` (GSEA) implementations described above are used; the only thing that changes is which annotation object the library is loaded from. Path-collapse (redundancy removal) is also supported via the corresponding `fgsea::collapsePathways()` / `collapsePathwaysORA()` helpers, so users can collapse highly overlapping reaction sets when the resulting hit list is long.

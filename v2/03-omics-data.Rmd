@@ -57,11 +57,11 @@ Metabolomics samples are collected on islets handled at the ADI IsletCore under 
 
 Post-processing of the MetaboAnalyst output is implemented in a custom R pipeline:
 
-- **Blank filtering** — features that are not appreciably elevated over process blanks are dropped.
-- **Detection (QC) filtering** — features whose intensity is unstable across pooled QC injections are dropped.
-- **Normalization** — median normalisation (each sample divided by its median feature intensity) followed by log transform.
-- **Batch correction** — the production pipeline uses **ComBat** (parametric empirical Bayes, `sva` R package), with donor diabetes status included as a protected covariate so the inter-batch correction preserves biological T2D-versus-no-diabetes signal. Three alternatives were benchmarked during method selection — WaveICA 2.0 (wavelet + ICA, no batch labels required), QC-RLSC (QC-based LOESS signal correction), and median-only — and ComBat-with-diagnosis was selected on the basis of PCA separation and downstream replicability.
-- **MS2 annotation** — once corrected, the feature tables are merged with MS2-level annotations (HMDB IDs, main class, sub class) to produce the final 215 annotated metabolites surfaced in the platform.
+- **Blank filtering:** features that are not appreciably elevated over process blanks are dropped.
+- **Detection (QC) filtering:** features whose intensity is unstable across pooled QC injections are dropped.
+- **Normalization:** median normalisation (each sample divided by its median feature intensity) followed by log transform.
+- **Batch correction:** the production pipeline uses **ComBat** (parametric empirical Bayes, `sva` R package), with donor diabetes status included as a protected covariate so the inter-batch correction preserves biological T2D-versus-no-diabetes signal. Three alternatives were benchmarked during method selection — WaveICA 2.0 (wavelet + ICA, no batch labels required), QC-RLSC (QC-based LOESS signal correction), and median-only — and ComBat-with-diagnosis was selected on the basis of PCA separation and downstream replicability.
+- **MS2 annotation:** once corrected, the feature tables are merged with MS2-level annotations (HMDB IDs, main class, sub class) to produce the final 215 annotated metabolites surfaced in the platform.
 
 Positive- and negative-mode results are combined into a single donor × metabolite matrix at low glucose, high glucose, and as the HG/LG log-ratio.
 

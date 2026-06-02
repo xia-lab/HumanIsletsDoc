@@ -348,8 +348,8 @@
 <h2><span class="header-section-number">5.9</span> GEM Library for Pathway Enrichment<a href="overview-of-statistical-analysis-methods.html#gem-library-for-pathway-enrichment" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Pathway analysis in HumanIslets supports three GEM-based libraries in addition to the standard KEGG / Reactome / Gene Ontology / PANTHER options, selectable from the same library dropdown used for the standard pathway libraries:</p>
 <ul>
-<li><strong>KEGG human metabolite-centred pathways</strong> — KEGG pathways organised around the participating metabolites rather than the catalysing enzymes.</li>
-<li><strong>Human1 GEM reactions grouped by participating metabolite</strong> — useful when ranking metabolite-feature association results into the broader metabolic context.</li>
+<li><strong>KEGG human metabolite-centred pathways:</strong> KEGG pathways organised around the participating metabolites rather than the catalysing enzymes.</li>
+<li><strong>Human1 GEM reactions grouped by participating metabolite:</strong> useful when ranking metabolite-feature association results into the broader metabolic context.</li>
 <li><strong>Human1 GEM reactions grouped by metabolic subsystem</strong> (e.g., glycolysis, TCA cycle, amino-acid metabolism) — the most commonly used GEM library when ranking flux-feature association results.</li>
 </ul>
 <p>The same <code>fgsea::fora()</code> (ORA) and <code>fgsea::fgsea()</code> (GSEA) implementations described above are used; the only thing that changes is which annotation object the library is loaded from. Path-collapse (redundancy removal) is also supported via the corresponding <code>fgsea::collapsePathways()</code> / <code>collapsePathwaysORA()</code> helpers, so users can collapse highly overlapping reaction sets when the resulting hit list is long.</p>
