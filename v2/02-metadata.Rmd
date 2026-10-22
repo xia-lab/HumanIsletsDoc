@@ -14,7 +14,7 @@ De-identified donor characteristics, including HLA-typing, collected at the time
 
 Organ characteristic and processing metadata is recorded during the islet isolation by the ADI IsletCore lead technician. Cold ischemia time is calculated from the cross clamp time during organ procurement until the start of the isolation in Edmonton. Please note that some measures, such as ‘organ consistency’ are subjective.
 
-> *Available organ characteristics and processing metadata include*: Cold Ischemic Time (h), Pancreas weight (g), Fatty infiltration (Yes/No), Organ consistency (Soft, Normal, Fibrotic, Inconsistent), Collagenase supplier (Roche, VitaCyte, Serva, Sigma), Colleganse type (Liberase, Clzyme, Gold, NB1, Sigma, Other, Recombinant), Digestion time (min).
+> *Available organ characteristics and processing metadata include*: Cold Ischemic Time (h), Pancreas weight (g), Fatty infiltration (Yes/No), Organ consistency (Soft, Normal, Fibrotic, Inconsistent), Collagenase supplier (Roche, VitaCyte, Serva, Sigma), Collagenase type (Liberase, Clzyme, Gold, NB1, Sigma, Other, Recombinant), Digestion time (min).
 
 ## Isolation Outcomes
 
@@ -36,7 +36,7 @@ Cell proportions are estimated based on deconvolution of bulk islet proteomic da
 
 *Current coverage: 625 donors.*
 
-Following isolation, islets are cultured prior to shipment and sample collection for assay. On the day of shipping/collection, islets are recounted to determine islet equivalents (IEQ) and islet particle index (IPI) after culture. Culture time is determined by the end of the isolation until approximately 9 am on a shipping/collection day. The % recovery is calculated as ‘post-isolation IEQ/pre-shipment IEQ*100.’ Post-culture samples are collected for insulin and DNA as [described](https://www.protocols.io/view/sampling-of-human-islets-for-quality-control-purpo-j8nlk553dl5r/v2).
+Following isolation, islets are cultured prior to shipment and sample collection for assay. On the day of shipping/collection, islets are recounted to determine islet equivalents (IEQ) and islet particle index (IPI) after culture. Culture time is determined by the end of the isolation until approximately 9 am on a shipping/collection day. The % recovery is calculated as ‘pre-shipment IEQ / post-isolation IEQ × 100’. Post-culture samples are collected for insulin and DNA as [described](https://www.protocols.io/view/sampling-of-human-islets-for-quality-control-purpo-j8nlk553dl5r/v2).
 
 >*Available cell culture outcomes metadata include*: Culture time (h), Total islet equivalents after culture (IEQ), Percent IEQ recovery after culture (%), Islet particle index after culture, Insulin content after culture, Insulin:DNA ratio after culture, Insulin per IEQ after culture (ng/IEQ).
 
@@ -50,7 +50,7 @@ On the day of sample collection (see section 3.5, above) islets are handpicked t
 2. 1mM → 16.7mM glucose
 3. 2.8mM → 16.7mM glucose
 
-Outliers were handled in two ways. *<u>Level 1</u>*) A single donor-level measurement was computed as the median of the three replicate measures. Using the median instead of the mean reduced the impact of replicate-level outliers on the data. *<u>Level 2*</u>) The donor-level values were filtered to remove those that were more than 4 standard deviations away from the mean of all donors on a log10 scale. This removed values that were many orders of magnitude different from the population. In the Data Download tool, the data are provided at the replicate level (before outlier removal), while in-tool Omics Analysis is performed on data subjected to both Level 1 and Level 2 outlier removal.
+Outliers were handled in two ways. *<u>Level 1</u>*) A single donor-level measurement was computed as the median of the three replicate measures. Using the median instead of the mean reduced the impact of replicate-level outliers on the data. *<u>Level 2</u>*) The donor-level values were filtered to remove those that were more than 4 standard deviations away from the mean of all donors on a log10 scale. This removed values that were many orders of magnitude different from the population. In the Data Download tool, the data are provided at the replicate level (before outlier removal), while in-tool Omics Analysis is performed on data subjected to both Level 1 and Level 2 outlier removal.
 
 > *Available static insulin secretion metadata include*: Culture time before experiment (days), Insulin content (pg/ml), Secretion at 1 mM glucose (pg/ml), Secretion at 2.8 mM glucose (pg/ml), Secretion at 10 mM glucose (pg/ml), Secretion at 16.7 mM glucose (pg/ml), Stimulation index (1->10 mM glucose), Stimulation index (1->16.7 mM glucose), Stimulation index (2.8->16.7 mM glucose).
 

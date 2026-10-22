@@ -23,7 +23,7 @@
 <meta name="author" content="" />
 
 
-<meta name="date" content="2026-06-02" />
+<meta name="date" content="2026-10-22" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -128,7 +128,7 @@
 <ul>
 <li class="chapter" data-level="2.1.1" data-path="using-humanislets.html"><a href="using-humanislets.html#omics-view-individual-omics-analysis"><i class="fa fa-check"></i><b>2.1.1</b> Omics View — individual omics analysis <img src="logo1.png" alt="Logo" style="width:18px; height:18px;"></a></li>
 <li class="chapter" data-level="2.1.2" data-path="using-humanislets.html"><a href="using-humanislets.html#multi-omics-analysis"><i class="fa fa-check"></i><b>2.1.2</b> Multi-Omics Analysis <img src="logo1.png" alt="Logo" style="width:18px; height:18px;"></a></li>
-<li class="chapter" data-level="2.1.3" data-path="using-humanislets.html"><a href="using-humanislets.html#metabolic-atlas-should-be-hide"><i class="fa fa-check"></i><b>2.1.3</b> Metabolic Atlas (should be Hide?) <img src="logo1.png" alt="Logo" style="width:18px; height:18px;"></a></li>
+<li class="chapter" data-level="2.1.3" data-path="using-humanislets.html"><a href="using-humanislets.html#metabolic-atlas"><i class="fa fa-check"></i><b>2.1.3</b> Metabolic Atlas <img src="logo1.png" alt="Logo" style="width:18px; height:18px;"></a></li>
 </ul></li>
 <li class="chapter" data-level="2.2" data-path="using-humanislets.html"><a href="using-humanislets.html#donor-phenotype"><i class="fa fa-check"></i><b>2.2</b> Donor &amp; Phenotype</a>
 <ul>
@@ -239,7 +239,7 @@
 <p>The Omics block holds the analyses that operate primarily on feature-level molecular data: differential-expression-style omics analysis, multi-omics integration, and the genome-scale flux atlas.</p>
 <div id="omics-view-individual-omics-analysis" class="section level3 hasAnchor" number="2.1.1">
 <h3><span class="header-section-number">2.1.1</span> Omics View — individual omics analysis <a href="https://dev.humanislets.com/omics"><img src="logo1.png" alt="Logo" style="width:18px; height:18px;"></a><a href="using-humanislets.html#omics-view-individual-omics-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>HumanIslet.com presently includes information from 625 human research islet isolations that includes donor and technical metadata, islet and islet cell function, and omics. Omics datasets include bulk proteomics, bulk RNAseq, gene panels (Nanostring), patch-seq, pseudobulk RNAseq for alpha- and beta-cells, and DNA methylation (Illumina EPICv2 array). Omics-metadata relationships can be analysed by:</p>
+<p>HumanIslets.com presently includes information from 625 human research islet isolations that includes donor and technical metadata, islet and islet cell function, and omics. Omics datasets include bulk proteomics, bulk RNAseq, gene panels (Nanostring), patch-seq, pseudobulk RNAseq for alpha- and beta-cells, and DNA methylation (Illumina EPICv2 array). Omics-metadata relationships can be analysed by:</p>
 <ol style="list-style-type: decimal">
 <li>Selecting the ‘Omics Type’ of interest</li>
 <li>Selecting the ‘Primary Metadata’ to be analysed, and ‘Comparison of Interest’ if applicable</li>
@@ -322,8 +322,8 @@
 </ol>
 <p>All tables are downloadable as CSV from the corresponding tab.</p>
 </div>
-<div id="metabolic-atlas-should-be-hide" class="section level3 hasAnchor" number="2.1.3">
-<h3><span class="header-section-number">2.1.3</span> Metabolic Atlas (should be Hide?) <a href="https://dev.humanislets.com/atlas"><img src="logo1.png" alt="Logo" style="width:18px; height:18px;"></a><a href="using-humanislets.html#metabolic-atlas-should-be-hide" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="metabolic-atlas" class="section level3 hasAnchor" number="2.1.3">
+<h3><span class="header-section-number">2.1.3</span> Metabolic Atlas <a href="https://dev.humanislets.com/atlas"><img src="logo1.png" alt="Logo" style="width:18px; height:18px;"></a><a href="using-humanislets.html#metabolic-atlas" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The Metabolic Atlas is the platform’s interactive view of human islet metabolism. Users browse the metabolic network reaction by reaction, overlay HumanIslets data (predicted flux, gene or protein expression, scRNA-seq, etc.) on top of it, and ask comparative questions such as <em>how does this pathway differ between donor groups</em>, <em>which reactions are tied to this gene</em>, or <em>where in metabolism does this metabolite sit</em>. Behind the scenes the network is the Human-GEM v1.19.0 genome-scale metabolic reconstruction; the underlying flux methodology is documented in chapter 4 (Metabolic Flux).</p>
 <p>When the page loads, the metabolic network appears in the centre of the screen, with the <strong>Pathways legend</strong> on the left listing the colour-coded pathway categories (and, when expanded, each individual pathway by name) — the legend is informational, used as a colour key for the network. The network itself can be panned and zoomed; clicking any edge opens a small detail dialog with the reaction(s) on that edge and their flux value, and clicking any node opens the <strong>Pathway Detail dialog</strong> for the pathway that node sits on.</p>
 <p>The <strong>Pathway Detail dialog</strong> is a draggable, resizable window that renders the selected pathway’s reaction–metabolite graph in full. When an enrichment overlay is in effect (for example after adding a flux or metabolomics layer), the dialog shows a coloured legend at the top: in metabolite-set mode, red nodes are increased, blue are decreased, and orange are not in the analysis set, with node size and colour intensity proportional to enrichment magnitude; reaction-set mode uses gradient bars rather than dot colours for the same direction encoding. A toolbar above the graph provides view controls (pan mode toggle, selection-area mode, <em>Stretch / Compress edges</em> for a selected region, <em>Reset Pathway</em>, <em>Save Layout</em>), labelling toggles (<em>Show / Hide cofactor labels</em>, <em>Show / Hide metabolite labels</em>, <em>Show / Hide control nodes</em> and control points), an <em>Add / Delete Flux</em> control for manual annotation, and PNG / SVG export buttons. A right-side <strong>Node Settings</strong> panel adjusts node size and colour, and an <strong>Edge Settings</strong> panel adjusts edge width and colour.</p>

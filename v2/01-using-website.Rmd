@@ -8,7 +8,7 @@ The Omics block holds the analyses that operate primarily on feature-level molec
 
 ### Omics View &mdash; individual omics analysis [<img src="logo1.png" alt="Logo" style="width:18px; height:18px;">](https://dev.humanislets.com/omics)
 
-HumanIslet.com presently includes information from 625 human research islet isolations that includes donor and technical metadata, islet and islet cell function, and omics. Omics datasets include bulk proteomics, bulk RNAseq, gene panels (Nanostring), patch-seq, pseudobulk RNAseq for alpha- and beta-cells, and DNA methylation (Illumina EPICv2 array). Omics-metadata relationships can be analysed by:
+HumanIslets.com presently includes information from 625 human research islet isolations that includes donor and technical metadata, islet and islet cell function, and omics. Omics datasets include bulk proteomics, bulk RNAseq, gene panels (Nanostring), patch-seq, pseudobulk RNAseq for alpha- and beta-cells, and DNA methylation (Illumina EPICv2 array). Omics-metadata relationships can be analysed by:
 
 1. Selecting the ‘Omics Type’ of interest
 2. Selecting the ‘Primary Metadata’ to be analysed, and ‘Comparison of Interest’ if applicable
@@ -87,7 +87,7 @@ The result tabs (described below per method) then become available. Because ever
 
 All tables are downloadable as CSV from the corresponding tab.
 
-### Metabolic Atlas (should be Hide?) [<img src="logo1.png" alt="Logo" style="width:18px; height:18px;">](https://dev.humanislets.com/atlas)
+### Metabolic Atlas [<img src="logo1.png" alt="Logo" style="width:18px; height:18px;">](https://dev.humanislets.com/atlas)
 
 The Metabolic Atlas is the platform's interactive view of human islet metabolism. Users browse the metabolic network reaction by reaction, overlay HumanIslets data (predicted flux, gene or protein expression, scRNA-seq, etc.) on top of it, and ask comparative questions such as *how does this pathway differ between donor groups*, *which reactions are tied to this gene*, or *where in metabolism does this metabolite sit*. Behind the scenes the network is the Human-GEM v1.19.0 genome-scale metabolic reconstruction; the underlying flux methodology is documented in chapter 4 (Metabolic Flux).
 

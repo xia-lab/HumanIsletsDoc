@@ -47,7 +47,7 @@ Consolidation of datasets and web tool development was supported by a research g
 
 ## Overview and Sample/data Collection
 
-The purpose of the HumanIslets.com tool is to allow exploration and analysis of, and access to data from, human islet molecular and functional phenotyping studies. We hope this resource will facilitate research and hypothesis generation in a manner that is accessible to both experts and non-experts in data analysis. The **below figure** illustrates general workflows, samples, and datasets collected as part of this initiative Data noted in <span style='color: blue;'>blue</span> are currently included within the web tool, while those in grey are planned for addition at a later date.
+The purpose of the HumanIslets.com tool is to allow exploration and analysis of, and access to data from, human islet molecular and functional phenotyping studies. We hope this resource will facilitate research and hypothesis generation in a manner that is accessible to both experts and non-experts in data analysis. The **below figure** illustrates general workflows, samples, and datasets collected as part of this initiative. Data noted in <span style='color: blue;'>blue</span> are currently included within the web tool, while those in grey are planned for addition at a later date.
 
 
 <figure style="text-align:center;">
