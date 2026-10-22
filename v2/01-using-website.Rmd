@@ -4,7 +4,7 @@ The platform's left-hand navigation groups features into four blocks — **Omics
 
 ## Omics
 
-The Omics block holds the analyses that operate primarily on feature-level molecular data: differential-expression-style omics analysis, multi-omics integration, and the genome-scale flux atlas.
+The Omics block holds the analyses that operate primarily on feature-level molecular data: differential-expression-style omics analysis and multi-omics integration<!--, and the genome-scale flux atlas-->.
 
 ### Omics View &mdash; individual omics analysis [<img src="logo1.png" alt="Logo" style="width:18px; height:18px;">](https://dev.humanislets.com/omics)
 
@@ -87,6 +87,8 @@ The result tabs (described below per method) then become available. Because ever
 
 All tables are downloadable as CSV from the corresponding tab.
 
+<!-- HIDDEN for now (text preserved here for later restoration; remove this comment wrapper to show the "### Metabolic Atlas" section again):
+
 ### Metabolic Atlas [<img src="logo1.png" alt="Logo" style="width:18px; height:18px;">](https://dev.humanislets.com/atlas)
 
 The Metabolic Atlas is the platform's interactive view of human islet metabolism. Users browse the metabolic network reaction by reaction, overlay HumanIslets data (predicted flux, gene or protein expression, scRNA-seq, etc.) on top of it, and ask comparative questions such as *how does this pathway differ between donor groups*, *which reactions are tied to this gene*, or *where in metabolism does this metabolite sit*. Behind the scenes the network is the Human-GEM v1.19.0 genome-scale metabolic reconstruction; the underlying flux methodology is documented in chapter 4 (Metabolic Flux).
@@ -110,6 +112,8 @@ To overlay data on the network:
 Once a layer is active, a second legend appears below the Pathways legend naming the active layer and showing the flux gradient bar (min / 0 / max), up- and down-regulation swatches, the *Signal strength (node size)* indicator (weak → strong), and a short summary listing how many pathways are matched plus the top up- and down-regulated pathways for the layer.
 
 The rest of the toolbar covers the common controls: **Reset View** restores the default layout, and the small menu toggle exposes *Show / Hide Compartments*, *Show / Hide Legend*, *Download Plot* (exports the current view as an image), and *Download Pathway Results* (downloads the layer's per-pathway statistics, enabled once at least one layer is added).
+
+-->
 
 
 
@@ -182,7 +186,7 @@ The page also surfaces two modal dialogs on demand: an **AI Insight Dialog** (cl
 - **Phenotype Enrichment:** paginated table of phenotype variables with the cluster's effect direction, effect size, *p*-value, adjusted *p*-value, and per-cluster vs. outside means. Only *held-out* phenotype features are tested so that variables used as classifier input are excluded.
 - **Differential Expression:** paginated table of RNA-seq and proteomics features with direction, log₂FC, *t*-statistic, raw *p*, and adjusted *p*. Filter buttons let users restrict by modality or to significant only.
 - **Enriched Pathways:** paginated table from pre-ranked GSEA (KEGG 2021, Reactome 2022, GO MF 2023; pre-ranked GSEA with `limma` *t*-statistic ranking; raw *p* < 0.05 shown), with direction (↑ enriched in up-regulated, ↓ in down-regulated) and a clickable gene list.
-- **Explore Further:** navigation cards linking to Omics Analysis, Multi-Omics (WGCNA), Metabolic Atlas, Knowledge Search, and Cluster Comparison.
+- **Explore Further:** navigation cards linking to Omics Analysis, Multi-Omics (WGCNA), <!--Metabolic Atlas, -->Knowledge Search, and Cluster Comparison.
 
 **Cluster Comparison page** (route `/cluster-compare`, reached either from a single cluster's *Explore Further → Cluster Comparison* card or directly from any cluster card's *Compare* action). Users pick **two clusters to compare** side by side and the page produces:
 
