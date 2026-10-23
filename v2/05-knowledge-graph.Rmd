@@ -53,7 +53,7 @@ Genetic results measured in the HumanIslets cohort itself, from the Gloyn lab's 
 
 ### Local data
 
-The HumanIslets cohort itself: donors, their phenotype values, and pre-computed links between molecular features and donor phenotypes. Associations come from limma linear models adjusted for age, sex, BMI and culture time (Kendall partial correlation for contaminants, Spearman correlation for patch-seq). Prediction links show how well each omics layer predicts each phenotype (elastic net, stability selection, random forest, and XGBoost with SHAP). Only models above a quality floor are kept.
+The HumanIslets cohort itself: donors, their phenotype values, and pre-computed links between molecular features and donor phenotypes. Associations come from limma linear models adjusted for **Age (years)**, **Sex**, **BMI** and **Culture time (h)** (Kendall partial correlation for contaminants, Spearman correlation for patch-seq). Prediction links show how well each omics layer predicts each phenotype (elastic net, stability selection, random forest, and XGBoost with SHAP). Only models above a quality floor are kept.
 
 ## How IsletAgent works
 

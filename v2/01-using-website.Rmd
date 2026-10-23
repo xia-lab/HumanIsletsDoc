@@ -14,7 +14,7 @@ HumanIslets.com presently includes information from 650 human research islet iso
     a. For **Bulk protein expression**, a second menu selects **Batch 1**, **Batch 2** or **Combined**. For Combined, choose **Batch corrected** (ComBat) or **Batch as covariate** (batch is added to the model automatically).
 2. Selecting the ‘Primary Metadata’ to be analysed, and ‘Comparison of Interest’ if applicable
 3. Choosing covariates to control for
-     a. Many covariates are available for correction and selection may depend on comparisons being made or the objective of the user. Note however we have reported important impacts of correcting for ‘culture time’, particularly when examining RNAseq data, and ‘Non-endocrine cell proportion (computed)’ when comparing groups with dramatically different preparation purities.
+     a. Many covariates are available for correction and selection may depend on comparisons being made or the objective of the user. Note however we have reported important impacts of correcting for ‘Culture time (h)’, particularly when examining RNAseq data, and ‘Non-endocrine cell proportion (computed)’ when comparing groups with dramatically different preparation purities.
 4. Selecting donors to include
       a. Choosing ‘Subset’ will open a window that allows for filtering by donor characteristics and data availability, or upload of a list of donor IDs or RRIDs of interest
 5. Selecting a p-value cutoff, and the use of adjusted p-values
@@ -261,7 +261,7 @@ IsletAgent answers plain-language questions about a gene, a phenotype, or the re
 - **Methods & data tab:**
     - **Results:** every result behind the answer as a table, with **View** and **CSV**.
     - **Methods and input data:** the statistical method behind each calculation, the data it used, and an **R script + data** download that reproduces it locally.
-        - **Cohort · differential** is a limma linear model per feature, phenotype and platform, adjusted for age, sex, BMI and culture time (none for the metabolite and contaminant layers), with Benjamini–Hochberg adjusted *p*-values.
+        - **Cohort · differential** is a limma linear model per feature, phenotype and platform, adjusted for **Age (years)**, **Sex**, **BMI** and **Culture time (h)** (none for the metabolite and contaminant layers), with Benjamini–Hochberg adjusted *p*-values.
         - **Cohort · prediction** uses random forest, XGBoost and elastic net, with cross-validated or held-out model quality.
     - **Public endpoint:** the tab also shows the endpoint that returns the same answer (`POST https://dev.humanislets.com/kg-api/agent/ask`).
 - **Guide:** the **Guide** tab and *Take a quick tour of this answer* walk through each part of the answer.

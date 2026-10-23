@@ -36,7 +36,7 @@ Cell proportions are estimated based on deconvolution of bulk islet proteomic da
 
 *Current coverage: 587 donors. Contributed by the MacDonald lab.*
 
-Following isolation, islets are cultured prior to shipment and sample collection for assay. On the day of shipping/collection, islets are recounted to determine islet equivalents (IEQ) and islet particle index (IPI) after culture. Culture time is determined by the end of the isolation until approximately 9 am on a shipping/collection day. The % recovery is calculated as ‘pre-shipment IEQ / post-isolation IEQ × 100’. Post-culture samples are collected for insulin and DNA as [described](https://www.protocols.io/view/sampling-of-human-islets-for-quality-control-purpo-j8nlk553dl5r/v2).
+Following isolation, islets are cultured prior to shipment and sample collection for assay. On the day of shipping/collection, islets are recounted to determine islet equivalents (IEQ) and islet particle index (IPI) after culture. **Culture time (h)** is determined by the end of the isolation until approximately 9 am on a shipping/collection day. The % recovery is calculated as ‘pre-shipment IEQ / post-isolation IEQ × 100’. Post-culture samples are collected for insulin and DNA as [described](https://www.protocols.io/view/sampling-of-human-islets-for-quality-control-purpo-j8nlk553dl5r/v2).
 
 >*Available cell culture outcomes metadata include*: Culture time (h), Total islet equivalents after culture (IEQ), Percent IEQ recovery after culture (%), Islet particle index after culture, Insulin content after culture, Insulin:DNA ratio after culture, Insulin per IEQ after culture (ng/IEQ).
 

@@ -394,7 +394,7 @@
 <li>Selecting the ‘Primary Metadata’ to be analysed, and ‘Comparison of Interest’ if applicable</li>
 <li>Choosing covariates to control for
 <ol style="list-style-type: lower-alpha">
-<li>Many covariates are available for correction and selection may depend on comparisons being made or the objective of the user. Note however we have reported important impacts of correcting for ‘culture time’, particularly when examining RNAseq data, and ‘Non-endocrine cell proportion (computed)’ when comparing groups with dramatically different preparation purities.</li>
+<li>Many covariates are available for correction and selection may depend on comparisons being made or the objective of the user. Note however we have reported important impacts of correcting for ‘Culture time (h)’, particularly when examining RNAseq data, and ‘Non-endocrine cell proportion (computed)’ when comparing groups with dramatically different preparation purities.</li>
 </ol></li>
 <li>Selecting donors to include
 <ol style="list-style-type: lower-alpha">
@@ -634,7 +634,7 @@ The page also surfaces two modal dialogs on demand: an **AI Insight Dialog** (cl
 <li><strong>Results:</strong> every result behind the answer as a table, with <strong>View</strong> and <strong>CSV</strong>.</li>
 <li><strong>Methods and input data:</strong> the statistical method behind each calculation, the data it used, and an <strong>R script + data</strong> download that reproduces it locally.
 <ul>
-<li><strong>Cohort · differential</strong> is a limma linear model per feature, phenotype and platform, adjusted for age, sex, BMI and culture time (none for the metabolite and contaminant layers), with Benjamini–Hochberg adjusted <em>p</em>-values.</li>
+<li><strong>Cohort · differential</strong> is a limma linear model per feature, phenotype and platform, adjusted for <strong>Age (years)</strong>, <strong>Sex</strong>, <strong>BMI</strong> and <strong>Culture time (h)</strong> (none for the metabolite and contaminant layers), with Benjamini–Hochberg adjusted <em>p</em>-values.</li>
 <li><strong>Cohort · prediction</strong> uses random forest, XGBoost and elastic net, with cross-validated or held-out model quality.</li>
 </ul></li>
 <li><strong>Public endpoint:</strong> the tab also shows the endpoint that returns the same answer (<code>POST https://dev.humanislets.com/kg-api/agent/ask</code>).</li>
