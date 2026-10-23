@@ -2,7 +2,7 @@
 
 ## Donor Characteristics
 
-*Current coverage: 650 donors.*
+*Current coverage: 650 donors. Contributed by the MacDonald lab.*
 
 De-identified donor characteristics, including HLA-typing, collected at the time of organ procurement are provided in a de-identified manner to the ADI IsletCore team by the organ procurement organisations. Users should be aware that some information, such as diabetes diagnosis, may not be clinically validated at the time of organ retrieval. Whenever possible, HbA1c measurements are performed directly by the ADI IsletCore using blood samples sent with the organ, and donors indicated as type 1 diabetes (T1D) are validated as much as possible through genetic testing, autoantibody testing, and immunohistochemical analysis. While the Donor Metadata ‘diabetes diagnosis’ reflects the status indicated by the organ procurement organization, the Donor Metadata ‘corrected diabetes status’ indicates a classification based on the totality of information available to the ADI IsletCore (including ‘pre-diabetes’ defined as HbA1c between 5.7 and 6.5%, and ‘non-diagnosed’ donors with HbA1c>6.5% as type 2 diabetes (T2D)).
 
@@ -10,7 +10,7 @@ De-identified donor characteristics, including HLA-typing, collected at the time
 
 ## Organ Characteristics and Processing
 
-*Current coverage: 643 donors.*
+*Current coverage: 643 donors. Contributed by the MacDonald lab.*
 
 Organ characteristic and processing metadata is recorded during the islet isolation by the ADI IsletCore lead technician. Cold ischemia time is calculated from the cross clamp time during organ procurement until the start of the isolation in Edmonton. Please note that some measures, such as ‘organ consistency’ are subjective.
 
@@ -18,7 +18,7 @@ Organ characteristic and processing metadata is recorded during the islet isolat
 
 ## Isolation Outcomes
 
-*Current coverage: 636 donors.*
+*Current coverage: 636 donors. Contributed by the MacDonald lab.*
 
 Islet purity, islet equivalents (IEQ), % trapped, and islet particle index (IPI) are determined by the ADI IsletCore lead technician. Full details can be found [here](https://www.protocols.io/view/human-islet-quantification-and-purity-assessment-14egnxxwml5d/v3) or in our [IsletCore](http://www.bcell.org/uploads/5/1/3/3/51338649/adi_isletcore_welcome_booklet.pdf) welcome booklet. Details on determining Insulin and DNA samples as part of our quality control can be found [here](https://www.protocols.io/view/sampling-of-human-islets-for-quality-control-purpo-j8nlk553dl5r/v2). 
 
@@ -34,7 +34,7 @@ Cell proportions are estimated based on deconvolution of bulk islet proteomic da
 
 ## Cell Culture Outcomes
 
-*Current coverage: 587 donors.*
+*Current coverage: 587 donors. Contributed by the MacDonald lab.*
 
 Following isolation, islets are cultured prior to shipment and sample collection for assay. On the day of shipping/collection, islets are recounted to determine islet equivalents (IEQ) and islet particle index (IPI) after culture. Culture time is determined by the end of the isolation until approximately 9 am on a shipping/collection day. The % recovery is calculated as ‘pre-shipment IEQ / post-isolation IEQ × 100’. Post-culture samples are collected for insulin and DNA as [described](https://www.protocols.io/view/sampling-of-human-islets-for-quality-control-purpo-j8nlk553dl5r/v2).
 
@@ -42,7 +42,7 @@ Following isolation, islets are cultured prior to shipment and sample collection
 
 ## Static Insulin Secretion
 
-*Current coverage: 524 donors.*
+*Current coverage: 524 donors. Contributed by the MacDonald lab.*
 
 On the day of sample collection (see section 3.5, above) islets are handpicked to 100% purity and cultured overnight at 37°C with 5% CO2. In triplicates, 15 hand-picked islets from each donor are pre-incubated at low glucose for 2 x 1 hours consecutively, and then sequentially treated with low glucose for 1 hour followed by high glucose 1 hour. Collected supernatant for low glucose, high glucose or insulin content are measured by ELISA (ALPCO STELLUX Chemiluminescence). For each donor, there are multiple glucose combinations that are used. Experimental details can be found [here](https://www.protocols.io/view/static-glucose-stimulated-insulin-secretion-gsis-p-n2bvjkzxgk5w/v3). Glucose pairs are:
 
@@ -56,7 +56,7 @@ Outliers were handled in two ways. *<u>Level 1</u>*) A single donor-level measur
 
 ## Islet Oxygen Consumption (Seahorse assay)
 
-*Current coverage: 142 donors.*
+*Current coverage: 142 donors. Contributed by the MacDonald and Pepper labs.*
 
 At the ADI IsletCore, after an overnight culture, islets are hand-picked, and 70 islets per well are assayed in triplicate for each donor. Islets are placed in the center of the well and islet capture screens are used to keep islets in place. Plate is incubated at 37oC for 1 hour without CO2, after which the plate is placed in the Xfe24 analyzer (Agilent). Basal measurements are at 2.8mM glucose, while stimulation is at 16.7mM glucose. 5uM oligomycin, 3uM FCCP and 5uM of rotenone and antimycin A are used as indicated. All solutions are made using DMEM supplemented with 1% FBS, sodium pyruvate and L-glutamine. After the run is complete, islets are collected and a DNA assay is done to normalize data. A detailed protocol is [here](https://www.protocols.io/view/seahorse-protocol-for-islets-using-xfe24-analyzer-n2bvj63p5lk5/v1).
 
@@ -64,7 +64,7 @@ At the ADI IsletCore, after an overnight culture, islets are hand-picked, and 70
 
 ## Dynamic Insulin Responses to Macronutrients
 
-*Current coverage: 166 donors (glucose), 164 donors (leucine), 163 donors (oleate/palmitate).*
+*Current coverage: 166 donors (glucose), 164 donors (leucine), 163 donors (oleate/palmitate). Contributed by the MacDonald lab.*
 
 After shipment to the University of British Columbia, islets are hand picked and cultured in RPMI for 24-72hrs before the experiment to allow recovery from shipping. 65 islets are loaded per chamber and pre-incubated for 1 hour. Islets are stimulated with 6 or 15mM glucose, 5mM Leucine or 0.75mM Oleic acid/0.75mM palmitic acid as indicated. Samples are stored at -20oC until analysis with RIA. Full details are described in [Kolic et al. (2024) *Cell Metabolism*](https://doi.org/10.1016/j.cmet.2024.06.001). 
 
@@ -72,7 +72,7 @@ After shipment to the University of British Columbia, islets are hand picked and
 
 ## Single-cell Function (electrophysiology)
 
-*Current coverage: 406 donors.*
+*Current coverage: 406 donors. Contributed by the MacDonald lab.*
 
 On the day of collection (see section 3.5 above) islets are hand-picked, dispersed to single cells and plated on 35 mm cell culture dishes as described [here](https://www.protocols.io/view/human-and-mouse-islet-single-cell-dispersion-for-p-x54v98851l3e/v1). 24-72 hours after plating, electrophysiology is performed by whole-cell patch-clamp using procedures and solutions outlined in publications [here](https://www.jci.org/articles/view/82498) and [here](https://www.sciencedirect.com/science/article/pii/S155041312030187X?via%3Dihub).
 
@@ -82,9 +82,9 @@ For earlier donors, only ‘total exocytosis’ in response to a series of 10 me
 
 ## Prohormone Expression
 
-*Current coverage: 126 donors.*
+*Current coverage: 126 donors. Contributed by the Verchere lab.*
 
-Proinsulin and C-peptide are measured to assess insulin biosynthesis and the efficiency of prohormone processing in the beta cell. Both analytes are quantified in three sample types per donor: the supernatant from a low-glucose (LG; 2.8 mM) incubation, the supernatant from a high-glucose (HG; 16.7 mM) incubation, and an islet lysate reflecting total cellular content. These measurements are contributed by the lab of Dr. Bruce Verchere (University of British Columbia) and appear in the Donor View as a dedicated tab; samples are derived from islets isolated by the Alberta Diabetes Institute (ADI) IsletCore.
+Proinsulin and C-peptide are measured to assess insulin biosynthesis and the efficiency of prohormone processing in the beta cell. Both analytes are quantified in three sample types per donor: the supernatant from a low-glucose (LG; 2.8 mM) incubation, the supernatant from a high-glucose (HG; 16.7 mM) incubation, and an islet lysate reflecting total cellular content. These measurements appear in the Donor View as a dedicated tab; samples are derived from islets isolated by the Alberta Diabetes Institute (ADI) IsletCore.
 
 Proinsulin is measured with the TECO proinsulin ELISA (cat. TE1012) and C-peptide with the Mercodia C-peptide ELISA (cat. 10-1136-01), each run according to the manufacturer's protocol. Because neither kit is supplied with a large volume of zero-standard, PBS is used as the sample diluent for both assays. Samples are diluted to fall within the standard curve: for **proinsulin**, 1:1 (LG), 1:10 (HG), and 1:10 for earlier lysate samples or 1:200 for more recent lysate samples; for **C-peptide**, 1:5 (LG), 1:50 (HG), and 1:250 (lysate). For the proinsulin assay, the kit blocking buffer is not ready-to-use and is diluted 1:5 in zero-standard before use.
 
@@ -94,7 +94,7 @@ Concentrations are reported in pM as three replicate measurements plus a per-don
 
 ## Ancestry
 
-*Current coverage: 404 donors.*
+*Current coverage: 404 donors. Contributed by the Gloyn lab.*
 
 Donor DNA is extracted from acinar tissue and genotyped on the **Illumina Omni2.5Exome BeadChip** (~2.5M variants, V1.5 / V1.6 from October 2024 onward) at the Stanford Functional Genomics Core. Array-level QC requires minor allele frequency > 1%, SNP missing-genotype rate < 1%, donor missing-genotype rate < 3%, and reported-vs-genetic sex matching. The genotypes are then imputed against the NIH TOPMed reference panel via the [BioData Catalyst TOPMed Imputation Server](https://imputation.biodatacatalyst.nhlbi.nih.gov/) (variants called to GRCh38, aligned to the + strand, imputation quality R² > 0.3), yielding more than **41 million high-quality variants** per donor. These imputed genotypes feed both the ancestry inference described here and the genetic risk scores in the next section.
 
@@ -103,21 +103,24 @@ Genetic ancestry is inferred from the imputed genotypes using the Gloyn-lab [Gen
 - **Primary ancestry** (super-population, 5 categories) on the outer ring of the donut, aligned with the 1000 Genomes primary populations.
 - **Secondary ancestry** (sub-population, 26 categories) on the inner ring, providing the finer-grained breakdown within the primary population.
 
-See the [1000 Genomes population descriptions](https://www.internationalgenome.org/dataportal/population) for the reference panels and population definitions, and the [HIGI Pipeline methods PDF](https://iidp.coh.org/portals/0/documents/HIGI_Pipeline_January_2026.pdf) for the full Stanford pipeline overview.
+See the [1000 Genomes population descriptions](https://www.internationalgenome.org/dataportal/population) for the reference panels and population definitions, and the [genetic characterization PDF](https://dev.humanislets.com/assets/file/ADI_Pipeline_August_2026.pdf) for the full pipeline overview.
+
+Individual-level genotype data are available from the European Genome-phenome Archive (EGA; accession EGAS00001008509) under a Data Use Agreement with Stanford University.
 
 <span style="color:#b00020; font-weight:600;">[Needs confirmation from the Gloyn lab.]</span>
 
 ## Genetic Risk Scores
 
-*Current coverage: 421 donors.*
+*Current coverage: 421 donors. Contributed by the Gloyn lab.*
 
+<!-- HIDDEN: previous 3.12 text (preserved for reference; replaced to match the current website and the Gloyn-lab pipeline document).
 Polygenic risk scores are computed from the same TOPMed-imputed genotypes described in the previous section. All scores undergo a **static min-max normalization** based on the theoretical minimum and maximum genetic-risk contributions (i.e. no risk alleles up to all risk alleles), mapping each raw PRS onto a 0–1 scale. The displayed risk is then expressed as a percentile against the current IIDP donor data freeze (e.g. *"Risk > 19% of IIDP donors"*), and for donors of European ancestry it is additionally expressed against the UK Biobank reference population (e.g. *"Risk > 25.27% of the European Population (UKBB)"*). The Stanford implementation lives at [github.com/sethsh7/PRSedm](https://github.com/sethsh7/PRSedm) ([DOI:10.5281/zenodo.17903985](https://doi.org/10.5281/zenodo.17903985)); the full pipeline methods document is the [HIGI Pipeline PDF](https://iidp.coh.org/portals/0/documents/HIGI_Pipeline_January_2026.pdf).
 
 **T1D Genetic Risk Score (T1D-GRS).** Multiple published T1D-GRS variants are computed for each donor:
 
-- *t1dgrs2-luckett25* — the 67-variant standardized score from Luckett et al. ([2025](https://pubmed.ncbi.nlm.nih.gov/40267362/), *Diabetes Care*, doi:10.2337/dc25-0142).
+- *t1dgrs2-luckett25* — the 67-variant standardized score from Luckett et al. ([2025](https://pubmed.ncbi.nlm.nih.gov/40267362/), *Diabetes Care*, [doi:10.2337/dc25-0142](https://doi.org/10.2337/dc25-0142)).
 - *t1dgrs2-qu22* — the original GRS2 PRS with 4 additional African-ancestry SNPs (from Onengut) proposed by Qu et al. ([2022](https://pubmed.ncbi.nlm.nih.gov/34997821/), *Pediatric Diabetes*) and used in eMERGE.
-- *t1dgrs2-sharp21* — the TOPMED-R2 version of GRS2 from Sharp et al. ([2019](https://pubmed.ncbi.nlm.nih.gov/30655379/), *Diabetes Care*, doi:10.2337/dc18-1785).
+- *t1dgrs2-sharp21* — the TOPMED-R2 version of GRS2 from Sharp et al. ([2019](https://pubmed.ncbi.nlm.nih.gov/30655379/), *Diabetes Care*, [doi:10.2337/dc18-1785](https://doi.org/10.2337/dc18-1785)).
 
 Beyond the overall score, each donor's T1D-GRS is decomposed into **HLA Class 1**, **HLA Class 2**, and **Non-HLA** contributions, and the donor's **DR3 / DR4 haplotype** call is also reported (available via the IIDP Resource Data Repository). The trans-ancestry T1D-PRS is also downloadable from the RDR.
 
@@ -127,14 +130,28 @@ Beyond the overall score, each donor's T1D-GRS is decomposed into **HLA Class 1*
 - **Hard clustering** (Suzuki et al. [2024](https://pubmed.ncbi.nlm.nih.gov/38374256/), *Nature*) — each variant is uniquely assigned to a single cluster, representing relatively discrete genetic mechanisms. The clusters include residual glycemic, body fat, metabolic syndrome, obesity, β-cell PI+, β-cell PI−, lipodystrophy, and liver-and-lipid metabolism.
 
 Both the ancestry and GRS pipelines are contributed by the lab of Dr. Anna Gloyn (Stanford); see the [Contributors](https://dev.humanislets.com/#/contributors) page. All data are released in versioned freezes: **Version 2** is the current default (uses Suzuki 2024 for the T2D-GRS), while **Version 1** is archived from the previous release (which used Mahajan et al. 2022 for the T2D-GRS and DiCorpo et al. 2022 for the partitioned scores).
+-->
+
+Genetic risk scores are computed from the same TOPMed-imputed genotypes described in the previous section, using the [PRSedm](https://github.com/sethsh7/PRSedm) package ([DOI:10.5281/zenodo.17903985](https://doi.org/10.5281/zenodo.17903985)). Each score is normalized to a 0–1 scale using its theoretical minimum and maximum (from no risk alleles to all risk alleles). In the Donor View, a donor's score is shown on the distribution of all HumanIslets donors, with the donor's percentile (e.g. *55th perc.*). The full pipeline is described in the [genetic characterization PDF](https://dev.humanislets.com/assets/file/ADI_Pipeline_August_2026.pdf), also linked from **How to read this** in the Donor View.
+
+>*Available genetic risk score metadata include*: T1D genetic risk score (T1D GRS), Partitioned T1D GRS (HLA-DR/DQ, MHC Class I, MHC Class II and non-HLA; Luckett 2025), T2D polygenic risk score (T2D PRS), and Partitioned T2D PRS (8 hard clusters and 12 soft clusters).
+
+**T1D genetic risk score (T1D GRS).** The score (*t1dgrs2-luckett25*) uses the 67 variants of the standardized score from Luckett et al. ([2025](https://pubmed.ncbi.nlm.nih.gov/40267362/), *Diabetes Care*, [doi:10.2337/dc25-0142](https://doi.org/10.2337/dc25-0142)). It is partitioned into four parts: **HLA DR-DQ**, **HLA class I**, **HLA class II** and **Non-HLA**. For donors of European ancestry, the score is also compared with the UK Biobank European population (e.g. *"Risk > 61.50% of the European Population (UKBB)"*).
+
+**T2D polygenic risk score (T2D PRS).** A multi-ancestry weighted score built from the **1,232,226 variants** of the genome-wide multi-ancestry analysis of Suzuki et al. ([2024](https://pubmed.ncbi.nlm.nih.gov/38374256/), *Nature*). It is also split into partitioned polygenic scores under two clustering frameworks, chosen with the **Hard** / **Soft** switch:
+
+- **Hard** (*t2dp-suzuki24-eur*; Suzuki et al. [2024](https://pubmed.ncbi.nlm.nih.gov/38374256/)) — each variant belongs to one cluster, reflecting discrete genetic mechanisms: β-cell Proinsulin−, β-cell Proinsulin+, Body Fat, Lipodystrophy, Liver / Lipids, Metabolic Syndrome, Obesity and Residual Glycemic.
+- **Soft** (*t2dp-smith24-eur*; European, Smith et al. [2024](https://pubmed.ncbi.nlm.nih.gov/38443691/), *Nature Medicine*) — a variant can contribute to several clusters with different weights: ALP Negative, β-cell 1, β-cell 2, Bilirubin, Cholesterol, Hyperinsulinemia, Lipodystrophy 1, Lipodystrophy 2, Liver / Lipids, Obesity, Proinsulin and SHBG / LpA.
+
+Results are released as data freezes: donors are genotyped in batches and all available donors are re-analyzed together, so scores can be compared across donors.
 
 <span style="color:#b00020; font-weight:600;">[Needs confirmation from the Gloyn lab.]</span>
 
 ## Pancreas Lipid Extraction
 
-*Current coverage: 149 donors.*
+*Current coverage: 149 donors. Contributed by the Mulvihill lab.*
 
-Lipid extraction is performed on whole pancreas samples (not isolated islets) for a subset of donors, contributed by the lab of Dr. Erin Mulvihill (University of Ottawa). Data appear in the Donor View as a dedicated tab.
+Lipid extraction is performed on whole pancreas samples (not isolated islets) for a subset of donors. Data appear in the Donor View as a dedicated tab.
 
 The concentrations of triglyceride, total cholesterol, and free cholesterol in the pancreas were measured using enzyme-based assays. Lipids were extracted from approximately 100 mg of tissue using a modified Folch method involving chloroform and methanol. To account for procedural losses, samples were spiked with a radioactive recovery standard of ³H-Cholesterol Oleate (~100,000 dpm).
 
