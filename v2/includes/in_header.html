@@ -74,6 +74,11 @@
         else { book.classList.remove('color-theme-2'); }
       }
       syncGitbook(dark);
+      // bookdown paints the fixed toolbar with the page colour it saw at load time (white);
+      // repaint it with the current page colour so it matches dark, light and sepia.
+      var hdr = document.querySelector('.book-header.fixed');
+      var bb = document.querySelector('.book-body');
+      if (hdr && bb) hdr.style.backgroundColor = getComputedStyle(bb).backgroundColor;
       var btn = document.querySelector('.hi-dark-toggle');
       if (btn) {
         var label = dark ? 'Switch to light mode' : 'Switch to dark mode';
@@ -144,4 +149,5 @@
   .book.color-theme-2 span[style*="#b00020"] { color: #ff7a8a !important; }
   .book.color-theme-2 .book-header,
   .book.color-theme-2 .book-header .btn { color: #bcc1d2; }
+  .book.color-theme-2 .book-header.fixed { background-color: #1c1f2b !important; border-bottom-color: #373b4e; }
 </style>
