@@ -1,0 +1,56 @@
+# GIFT Genomic View {#gift}
+
+The GIFT Genomic View (section 2.3.2) shows islet genetic results from GIFT, a resource led by the Gloyn lab (Stanford), which provides all genetic data in HumanIslets. The Gloyn lab produced these associations; HumanIslets stores them and draws the plots and tables. This chapter describes what the view holds, how the page builds its plots, and the quick colocalisation test that runs on our server.
+
+<span style="color:#b00020; font-weight:600;">[GIFT citation and data-use terms to be added; needs confirmation from the Gloyn lab.]</span>
+
+## Data in the view
+
+*Current coverage: 519 genotyped donors and 7,764,556 variants.*
+
+- **Islet function GWAS ("GWAS-in-a-dish"):** genome-wide associations between genetic variants and donor islet phenotypes, for example *Static-secretion stimulation index*. 50 phenotypes in five groups:
+    - Static GSIS: 6 phenotypes, 377 donors;
+    - Bayesian hierarchical model: 25 phenotypes, 376 donors;
+    - Dynamic perifusion: 6 phenotypes, 148 donors;
+    - Beta-cell electrophysiology: 6 phenotypes, 300 donors;
+    - Alpha-cell electrophysiology: 7 phenotypes, 88 donors.
+- **Islet cis-QTLs:** variants linked to a nearby molecular feature: eQTL (gene expression), exon-level eQTL (exon expression), sQTL (splicing junction), pQTL (protein) and caQTL (chromatin peak).
+    - eQTL: 12,826 significant lead signals, mapped in 954 donors (448 GIFT donors and 506 donors from published islet RNA-seq studies: CRG, InsPIRE, TIGER and van de Bunt et al.);
+    - caQTL: 5,159 lead signals in 139 donors;
+    - pQTL: 567 lead signals in 113 donors.
+
+    <span style="color:#b00020; font-weight:600;">[Counts for exon-level eQTL and sQTL to be added; needs confirmation from the Gloyn lab.]</span>
+
+- **Covariate models:** each GWAS phenotype has three models: **primary**, **T2D-adjusted** and **BMI-adjusted**. Some static insulin secretion phenotypes use content-adjusted versions of the same three models (labelled *content-adj.*). The primary model is shown first.
+- **Positions and alleles:** variant positions use GRCh38 (hg38). In GWAS tables the effect size is per copy of the effect allele; in QTL tables it is per copy of the ALT allele.
+
+## How the plots are built
+
+- **Significance lines:** plots mark genome-wide significance (*P* = 5×10^-8^, dashed red) and the suggestive level (*P* = 10^-5^, dotted grey).
+- **Manhattan plot:** every variant with *P* < 0.05 is drawn as it is; the rest are downsampled so the plot loads quickly. The table below lists the top 1,000 variants by *P*.
+- **Locus plot:** all QTL hits in the gene's cis window, one colour per QTL type. The lead variant of each feature is drawn as a diamond.
+- **Function GWAS:** for each islet function trait, the strongest GWAS variant in the gene's cis window and its distance from the QTL lead variant.
+- **Regional plot:** all GWAS variants within ±500 kb of the selected variant, for one phenotype and model.
+
+## Colocalisation
+
+Colocalisation asks whether two association signals in one region share a causal variant. The coloc method gives five probabilities that add up to 1:
+
+- **PP.H0:** neither trait is associated in the region;
+- **PP.H1:** only the first trait is associated;
+- **PP.H2:** only the second trait is associated;
+- **PP.H3:** both are associated, with two different causal variants;
+- **PP.H4:** both are associated, with one shared causal variant.
+
+**Results from the Gloyn lab.** When a gene is in the GIFT colocalisation results, the tab shows them. The locus plot for each pair is drawn from the current summary statistics on this site, so *P* values can differ a little from the GIFT results.
+
+**Quick test.** When a gene is not in those results, a **Quick test** can be run for reference. It tests the gene's cis-QTL (one QTL type at a time) against every islet function GWAS phenotype, using the current summary statistics. It uses the coloc approximate Bayes factor method (the same formula as `coloc.abf()` in the R coloc package), run in Python on the HumanIslets server:
+
+- default coloc priors: *p*~1~ = *p*~2~ = 1×10^-4^, *p*~12~ = 1×10^-5^;
+- variants with minor allele frequency > 5%; alleles aligned, with mismatched and strand-ambiguous (A/T, C/G) variants removed;
+- a ±250 kb window around the lead variant, and one QTL feature per gene (the one with the strongest lead);
+- a sensitivity check: the share of *p*~12~ values from 10^-8^ to 10^-4^ that still give PP.H4 > 0.5.
+
+Results are sorted by PP.H4, and every result is shown. The Quick test uses no LD reference panel, so it cannot separate several independent signals at one locus. Use it as a quick check, not as a full colocalisation analysis.
+
+- **coloc** &mdash; *Reference:* Giambartolomei C, Vukcevic D, Schadt EE, et al. Bayesian test for colocalisation between pairs of genetic association studies using summary statistics. *PLoS Genet.* 2014;10(5):e1004383. [doi:10.1371/journal.pgen.1004383](https://doi.org/10.1371/journal.pgen.1004383).

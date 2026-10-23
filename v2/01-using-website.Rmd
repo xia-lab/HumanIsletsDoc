@@ -43,7 +43,7 @@ To perform pathway / metabolite / reaction analysis:
 4. Choose among the available libraries for the matched omics type
 5. Click ‘submit’
 
-The ‘Pathway Results’ will be displayed in both graphical and table format, selected by clicking on the appropriate tab. As above, results can be downloaded with **Download Results**. In the interactive graphical view, significant pathways (based on FDR cutoff) are shown as ridgeplots. Clicking on these will raise heatmaps showing the contribution of individual genes/proteins.
+The ‘Pathway Results’ will be displayed in both graphical and table format, selected by clicking on the appropriate tab. As above, results can be downloaded with **Download Results**, and **Save Analysis** saves the analysis so it can be rerun locally. In the interactive graphical view, significant pathways (based on FDR cutoff) are shown as ridgeplots. Clicking on these will raise heatmaps showing the contribution of individual genes/proteins.
 
 ### Multi-omics View [<img src="logo1.png" alt="Logo" style="width:18px; height:18px;">](https://dev.humanislets.com/#/multiomics)
 
@@ -237,11 +237,11 @@ The page also surfaces two modal dialogs on demand: an **AI Insight Dialog** (cl
 
 ## Search & Discovery
 
-The Search & Discovery block groups feature-centric and entity-centric exploration: ask a question about a gene/phenotype, or jump from one feature to all its associations.
+The Search & Discovery block groups feature-centric and entity-centric exploration: ask a question about a gene or phenotype, look up islet genetic associations, or jump from one feature to all its associations.
 
 ### IsletAgent [<img src="logo4.png" alt="Logo" style="width:18px; height:18px;">](https://dev.humanislets.com/#/islet-agent)
 
-IsletAgent answers plain-language questions about a gene, a phenotype, or the relationship between them. Each answer is grounded in the HumanIslets cohort, in public and local genetics, and in public knowledge, all held in the platform's knowledge graph (chapter 6). The page is labelled **BETA**.
+IsletAgent answers plain-language questions about a gene, a phenotype, or the relationship between them. Each answer is grounded in the HumanIslets cohort, in public and local genetics, and in public knowledge, all held in the platform's knowledge graph (chapter 7). The page is labelled **BETA**.
 
 **Asking a question.** You can ask about genes, proteins, metabolites and islet phenotypes, and the links between them. For example: whether a feature is related to a phenotype or disease, how features or pathways differ between donor groups such as diabetes status or molecular clusters, or how well an omics layer predicts a phenotype. Type a question in the box and click **Ask**, or click one of the example questions under **Try**, such as *Is GCK linked to type 2 diabetes?*, *What predicts HbA1c (%)?* or *Which pathways are enriched in type 2 diabetes in RNA-seq?* Click **Watch an example** to see a full answer step by step. While IsletAgent works, a progress bar shows each step: **Understood**, **Chose**, **Found**, **Ran** and **Result**.
 
@@ -290,6 +290,26 @@ How the knowledge graph is built and what external sources feed each tab is docu
 The page is currently labelled **BETA** while we collect feedback on the AI synthesis quality.
 
 -->
+
+### GIFT Genomic View [<img src="logo4.png" alt="Logo" style="width:18px; height:18px;">](https://dev.humanislets.com/#/genomics)
+
+The GIFT Genomic View looks up islet genetic associations from GIFT (Genotype & Islet Function Trans-omics), the Gloyn lab's islet genetics resource: genome-wide associations with islet function traits ("GWAS-in-a-dish") and islet cis-QTLs (eQTL, exon-level eQTL, sQTL, pQTL and caQTL). Variant positions use GRCh38 (hg38). [Chapter 6](#gift) describes the data in the view and how the plots and the quick colocalisation test are built.
+
+**Searching.** Type one of the following and click **Search**; the page picks the view that fits:
+
+- a **variant**, by rsID or genomic position (for example *chr1:727233* or *chr1:727233:G:A*);
+- a **gene**, by HGNC symbol or Ensembl ID;
+- a **phenotype**, by its label (for example *Static-secretion stimulation index*).
+
+**Gene results** have three tabs:
+
+- **QTL Results:** a locus plot of the gene's QTL hits in its cis window, one colour per QTL type, with the lead variant of each feature marked. Click a colour in the legend to show or hide that type, click a point to open that variant, and use the toolbar to zoom or pan. A table below lists each association (source, feature, position, rsID, alleles, effect size, standard error, *P*, minor allele frequency, distance and lead variant), with a source filter.
+- **Function GWAS:** for each islet function trait, the strongest GWAS variant in the gene's cis window and its distance from the QTL lead variant.
+- **Colocalisation:** whether the gene's QTL and an islet trait share a causal variant, with a short guide to reading the colocalisation probabilities. If the gene is not in the published colocalisation results, a **Quick test** can be run for reference.
+
+**Variant results** list the associations at that variant, with links to dbSNP, UCSC and the T2D Knowledge Portal, in four tabs: **Forest Plot**, **PheWAS Plot**, **Results Table** and **Regional Plot**. The main covariate model is shown first; **Show all covariate models** adds the others.
+
+**Phenotype results** show a genome-wide Manhattan plot for the trait and a table of its top 1,000 variants; the **Model** menu switches the covariate model. The first search can take a little while to load.
 
 ### Feature View [<img src="logo3.png" alt="Logo" style="width:18px; height:18px;">](https://dev.humanislets.com/#/feature)
 

@@ -49,7 +49,7 @@ IsletAgent also shows gene-level **HuGE scores** (Human Genetic Evidence) from H
 
 ### Local genetics
 
-Genetic results measured in the HumanIslets cohort itself. This layer holds islet cis-eQTLs and cis-pQTLs, which give the main genetic support for causal analyses, together with exon-level eQTLs, splicing QTLs (sQTLs), chromatin-accessibility QTLs (caQTLs) and genome-wide association studies (GWAS) of islet phenotypes. A cis-QTL is called significant after Bonferroni correction across the variants tested for each feature and Benjamini–Hochberg correction across features.
+Genetic results measured in the HumanIslets cohort itself, from the Gloyn lab's GIFT resource (chapter 6). This layer holds islet cis-eQTLs and cis-pQTLs, which give the main genetic support for causal analyses, together with exon-level eQTLs, splicing QTLs (sQTLs), chromatin-accessibility QTLs (caQTLs) and genome-wide association studies (GWAS) of islet phenotypes. A cis-QTL is called significant after Bonferroni correction across the variants tested for each feature and Benjamini–Hochberg correction across features.
 
 ### Local data
 

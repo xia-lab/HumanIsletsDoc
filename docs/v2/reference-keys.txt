@@ -13,6 +13,7 @@ phenotype-view
 cluster-view
 search-discovery
 isletagent
+gift-genomic-view
 feature-view
 data-download
 data-download-1
@@ -58,6 +59,10 @@ diablo-data-integration-analysis-for-biomarker-discovery-using-latent-components
 variational-autoencoder-vae-for-donor-clustering
 gem-library-for-pathway-enrichment
 sources-of-gene-annotations-link-to-code-repository
+gift
+data-in-the-view
+how-the-plots-are-built
+colocalisation
 knowledge-graph
 architecture-overview
 knowledge-graph-1
