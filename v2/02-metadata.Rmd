@@ -6,7 +6,7 @@
 
 De-identified donor characteristics, including HLA-typing, collected at the time of organ procurement are provided in a de-identified manner to the ADI IsletCore team by the organ procurement organisations. Users should be aware that some information, such as diabetes diagnosis, may not be clinically validated at the time of organ retrieval. Whenever possible, HbA1c measurements are performed directly by the ADI IsletCore using blood samples sent with the organ, and donors indicated as type 1 diabetes (T1D) are validated as much as possible through genetic testing, autoantibody testing, and immunohistochemical analysis. While the Donor Metadata ‘diabetes diagnosis’ reflects the status indicated by the organ procurement organization, the Donor Metadata ‘corrected diabetes status’ indicates a classification based on the totality of information available to the ADI IsletCore (including ‘pre-diabetes’ defined as HbA1c between 5.7 and 6.5%, and ‘non-diagnosed’ donors with HbA1c>6.5% as type 2 diabetes (T2D)).
 
-> *Available donor characteristics metadata include*: Age, Sex, Donation Type (NDD, DCD, MAID), BMI, HbA1c (%), HLA A2 (Yes/No), Diabetes diagnosis, and Corrected diabetes status.
+> *Available donor characteristics metadata include*: Age, Diabetes duration (years), Sex, Donation Type (NDD, DCD, MAID), BMI, HbA1c (%), HLA A2 (Yes/No), Diabetes diagnosis, and Corrected diabetes status.
 
 ## Organ Characteristics and Processing
 

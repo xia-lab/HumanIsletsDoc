@@ -1,4 +1,94 @@
-# Knowledge Graph
+# IsletAgent {#knowledge-graph}
+
+IsletAgent (section 2.3.1) works on a knowledge graph that holds the HumanIslets cohort results and public evidence in one structure. This chapter describes what is in the knowledge graph, how IsletAgent uses it, and how the evidence for each relationship is graded.
+
+## Architecture overview
+
+```
+IsletAgent page (Angular frontend)
+        │  question
+        ▼
+IsletAgent (fine-tuned small language model, run locally)
+  ├── retrieval call → reviewed query templates (Cypher) → Neo4j knowledge graph
+  └── analysis call  → cohort analyses (platform API)
+        │
+        ▼
+Evidence-graded answer: verdict, panels, tables, methods and R scripts
+```
+
+The knowledge graph is stored in Neo4j. IsletAgent does not write free-form database queries. It names the entities, the retrieval route and a few parameters, and a reviewed query template writes the Cypher. So every knowledge graph query is valid and can be inspected. When a question needs a calculation that is not stored in the knowledge graph, IsletAgent calls one of the platform's analyses, and the platform runs it on the cohort data.
+
+## Knowledge graph
+
+The knowledge graph is built in five layers, so each kind of evidence can be updated on its own.
+
+### Public knowledge
+
+PrimeKG, Hetionet and public pathway resources. This layer covers diabetes-related diseases, genes, drugs and their indications, environmental exposures, tissue expression in the pancreas and islets, Gene Ontology processes, protein–protein and gene-regulatory interactions, pathways and drug–target links. It places cohort findings in their known context.
+
+- **PrimeKG** &mdash; *Reference:* Chandak P, Huang K, Zitnik M. Building a knowledge graph to enable precision medicine. *Sci Data.* 2023;10(1):67. [doi:10.1038/s41597-023-01960-3](https://doi.org/10.1038/s41597-023-01960-3).
+- **Hetionet** &mdash; *Reference:* Himmelstein DS, Lizee A, Hessler C, et al. Systematic integration of biomedical knowledge prioritizes drugs for repurposing. *eLife.* 2017;6:e26726. [doi:10.7554/eLife.26726](https://doi.org/10.7554/eLife.26726).
+
+### Literature
+
+PubMed articles retrieved with PubTator 3.0, linked to genes, diseases, phenotypes and pathways. Co-mentioned entities are found by named-entity recognition, and abstracts and MeSH terms come from PubMed E-utilities. Literature is shown as a pointer. It is never scored and never sent to the model.
+
+- **PubTator 3.0** &mdash; *Reference:* Wei C-H, Allot A, Lai P-T, et al. PubTator 3.0: an AI-powered literature resource for unlocking biomedical knowledge. *Nucleic Acids Res.* 2024;52(W1):W540–W546. [doi:10.1093/nar/gkae235](https://doi.org/10.1093/nar/gkae235).
+
+### Public human genetics
+
+TIGER colocalizations of islet cis-eQTLs with diabetes and glycemic-trait GWAS; variant–phenotype associations from the Type 1 and Type 2 Diabetes and Common Metabolic Diseases Knowledge Portals; and variant–trait and gene–variant associations from the NHGRI-EBI GWAS Catalog.
+
+IsletAgent also shows gene-level **HuGE scores** (Human Genetic Evidence) from HuGeAMP, the platform behind the Knowledge Portals. A HuGE score sums up how strongly human genetics links a gene to a trait, and IsletAgent shows it as an evidence tier.
+
+- **TIGER** &mdash; *References:* Alonso L, Piron A, Morán I, et al. TIGER: the gene expression regulatory variation landscape of human pancreatic islets. *Cell Rep.* 2021;37(6):109807. [doi:10.1016/j.celrep.2021.109807](https://doi.org/10.1016/j.celrep.2021.109807). Piron A, Szymczak F, Folon L, et al. Identification of novel type 1 and type 2 diabetes genes by co-localization of human islet eQTL and GWAS variants with colocRedRibbon. *Cell Genom.* 2025;5:101004. [doi:10.1016/j.xgen.2025.101004](https://doi.org/10.1016/j.xgen.2025.101004).
+- **Type 2 Diabetes Knowledge Portal** &mdash; *Reference:* Costanzo MC, von Grotthuss M, Massung J, et al. The Type 2 Diabetes Knowledge Portal: an open access genetic resource dedicated to type 2 diabetes and related traits. *Cell Metab.* 2023;35(4):695–710.e6. [doi:10.1016/j.cmet.2023.03.001](https://doi.org/10.1016/j.cmet.2023.03.001).
+- **Type 1 Diabetes Knowledge Portal** &mdash; *Reference:* Kudtarkar P, Costanzo MC, Sun Y, et al. Leveraging type 1 diabetes human genetic and genomic data in the T1D knowledge portal. *PLoS Biol.* 2023;21:e3002233. [doi:10.1371/journal.pbio.3002233](https://doi.org/10.1371/journal.pbio.3002233).
+- **NHGRI-EBI GWAS Catalog** &mdash; *Reference:* Cerezo M, Sollis E, Ji Y, et al. The NHGRI-EBI GWAS Catalog: standards for reusability, sustainability and diversity. *Nucleic Acids Res.* 2025;53:D998–D1005. [doi:10.1093/nar/gkae1070](https://doi.org/10.1093/nar/gkae1070).
+- **HuGE scores (HuGeAMP)** &mdash; *Reference:* Dornbos P, Singh P, Jang DK, et al. Evaluating human genetic support for hypothesized metabolic disease genes. *Cell Metab.* 2022;34(5):661–666. [doi:10.1016/j.cmet.2022.03.011](https://doi.org/10.1016/j.cmet.2022.03.011).
+
+### Local genetics
+
+Genetic results measured in the HumanIslets cohort itself. This layer holds islet cis-eQTLs and cis-pQTLs, which give the main genetic support for causal analyses, together with exon-level eQTLs, splicing QTLs (sQTLs), chromatin-accessibility QTLs (caQTLs) and genome-wide association studies (GWAS) of islet phenotypes. A cis-QTL is called significant after Bonferroni correction across the variants tested for each feature and Benjamini–Hochberg correction across features.
+
+### Local data
+
+The HumanIslets cohort itself: donors, their phenotype values, and pre-computed links between molecular features and donor phenotypes. Associations come from limma linear models adjusted for age, sex, BMI and culture time (Kendall partial correlation for contaminants, Spearman correlation for patch-seq). Prediction links show how well each omics layer predicts each phenotype (elastic net, stability selection, random forest, and XGBoost with SHAP). Only models above a quality floor are kept.
+
+## How IsletAgent works
+
+- **Model:** IsletAgent is a small, instruction-tuned language model. It is fine-tuned with low-rank adaptation on a quantized model (QLoRA), using grounded examples from the knowledge graph, and runs privately on local hardware.
+- **Tasks:** it is trained on three tasks that follow the agent workflow:
+    - **Parsing:** resolve the entities in a question, expand concepts into their measurements, and choose the retrieval route.
+    - **Grounded reasoning:** turn the retrieved evidence into one evidence-based answer.
+    - **Analysis:** decide whether to run a cohort analysis or stop when the evidence is enough.
+- **Retrieval and analysis:** for retrieval, IsletAgent sends a call naming the entities, the route and its parameters, and a reviewed template writes the Cypher. For computation, it calls one of the platform's analyses: feature characterization, donor-group comparisons, differential expression, phenotype association, pathway enrichment, colocalization, Mendelian randomization and QTL look-ups in the cohort's own genetics. IsletAgent decides what to retrieve and which analysis to run; the platform decides what can run.
+- **Training data:** examples are generated from the same knowledge graph, using common question patterns, such as single-feature effects, donor-group differences, cross-omics agreement, prediction and single-entity profiles. Evidence is retrieved with the same functions the live system uses. Reference answers are written by code from that evidence, not by people or another language model. Each answer:
+    - cites every statistic it reports
+    - states the effect direction
+    - grades the support
+    - notes whether cohort and public evidence agree
+    - separates markers of cell composition from regulators of function
+    - says so when the evidence is not enough
+- **Checks:** before training, every cohort statistic used as evidence was traced back to its source table.
+- **Evaluation:** IsletAgent was tested on held-out questions about genes, metabolites and phenotypes it never saw in training. It was also tested on new questions written by islet researchers or taken from published papers. Both times it was compared with the same base model and with a larger untuned model.
+
+## Evidence grades
+
+IsletAgent grades the evidence for each relationship, not for a gene on its own. For example, *ABCC8 → insulin secretion* and *ABCC8 → type 2 diabetes* are graded separately. Evidence falls into three independent streams. Each has its own rules and a maximum, and the streams are added up.
+
+- **Cohort:** association, prediction and correlation in the HumanIslets cohort, scored by the number of independent analytes. Transcript and protein count separately; RNA-seq and NanoString count as one transcript unit, and derived measurements add nothing beyond their source layers. Correlation counts only when there is no phenotype endpoint. Effect direction is reported (concordant, discordant or single-analyte) but does not change the score.
+- **Genetics:** only the highest step of a ladder counts. The steps are QTL only, GWAS, QTL plus GWAS, colocalization, and colocalization with significant Mendelian randomization. QTL types are weighted by how directly they act on the gene: eQTL and pQTL most, then sQTL and exon-level eQTL, then caQTL. Extra credit is given for replication between local and external populations, for colocalization and Mendelian randomization that agree, and for GWAS signals in both local and public data.
+- **Knowledge:** curated public relations, with more credit for relations specific to the target than for general ones. Knowledge is weighted below cohort data, because it reflects how widely a gene is annotated rather than replication.
+- **Provisional credit:** when both ends of a link carry genetic evidence, the link gets provisional credit until the causal test is run. A significant result moves it to the top genetic step; a null result removes the credit. So a score can go down, and a measured null counts as evidence.
+- **Not applicable:** a stream is scored only when it applies to both ends of a link. Otherwise it is marked not applicable, not zero. Metabolites, contaminants and lipids have no genetic links; feature-to-feature links get no genetics; and electrophysiology phenotypes, which have no GWAS, are graded on cohort evidence alone.
+
+The total maps to four grades: **Limited**, **Moderate**, **Strong** and **Very Strong**. Very Strong needs evidence from more than one stream or full genetic evidence. Limited reflects the amount of evidence, not its statistical strength, so a low grade means little evidence so far, not that a link is wrong. Grades are updated when a triggered analysis returns. The grading rules are checked by automated tests. In IsletAgent, the **Evidence profile** panel shows how much each stream contributes, against its maximum.
+
+The design follows the ClinGen gene–disease validity framework (Strande NT, Riggs ER, Buchanan AH, et al. Evaluating the clinical validity of gene-disease associations: an evidence-based framework developed by the Clinical Genome Resource. *Am J Hum Genet.* 2017;100:895–906. [doi:10.1016/j.ajhg.2017.04.015](https://doi.org/10.1016/j.ajhg.2017.04.015)). It differs in that grading is automatic, works at cohort scale, and can trigger new analyses and revise grades. The grades were checked against independent ClinGen classifications of monogenic diabetes genes.
+
+
+<!-- HIDDEN: previous Chapter 6 text (preserved for reference; replaced to match the final methods). It covered: Architecture overview (FastAPI, Gemini, 4-level cache), Layers 0-4 (Backbone, Islet genetics, Literature, Local evidence, RAG cache), External APIs called at query time, and GWAS evidence:
 
 IsletAgent (chapter 2) is powered by a server-side knowledge graph (KG) that integrates the HumanIslets cohort's own evidence with several curated public databases and live external APIs. This chapter documents what is in the KG, where it comes from, and when it is refreshed.
 
@@ -96,3 +186,4 @@ Gene- and SNP-level GWAS associations are pulled from four sources, in this orde
 
 For any gene query, the platform displays in the result page's *External validation* panel: the gene's T2DKP gene page (with burden-of-evidence tier), its T1DKP gene page if applicable, the relevant HuGeAMP portal entries, and matching lead-variant entries from the GWAS Catalog. SNP queries resolve directly to the SNP's pages across the same four sources.
 
+-->
