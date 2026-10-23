@@ -22,13 +22,21 @@ On the day of sample collection (see section 3.5, above) 50 islets are hand-pick
 
 ## Protein expression (proteomics)
 
-*Current coverage: 6,138 proteins across 134 donors.*
+*Current coverage: 234 donors in two batches — Batch 1: 8,546 proteins across 134 donors; Batch 2: 10,454 proteins across 100 donors; Combined: 8,338 proteins measured in both batches.*
 
 Human islets are shipped to the University of British Columbia, hand-picked and cultured in RPMI for 24-72hrs before the experiment to allow the islets to recover from shipping. After recovery, 300 islets are hand-picked, washed with PBS and the pellet is snap frozen and stored at -80oC. LC-MS/MS analysis is performed with n = 3 technical replicates, using a NanoElute UHPLC system (Bruker Daltonics) with Aurora Series Gen2 (CSI) analytical column coupled to a Trapped Ion Mobility – Time of Flight mass spectrometer (timsTOF Pro; Bruker Daltonics, Germany) operated in Data-Independent Acquisition - Parallel Accumulation- Serial Fragmentation (DIA-PASEF) mode. Details of lysis and analysis are found [here](https://www.medrxiv.org/content/10.1101/2023.05.24.23290298v1.full.pdf). 
 
+Proteomics data come in two batches acquired at different times: **Batch 1** and **Batch 2** (later donors, measured without technical replicates). Each batch is processed the same way: protein intensities are normalized with cyclic loess and log2-transformed, and proteins detected in too few samples are removed. In Batch 1, technical replicates are averaged on the log2 scale. The two batches are also combined, keeping proteins measured in both, with no variance filter. Because the batches differ systematically, the combined data can be used in two ways: **Batch corrected**, where the batch effect is removed with ComBat, or **Batch as covariate**, where the uncorrected data are used and batch is added to the model automatically. Multi-omics integration (chapter 5) uses the ComBat-corrected data.
+
+<!-- HIDDEN: previous (v1) proteomics processing text (preserved for reference; replaced to match the current website):
+
 Protein abundances were filtered to remove any that had more than 50% missing values, median normalized, and log2 transformed. Missing values were imputed with the missForest method (random forest-based) using the imp4p R package (version 1.2.0). Uniprot IDs were converted to Entrez IDs, and rows with duplicate IDs were aggregated by taking the mean. Proteins with variance in the lowest 20th percentile were filtered out.
 
+-->
+
 Raw proteomics data has been deposited to ProteomExchange via MASSive under dataset number PXD045422.
+
+<span style="color:#b00020; font-weight:600;">[PXD045422 covers v1 only; the v2 data deposition needs confirmation from James Johnson's lab.]</span>
 
 ## Gene expression (pseudobulk RNA-seq)
 
