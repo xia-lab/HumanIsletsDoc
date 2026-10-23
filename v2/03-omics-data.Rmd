@@ -24,7 +24,7 @@ On the day of sample collection (see section 3.5, above) 50 islets are hand-pick
 
 *Current coverage: 234 donors in two batches — Batch 1: 8,546 proteins across 134 donors; Batch 2: 10,454 proteins across 100 donors; Combined: 8,338 proteins measured in both batches.*
 
-Human islets are shipped to the University of British Columbia, hand-picked and cultured in RPMI for 24-72hrs before the experiment to allow the islets to recover from shipping. After recovery, 300 islets are hand-picked, washed with PBS and the pellet is snap frozen and stored at -80oC. LC-MS/MS analysis is performed with n = 3 technical replicates, using a NanoElute UHPLC system (Bruker Daltonics) with Aurora Series Gen2 (CSI) analytical column coupled to a Trapped Ion Mobility – Time of Flight mass spectrometer (timsTOF Pro; Bruker Daltonics, Germany) operated in Data-Independent Acquisition - Parallel Accumulation- Serial Fragmentation (DIA-PASEF) mode. Details of lysis and analysis are found [here](https://www.medrxiv.org/content/10.1101/2023.05.24.23290298v1.full.pdf). 
+Human islets are shipped to the University of British Columbia, hand-picked and cultured in RPMI for 24-72hrs before the experiment to allow the islets to recover from shipping. After recovery, 300 islets are hand-picked, washed with PBS and the pellet is snap frozen and stored at -80oC. LC-MS/MS analysis is performed with n = 3 technical replicates, using a NanoElute UHPLC system (Bruker Daltonics) with Aurora Series Gen2 (CSI) analytical column coupled to a Trapped Ion Mobility – Time of Flight mass spectrometer (timsTOF Pro; Bruker Daltonics, Germany) operated in Data-Independent Acquisition - Parallel Accumulation- Serial Fragmentation (DIA-PASEF) mode. Details of lysis and analysis are found in [Kolic et al. (2024) *Cell Metabolism*](https://doi.org/10.1016/j.cmet.2024.06.001). 
 
 Proteomics data come in two batches acquired at different times: **Batch 1** and **Batch 2** (later donors, measured without technical replicates). Each batch is processed the same way: protein intensities are normalized with cyclic loess and log2-transformed, and proteins detected in too few samples are removed. In Batch 1, technical replicates are averaged on the log2 scale. The two batches are also combined, keeping proteins measured in both, with no variance filter. Because the batches differ systematically, the combined data can be used in two ways: **Batch corrected**, where the batch effect is removed with ComBat, or **Batch as covariate**, where the uncorrected data are used and batch is added to the model automatically. Multi-omics integration (chapter 5) uses the ComBat-corrected data.
 
@@ -36,11 +36,11 @@ Protein abundances were filtered to remove any that had more than 50% missing va
 
 Raw proteomics data has been deposited to ProteomExchange via MASSive under dataset number PXD045422.
 
-<span style="color:#b00020; font-weight:600;">[PXD045422 covers v1 only; the v2 data deposition needs confirmation from James Johnson's lab.]</span>
+<span style="color:#b00020; font-weight:600;">[The sample preparation and LC-MS/MS description above and dataset PXD045422 are from v1 (Batch 1); the v2 (Batch 2) protocol and data deposition need confirmation from the Johnson lab.]</span>
 
 ## Gene expression (pseudobulk RNA-seq)
 
-*Current coverage: 106 donors with pseudobulk α-cell profiles, 65 donors with pseudobulk β-cell profiles (plus smaller numbers for δ and PP cells).*
+*Current coverage: 58 HumanIslets donors with pseudobulk profiles.*
 
 The single-cell counts from patch-seq data (section 4.5, below) were summarized at the donor by separating counts by cell type (alpha and beta). Only cells from donors with at least five cells were retained. Pseudobulk profiles were created by summing counts from all cells derived from the same donor. Ensembl gene IDs were mapped to Entrez IDs and counts from any duplicated Entrez IDs were summed. Each matrix was filtered to remove transcripts with greater than 80% zeros. Counts were converted to logCPM values using the TMM method from the edgeR R package (version 3.38.4). Due to the large variations in sequencing depth across batches, individual transcripts that had zero or one count were replaced with NA values.
 
