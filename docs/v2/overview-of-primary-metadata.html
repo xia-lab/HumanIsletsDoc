@@ -93,20 +93,44 @@
 </script>
 
 <script>
-  // Dark mode. Default: follow the computer's light/dark setting.
-  // The sun/moon button in the toolbar switches dark <-> light and remembers the choice.
+  // Dark mode. Default: by the visitor's local time of day
+  // (light from DAY_START to DAY_END, dark at night).
+  // The sun/moon button in the toolbar switches dark <-> light; that choice lasts until
+  // the next day/night change, then the time of day decides again.
   // It uses gitbook's own Night theme (class "color-theme-2" on .book).
   (function() {
-    var KEY = 'hi-v2-color-mode';            // "dark" | "light"; not set = follow the computer
-    var mq = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
+    var KEY = 'hi-v2-color-mode';            // saved choice: "dark|<period>" or "light|<period>"
+    var DAY_START = 7, DAY_END = 19;          // local hours: 07:00-19:00 is day
 
-    function saved() { try { return localStorage.getItem(KEY); } catch (e) { return null; } }
-    function save(v) { try { localStorage.setItem(KEY, v); } catch (e) {} }
+    function pad(n) { return (n < 10 ? '0' : '') + n; }
+    function ymd(d) { return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); }
+    // The current day or night block; a night that crosses midnight keeps the date it started on.
+    function period() {
+      var d = new Date(), h = d.getHours();
+      if (h >= DAY_START && h < DAY_END) return ymd(d) + '-day';
+      if (h < DAY_START) { var p = new Date(d.getTime()); p.setDate(p.getDate() - 1); return ymd(p) + '-night'; }
+      return ymd(d) + '-night';
+    }
+    function timeMode() { var h = new Date().getHours(); return (h >= DAY_START && h < DAY_END) ? 'light' : 'dark'; }
+
+    function saved() {
+      var v = null;
+      try { v = localStorage.getItem(KEY); } catch (e) { return null; }
+      if (!v) return null;
+      var parts = v.split('|');
+      if (parts.length !== 2 || parts[1] !== period()) return null;   // old choice: back to day/night
+      return parts[0];
+    }
+    function save(mode) { try { localStorage.setItem(KEY, mode + '|' + period()); } catch (e) {} }
+    function forget() { try { localStorage.removeItem(KEY); } catch (e) {} }
+    // Picking the mode the clock would pick anyway means "back to automatic".
+    function choose(mode) { if (mode === timeMode()) forget(); else save(mode); }
+
     function isDark() {
       var s = saved();
       if (s === 'dark') return true;
       if (s === 'light') return false;
-      return !!(mq && mq.matches);
+      return timeMode() === 'dark';
     }
 
     // Keep gitbook's own font-settings theme in step, so its next page load agrees with ours.
@@ -143,7 +167,7 @@
       }
     }
 
-    // Set the page colour before the body is drawn, to avoid a white flash.
+    // Set the page colour before the body is drawn, to avoid a flash.
     if (isDark()) document.documentElement.classList.add('hi-dark');
 
     document.addEventListener('DOMContentLoaded', apply);
@@ -158,7 +182,7 @@
           position: 'left',
           onClick: function(e) {
             e.preventDefault();
-            save(isDark() ? 'light' : 'dark');
+            choose(isDark() ? 'light' : 'dark');
             apply();
           }
         });
@@ -167,19 +191,18 @@
       apply();
     });
 
-    // Follow the computer while the reader has not picked a mode.
-    if (mq) {
-      var onChange = function() { if (!saved()) apply(); };
-      if (mq.addEventListener) mq.addEventListener('change', onChange); else if (mq.addListener) mq.addListener(onChange);
-    }
+    // Switch at sunrise/sunset times while the page stays open, and when the tab is shown again.
+    setInterval(apply, 60 * 1000);
+    window.addEventListener('focus', apply);
+    document.addEventListener('visibilitychange', function() { if (!document.hidden) apply(); });
 
     // gitbook's own font menu (White / Sepia / Night) counts as a choice too.
     document.addEventListener('click', function(e) {
       var b = e.target.closest && e.target.closest('.font-settings .dropdown-menu .button');
       if (!b) return;
       var t = (b.textContent || '').trim();
-      if (t === 'Night') save('dark');
-      else if (t === 'White' || t === 'Sepia') save('light');
+      if (t === 'Night') choose('dark');
+      else if (t === 'White' || t === 'Sepia') choose('light');
       else return;
       setTimeout(apply, 0);
     });
@@ -354,7 +377,7 @@
 <p><em>Current coverage: 625 donors.</em></p>
 <p>De-identified donor characteristics, including HLA-typing, collected at the time of organ procurement are provided in a de-identified manner to the ADI IsletCore team by the organ procurement organisations. Users should be aware that some information, such as diabetes diagnosis, may not be clinically validated at the time of organ retrieval. Whenever possible, HbA1c measurements are performed directly by the ADI IsletCore using blood samples sent with the organ, and donors indicated as type 1 diabetes (T1D) are validated as much as possible through genetic testing, autoantibody testing, and immunohistochemical analysis. While the Donor Metadata ‘diabetes diagnosis’ reflects the status indicated by the organ procurement organization, the Donor Metadata ‘corrected diabetes status’ indicates a classification based on the totality of information available to the ADI IsletCore (including ‘pre-diabetes’ defined as HbA1c between 5.7 and 6.5%, and ‘non-diagnosed’ donors with HbA1c&gt;6.5% as type 2 diabetes (T2D)).</p>
 <blockquote>
-<p><em>Available donor characteristics metadata include</em>: Age, Diabetes duration (years), Sex, Donation Type (NDD, DCD, MAID), BMI, HbA1c (%), HLA A2 (Yes/No), Diabetes diagnosis, and Corrected diabetes status.</p>
+<p><em>Available donor characteristics metadata include</em>: Age (years), Diabetes duration (years), Sex, Donation Type (NDD, DCD, MAID), BMI, HbA1c (%), HLA A2 (Yes/No), Diabetes diagnosis, Corrected diabetes status, and Multi-omics cluster (the donor’s molecular cluster from the Cluster View).</p>
 </blockquote>
 </div>
 <div id="organ-characteristics-and-processing" class="section level2 hasAnchor" number="3.2">
@@ -408,7 +431,7 @@
 <p><em>Current coverage: 141 donors.</em></p>
 <p>At the ADI IsletCore, after an overnight culture, islets are hand-picked, and 70 islets per well are assayed in triplicate for each donor. Islets are placed in the center of the well and islet capture screens are used to keep islets in place. Plate is incubated at 37oC for 1 hour without CO2, after which the plate is placed in the Xfe24 analyzer (Agilent). Basal measurements are at 2.8mM glucose, while stimulation is at 16.7mM glucose. 5uM oligomycin, 3uM FCCP and 5uM of rotenone and antimycin A are used as indicated. All solutions are made using DMEM supplemented with 1% FBS, sodium pyruvate and L-glutamine. After the run is complete, islets are collected and a DNA assay is done to normalize data. A detailed protocol is <a href="https://www.protocols.io/view/seahorse-protocol-for-islets-using-xfe24-analyzer-n2bvj63p5lk5/v1">here</a>.</p>
 <blockquote>
-<p><em>Available islet oxygen consumption (Seahorse assay) metadata include</em>: Basal respiration, ATP-linked respiration, Proton leak, Max glucose response, Stimulated glucose response, Max respiration, and Spare capacity.</p>
+<p><em>Available islet oxygen consumption (Seahorse assay) metadata include</em>: Non-mitochondrial OC, Basal respiration, ATP respiration, Proton leak, Max glucose respiration, Glucose-stimulated respiration, Max respiration, Spare capacity, Glucose-stimulated OCI, Glucose-stimulated spare capacity, ATP respiration (glucose-stim.), Bioenergetic Health Index, and BHI (glucose-stim.).</p>
 </blockquote>
 </div>
 <div id="dynamic-insulin-responses-to-macronutrients" class="section level2 hasAnchor" number="3.8">

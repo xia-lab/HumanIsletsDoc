@@ -93,20 +93,44 @@
 </script>
 
 <script>
-  // Dark mode. Default: follow the computer's light/dark setting.
-  // The sun/moon button in the toolbar switches dark <-> light and remembers the choice.
+  // Dark mode. Default: by the visitor's local time of day
+  // (light from DAY_START to DAY_END, dark at night).
+  // The sun/moon button in the toolbar switches dark <-> light; that choice lasts until
+  // the next day/night change, then the time of day decides again.
   // It uses gitbook's own Night theme (class "color-theme-2" on .book).
   (function() {
-    var KEY = 'hi-v2-color-mode';            // "dark" | "light"; not set = follow the computer
-    var mq = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
+    var KEY = 'hi-v2-color-mode';            // saved choice: "dark|<period>" or "light|<period>"
+    var DAY_START = 7, DAY_END = 19;          // local hours: 07:00-19:00 is day
 
-    function saved() { try { return localStorage.getItem(KEY); } catch (e) { return null; } }
-    function save(v) { try { localStorage.setItem(KEY, v); } catch (e) {} }
+    function pad(n) { return (n < 10 ? '0' : '') + n; }
+    function ymd(d) { return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); }
+    // The current day or night block; a night that crosses midnight keeps the date it started on.
+    function period() {
+      var d = new Date(), h = d.getHours();
+      if (h >= DAY_START && h < DAY_END) return ymd(d) + '-day';
+      if (h < DAY_START) { var p = new Date(d.getTime()); p.setDate(p.getDate() - 1); return ymd(p) + '-night'; }
+      return ymd(d) + '-night';
+    }
+    function timeMode() { var h = new Date().getHours(); return (h >= DAY_START && h < DAY_END) ? 'light' : 'dark'; }
+
+    function saved() {
+      var v = null;
+      try { v = localStorage.getItem(KEY); } catch (e) { return null; }
+      if (!v) return null;
+      var parts = v.split('|');
+      if (parts.length !== 2 || parts[1] !== period()) return null;   // old choice: back to day/night
+      return parts[0];
+    }
+    function save(mode) { try { localStorage.setItem(KEY, mode + '|' + period()); } catch (e) {} }
+    function forget() { try { localStorage.removeItem(KEY); } catch (e) {} }
+    // Picking the mode the clock would pick anyway means "back to automatic".
+    function choose(mode) { if (mode === timeMode()) forget(); else save(mode); }
+
     function isDark() {
       var s = saved();
       if (s === 'dark') return true;
       if (s === 'light') return false;
-      return !!(mq && mq.matches);
+      return timeMode() === 'dark';
     }
 
     // Keep gitbook's own font-settings theme in step, so its next page load agrees with ours.
@@ -143,7 +167,7 @@
       }
     }
 
-    // Set the page colour before the body is drawn, to avoid a white flash.
+    // Set the page colour before the body is drawn, to avoid a flash.
     if (isDark()) document.documentElement.classList.add('hi-dark');
 
     document.addEventListener('DOMContentLoaded', apply);
@@ -158,7 +182,7 @@
           position: 'left',
           onClick: function(e) {
             e.preventDefault();
-            save(isDark() ? 'light' : 'dark');
+            choose(isDark() ? 'light' : 'dark');
             apply();
           }
         });
@@ -167,19 +191,18 @@
       apply();
     });
 
-    // Follow the computer while the reader has not picked a mode.
-    if (mq) {
-      var onChange = function() { if (!saved()) apply(); };
-      if (mq.addEventListener) mq.addEventListener('change', onChange); else if (mq.addListener) mq.addListener(onChange);
-    }
+    // Switch at sunrise/sunset times while the page stays open, and when the tab is shown again.
+    setInterval(apply, 60 * 1000);
+    window.addEventListener('focus', apply);
+    document.addEventListener('visibilitychange', function() { if (!document.hidden) apply(); });
 
     // gitbook's own font menu (White / Sepia / Night) counts as a choice too.
     document.addEventListener('click', function(e) {
       var b = e.target.closest && e.target.closest('.font-settings .dropdown-menu .button');
       if (!b) return;
       var t = (b.textContent || '').trim();
-      if (t === 'Night') save('dark');
-      else if (t === 'White' || t === 'Sepia') save('light');
+      if (t === 'Night') choose('dark');
+      else if (t === 'White' || t === 'Sepia') choose('light');
       else return;
       setTimeout(apply, 0);
     });

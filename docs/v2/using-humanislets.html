@@ -93,20 +93,44 @@
 </script>
 
 <script>
-  // Dark mode. Default: follow the computer's light/dark setting.
-  // The sun/moon button in the toolbar switches dark <-> light and remembers the choice.
+  // Dark mode. Default: by the visitor's local time of day
+  // (light from DAY_START to DAY_END, dark at night).
+  // The sun/moon button in the toolbar switches dark <-> light; that choice lasts until
+  // the next day/night change, then the time of day decides again.
   // It uses gitbook's own Night theme (class "color-theme-2" on .book).
   (function() {
-    var KEY = 'hi-v2-color-mode';            // "dark" | "light"; not set = follow the computer
-    var mq = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
+    var KEY = 'hi-v2-color-mode';            // saved choice: "dark|<period>" or "light|<period>"
+    var DAY_START = 7, DAY_END = 19;          // local hours: 07:00-19:00 is day
 
-    function saved() { try { return localStorage.getItem(KEY); } catch (e) { return null; } }
-    function save(v) { try { localStorage.setItem(KEY, v); } catch (e) {} }
+    function pad(n) { return (n < 10 ? '0' : '') + n; }
+    function ymd(d) { return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); }
+    // The current day or night block; a night that crosses midnight keeps the date it started on.
+    function period() {
+      var d = new Date(), h = d.getHours();
+      if (h >= DAY_START && h < DAY_END) return ymd(d) + '-day';
+      if (h < DAY_START) { var p = new Date(d.getTime()); p.setDate(p.getDate() - 1); return ymd(p) + '-night'; }
+      return ymd(d) + '-night';
+    }
+    function timeMode() { var h = new Date().getHours(); return (h >= DAY_START && h < DAY_END) ? 'light' : 'dark'; }
+
+    function saved() {
+      var v = null;
+      try { v = localStorage.getItem(KEY); } catch (e) { return null; }
+      if (!v) return null;
+      var parts = v.split('|');
+      if (parts.length !== 2 || parts[1] !== period()) return null;   // old choice: back to day/night
+      return parts[0];
+    }
+    function save(mode) { try { localStorage.setItem(KEY, mode + '|' + period()); } catch (e) {} }
+    function forget() { try { localStorage.removeItem(KEY); } catch (e) {} }
+    // Picking the mode the clock would pick anyway means "back to automatic".
+    function choose(mode) { if (mode === timeMode()) forget(); else save(mode); }
+
     function isDark() {
       var s = saved();
       if (s === 'dark') return true;
       if (s === 'light') return false;
-      return !!(mq && mq.matches);
+      return timeMode() === 'dark';
     }
 
     // Keep gitbook's own font-settings theme in step, so its next page load agrees with ours.
@@ -143,7 +167,7 @@
       }
     }
 
-    // Set the page colour before the body is drawn, to avoid a white flash.
+    // Set the page colour before the body is drawn, to avoid a flash.
     if (isDark()) document.documentElement.classList.add('hi-dark');
 
     document.addEventListener('DOMContentLoaded', apply);
@@ -158,7 +182,7 @@
           position: 'left',
           onClick: function(e) {
             e.preventDefault();
-            save(isDark() ? 'light' : 'dark');
+            choose(isDark() ? 'light' : 'dark');
             apply();
           }
         });
@@ -167,19 +191,18 @@
       apply();
     });
 
-    // Follow the computer while the reader has not picked a mode.
-    if (mq) {
-      var onChange = function() { if (!saved()) apply(); };
-      if (mq.addEventListener) mq.addEventListener('change', onChange); else if (mq.addListener) mq.addListener(onChange);
-    }
+    // Switch at sunrise/sunset times while the page stays open, and when the tab is shown again.
+    setInterval(apply, 60 * 1000);
+    window.addEventListener('focus', apply);
+    document.addEventListener('visibilitychange', function() { if (!document.hidden) apply(); });
 
     // gitbook's own font menu (White / Sepia / Night) counts as a choice too.
     document.addEventListener('click', function(e) {
       var b = e.target.closest && e.target.closest('.font-settings .dropdown-menu .button');
       if (!b) return;
       var t = (b.textContent || '').trim();
-      if (t === 'Night') save('dark');
-      else if (t === 'White' || t === 'Sepia') save('light');
+      if (t === 'Night') choose('dark');
+      else if (t === 'White' || t === 'Sepia') choose('light');
       else return;
       setTimeout(apply, 0);
     });
@@ -355,9 +378,12 @@
 <p>The Omics block holds the analyses that operate primarily on feature-level molecular data: differential-expression-style omics analysis and multi-omics integration<!--, and the genome-scale flux atlas-->.</p>
 <div id="omics-view" class="section level3 hasAnchor" number="2.1.1">
 <h3><span class="header-section-number">2.1.1</span> Omics View <a href="https://dev.humanislets.com/#/omics"><img src="logo1.png" alt="Logo" style="width:18px; height:18px;"></a><a href="using-humanislets.html#omics-view" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>HumanIslets.com presently includes information from 625 human research islet isolations that includes donor and technical metadata, islet and islet cell function, and omics. Omics datasets include bulk proteomics, bulk RNAseq, gene panels (Nanostring), patch-seq, pseudobulk RNAseq for alpha- and beta-cells, and DNA methylation (Illumina EPICv2 array). Omics-metadata relationships can be analysed by:</p>
+<p>HumanIslets.com presently includes information from 625 human research islet isolations that includes donor and technical metadata, islet and islet cell function, and omics. The <strong>Omics Type</strong> menu offers Bulk gene expression (RNA-seq), Bulk gene expression (Nanostring), Bulk protein expression, Pseudobulk gene expression, Single-cell gene expression (patch-seq), Environmental contaminants, Metabolite intensity, DNA Methylation and Metabolic flux simulation. Omics-metadata relationships can be analysed by:</p>
 <ol style="list-style-type: decimal">
-<li>Selecting the ‘Omics Type’ of interest</li>
+<li>Selecting the ‘Omics Type’ of interest
+<ol style="list-style-type: lower-alpha">
+<li>For <strong>Bulk protein expression</strong>, a second menu selects the proteomics batch</li>
+</ol></li>
 <li>Selecting the ‘Primary Metadata’ to be analysed, and ‘Comparison of Interest’ if applicable</li>
 <li>Choosing covariates to control for
 <ol style="list-style-type: lower-alpha">
@@ -370,7 +396,7 @@
 <li>Selecting a p-value cutoff, and the use of adjusted p-values</li>
 <li>Click ‘submit’</li>
 </ol>
-<p>The number of donors included in the analysis will be displayed. If too few donors are available for the chosen analysis (&lt;10), an error message will be shown. Results of the analysis will be shown under ‘Feature Association Results’, and results can be downloaded with <strong>Download Results</strong>. Results are shown as a graphical representation (volcano plot) or table, accessible by clicking on the appropriate tab. Clicking on features (points in the volcano plot, or table entries) will raise a graph showing categorical or scatterplot representations of the data/feature of interest. Clicking on individual donors within those plots will take you to the ‘Donor View’ page for that donor, allowing for inspection of potential outlier donors. At the right are links to the NCBI gene page and T2D Knowledge Portal (T2DKP) entries for each feature (external sites), to a single-cell RNAseq reference dataset (SC) to inspect cell-type specific expression of the feature, and to <strong>IsletAgent</strong> (KG link; section 2.3.1) for the evidence about the feature.</p>
+<p>The number of donors included in the analysis will be displayed. If too few donors are available for the chosen analysis (&lt;10), an error message will be shown. Results of the analysis will be shown under ‘Feature Association Results’, and results can be downloaded with <strong>Download Results</strong>. Results are shown as a graphical representation (volcano plot) or table, accessible by clicking on the appropriate tab. Clicking on features (points in the volcano plot, or table entries) will raise a graph showing categorical or scatterplot representations of the data/feature of interest. Clicking on individual donors within those plots will take you to the ‘Donor View’ page for that donor, allowing for inspection of potential outlier donors. At the right are links to the NCBI gene page and T2D Knowledge Portal (T2DKP) entries for each feature (external sites), to a single-cell RNAseq reference dataset (SC) to inspect cell-type specific expression of the feature, and to <strong>IsletAgent</strong> (KG link; section 2.3.1) for the evidence about the feature. The <strong>Associated proportions</strong> column flags genes whose RNA-seq level is linked to the non-endocrine cell proportion: <em>Non-endocrine</em> (higher when there are more non-endocrine cells), <em>Endocrine</em> (lower), or <em>None</em>. This helps spot features that may reflect islet purity rather than the comparison of interest.</p>
 <p><strong>Wilcoxon check.</strong> For a two-group comparison with no covariates, the results table also shows a Wilcoxon rank-sum test next to limma, as a check that does not assume normally distributed data. Three columns are added at the end: <strong>Wilcoxon AUC</strong> (the chance that a donor in one group has a higher value than a donor in the other; above 0.5 means higher in the group where log2FC is positive, and 0.5 means no difference), <strong>Wilcoxon p_value</strong> and <strong>Wilcoxon adjusted p_value</strong>. The check runs only when both groups have enough donors, and not for DNA methylation. Because the Wilcoxon test cannot adjust for covariates, it is not shown when covariates are selected, including the batch covariate that is added automatically for some datasets.</p>
 <p>DNA methylation is analysed with the same association framework, but at the level of individual CpG sites rather than genes: differential analysis is run on M-values (log2 methylation ratios), while the per-feature boxplots show β-values (the 0–1 methylation proportion). Each result row shows the CpG’s genomic location, its annotated gene, and its CpG-island relation. Methylation is profiled at roughly 729,000 CpG sites, so the analysis takes a little longer than other omics, and a methylation-only <strong>Regions (DMR)</strong> tab additionally groups neighbouring CpGs into differentially methylated regions.</p>
 <p>The third tab under the ‘Feature Association Results’ pulls up a Pathway Analysis tool. The enrichment method offered depends on the omics type, because gene-based, metabolite-based, and reaction-based feature lists each require matched annotation libraries:</p>
@@ -481,6 +507,7 @@ The rest of the toolbar covers the common controls: **Reset View** restores the 
 <ul>
 <li><em>Donor Information</em> shows the RRID if available. Clicking on this will link out to the NCBI Biosample page for this donor</li>
 <li><em>Isolation Information</em> also contains the current inventory of snap frozen and cryopreserved islet tubes for that donor (all donors also have paraffin embedded biopsies)</li>
+<li><em>Isolation Information</em> also shows dithizone-stained islet images taken after isolation and before distribution, when available</li>
 <li><em>Isolation Information</em> includes cell type composition calculated by deconvolution in donors with bulk proteomics data (see section 5.6, below)</li>
 <li><em>Ancestry</em> renders the donor’s ancestry as a donut chart with <strong>primary ancestry on the outer ring and secondary (sub-) ancestry on the inner ring</strong> (1000 Genomes-aligned), accompanied by tables of the underlying probabilities</li>
 <li><em>Genetic Risk Score</em> shows the <strong>T1D Genetic Risk Score</strong> and the <strong>T2D Polygenic Risk Score</strong>, each with the donor’s overall score and position in the cohort distribution, plus partitioned risk (T1D: HLA DR-DQ, HLA class I, HLA class II and non-HLA; T2D: <strong>Hard</strong> or <strong>Soft</strong> clustering)</li>
@@ -633,8 +660,8 @@ The page is currently labelled **BETA** while we collect feedback on the AI synt
 </div>
 <div id="feature-view" class="section level3 hasAnchor" number="2.3.2">
 <h3><span class="header-section-number">2.3.2</span> Feature View <a href="https://dev.humanislets.com/#/feature"><img src="logo3.png" alt="Logo" style="width:18px; height:18px;"></a><a href="using-humanislets.html#feature-view" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Instead of running an analysis in the ‘Omics View’ focused on a particular omics type and metadata variable, users can search for a feature of interest and pull up ALL associations for that particular feature of interest, corrected for common covariates (see section 5.5, below). Searchable features include genes/proteins and also metadata variable. This allows rapid interrogation of precomputed results across all datasets.</p>
-<p>Searching for a gene/protein feature generates a table of results ranked by adjusted p-value. Searching for a metadata variable (e.g. BMI) generates a table of feature (gene/protein) results across all omics datasets, ranked by adjusted p-value. Clicking on rows and external links brings up categorical or scatterplots of the association, external pages for the feature of interest, or single-cell RNAseq expression for that feature. Because a large number of associations can be displayed, filtering of the metadata or omics type is enabled by clicking on the column title.</p>
+<p>Instead of running an analysis in the ‘Omics View’ focused on a particular omics type and metadata variable, users can search for a feature of interest and pull up ALL associations for that particular feature of interest, corrected for common covariates (see section 5.5, below). Searchable features include genes, proteins, metabolites, contaminants, CpG sites and metadata variables. This allows rapid interrogation of precomputed results across all datasets.</p>
+<p>Searching for a gene/protein feature generates a table of results sorted by p-value. Searching for a metadata variable (e.g. BMI) generates a table of feature (gene/protein) results across all omics datasets, sorted by p-value. Clicking on rows and external links brings up categorical or scatterplots of the association, external pages for the feature of interest, or single-cell RNAseq expression for that feature. Because a large number of associations can be displayed, filtering of the metadata or omics type is enabled by clicking on the column title.</p>
 </div>
 </div>
 <div id="data-download" class="section level2 hasAnchor" number="2.4">
