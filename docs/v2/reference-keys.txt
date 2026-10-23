@@ -43,6 +43,7 @@ dna-methylation
 metabolic-flux
 overview-of-statistical-analysis-methods
 multiple-linear-regression
+wilcoxon-rank-sum-check
 spearman-ranked-correlation
 kendall-rank-correlation-environmental-contaminants
 pathway-analysis

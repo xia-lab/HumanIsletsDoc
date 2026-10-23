@@ -92,6 +92,114 @@
   });
 </script>
 
+<script>
+  // Dark mode. Default: follow the computer's light/dark setting.
+  // The sun/moon button in the toolbar switches dark <-> light and remembers the choice.
+  // It uses gitbook's own Night theme (class "color-theme-2" on .book).
+  (function() {
+    var KEY = 'hi-v2-color-mode';            // "dark" | "light"; not set = follow the computer
+    var mq = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
+
+    function saved() { try { return localStorage.getItem(KEY); } catch (e) { return null; } }
+    function save(v) { try { localStorage.setItem(KEY, v); } catch (e) {} }
+    function isDark() {
+      var s = saved();
+      if (s === 'dark') return true;
+      if (s === 'light') return false;
+      return !!(mq && mq.matches);
+    }
+
+    // Keep gitbook's own font-settings theme in step, so its next page load agrees with ours.
+    function syncGitbook(dark) {
+      var gb = window.gitbook;
+      if (!gb || !gb.storage) return;
+      var st = gb.storage.get('fontState', null);
+      if (!st) return;
+      var theme = dark ? 2 : (st.theme === 1 ? 1 : 0);
+      if (st.theme !== theme) { st.theme = theme; gb.storage.set('fontState', st); }
+    }
+
+    function apply() {
+      var dark = isDark();
+      document.documentElement.classList.toggle('hi-dark', dark);
+      var book = document.querySelector('.book');
+      if (book) {
+        if (dark) { book.classList.remove('color-theme-1'); book.classList.add('color-theme-2'); }
+        else { book.classList.remove('color-theme-2'); }
+      }
+      syncGitbook(dark);
+      var btn = document.querySelector('.hi-dark-toggle');
+      if (btn) {
+        var label = dark ? 'Switch to light mode' : 'Switch to dark mode';
+        btn.setAttribute('aria-label', label);
+        btn.setAttribute('title', label);
+        var icon = btn.querySelector('i');
+        if (icon) icon.className = dark ? 'fa fa-sun-o' : 'fa fa-moon-o';
+      }
+    }
+
+    // Set the page colour before the body is drawn, to avoid a white flash.
+    if (isDark()) document.documentElement.classList.add('hi-dark');
+
+    document.addEventListener('DOMContentLoaded', apply);
+
+    window.addEventListener('load', function() {
+      var gb = window.gitbook;
+      if (gb && gb.toolbar && !document.querySelector('.hi-dark-toggle')) {
+        gb.toolbar.createButton({
+          icon: 'fa fa-moon-o',
+          label: 'Dark mode',
+          className: 'hi-dark-toggle',
+          position: 'left',
+          onClick: function(e) {
+            e.preventDefault();
+            save(isDark() ? 'light' : 'dark');
+            apply();
+          }
+        });
+      }
+      if (gb && gb.events) gb.events.bind('page.change', apply);
+      apply();
+    });
+
+    // Follow the computer while the reader has not picked a mode.
+    if (mq) {
+      var onChange = function() { if (!saved()) apply(); };
+      if (mq.addEventListener) mq.addEventListener('change', onChange); else if (mq.addListener) mq.addListener(onChange);
+    }
+
+    // gitbook's own font menu (White / Sepia / Night) counts as a choice too.
+    document.addEventListener('click', function(e) {
+      var b = e.target.closest && e.target.closest('.font-settings .dropdown-menu .button');
+      if (!b) return;
+      var t = (b.textContent || '').trim();
+      if (t === 'Night') save('dark');
+      else if (t === 'White' || t === 'Sepia') save('light');
+      else return;
+      setTimeout(apply, 0);
+    });
+  })();
+</script>
+
+<style>
+  /* Dark mode: page colour before gitbook draws (no white flash) */
+  html.hi-dark, html.hi-dark body { background: #1c1f2b; }
+
+  /* Dark mode: our own elements */
+  html.hi-dark #hi-version-badge {
+    background: #2d3143;
+    border-color: #3ddc97;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.40);
+  }
+  html.hi-dark #hi-version-badge a { color: #3ddc97; }
+  .book.color-theme-2 p.caption,
+  .book.color-theme-2 figcaption { color: #9aa5b8 !important; }
+  .book.color-theme-2 span[style*="color: blue"] { color: #7fb2ff !important; }
+  .book.color-theme-2 span[style*="#b00020"] { color: #ff7a8a !important; }
+  .book.color-theme-2 .book-header,
+  .book.color-theme-2 .book-header .btn { color: #bcc1d2; }
+</style>
+
 
 
 <style type="text/css">
@@ -176,7 +284,10 @@
 </ul></li>
 <li class="chapter" data-level="5" data-path="overview-of-statistical-analysis-methods.html"><a href="overview-of-statistical-analysis-methods.html"><i class="fa fa-check"></i><b>5</b> Overview of statistical analysis methods</a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="overview-of-statistical-analysis-methods.html"><a href="overview-of-statistical-analysis-methods.html#multiple-linear-regression"><i class="fa fa-check"></i><b>5.1</b> Multiple linear regression</a></li>
+<li class="chapter" data-level="5.1" data-path="overview-of-statistical-analysis-methods.html"><a href="overview-of-statistical-analysis-methods.html#multiple-linear-regression"><i class="fa fa-check"></i><b>5.1</b> Multiple linear regression</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="overview-of-statistical-analysis-methods.html"><a href="overview-of-statistical-analysis-methods.html#wilcoxon-rank-sum-check"><i class="fa fa-check"></i><b>5.1.1</b> Wilcoxon rank-sum check</a></li>
+</ul></li>
 <li class="chapter" data-level="5.2" data-path="overview-of-statistical-analysis-methods.html"><a href="overview-of-statistical-analysis-methods.html#spearman-ranked-correlation"><i class="fa fa-check"></i><b>5.2</b> Spearman ranked correlation</a></li>
 <li class="chapter" data-level="5.3" data-path="overview-of-statistical-analysis-methods.html"><a href="overview-of-statistical-analysis-methods.html#kendall-rank-correlation-environmental-contaminants"><i class="fa fa-check"></i><b>5.3</b> Kendall rank correlation (environmental contaminants)</a></li>
 <li class="chapter" data-level="5.4" data-path="overview-of-statistical-analysis-methods.html"><a href="overview-of-statistical-analysis-methods.html#pathway-analysis"><i class="fa fa-check"></i><b>5.4</b> Pathway analysis</a></li>
@@ -253,7 +364,8 @@
 <li>Selecting a p-value cutoff, and the use of adjusted p-values</li>
 <li>Click ‘submit’</li>
 </ol>
-<p>The number of donors included in the analysis will be displayed. If too few donors are available for the chosen analysis (&lt;10), an error message will be shown. Results of the analysis will be shown under ‘Feature Association Results’, and both results and analysis pipeline can be downloaded by clicking on the appropriate button. Results are shown as a graphical representation (volcano plot) or table, accessible by clicking on the appropriate tab. Clicking on features (points in the volcano plot, or table entries) will raise a graph showing categorical or scatterplot representations of the data/feature of interest. Clicking on individual donors within those plots will take you to the ‘Donor View’ page for that donor, allowing for inspection of potential outlier donors. In the Results Table, clicking on the feature name will take you to the ‘Feature Search’ page for that gene/protein. At the right are links to the NCBI gene page and T2D Knowledge Portal (T2DKP) entries for each feature (external sites), to a single-cell RNAseq reference dataset (SC) to inspect cell-type specific expression of the feature, and to <strong>IsletAgent</strong> (KG link; section 2.3.1) for the evidence about the feature.</p>
+<p>The number of donors included in the analysis will be displayed. If too few donors are available for the chosen analysis (&lt;10), an error message will be shown. Results of the analysis will be shown under ‘Feature Association Results’, and results can be downloaded with <strong>Download Results</strong>. Results are shown as a graphical representation (volcano plot) or table, accessible by clicking on the appropriate tab. Clicking on features (points in the volcano plot, or table entries) will raise a graph showing categorical or scatterplot representations of the data/feature of interest. Clicking on individual donors within those plots will take you to the ‘Donor View’ page for that donor, allowing for inspection of potential outlier donors. At the right are links to the NCBI gene page and T2D Knowledge Portal (T2DKP) entries for each feature (external sites), to a single-cell RNAseq reference dataset (SC) to inspect cell-type specific expression of the feature, and to <strong>IsletAgent</strong> (KG link; section 2.3.1) for the evidence about the feature.</p>
+<p><strong>Wilcoxon check.</strong> For a two-group comparison with no covariates, the results table also shows a Wilcoxon rank-sum test next to limma, as a check that does not assume normally distributed data. Three columns are added at the end: <strong>Wilcoxon AUC</strong> (the chance that a donor in one group has a higher value than a donor in the other; above 0.5 means higher in the group where log2FC is positive, and 0.5 means no difference), <strong>Wilcoxon p_value</strong> and <strong>Wilcoxon adjusted p_value</strong>. The check runs only when both groups have enough donors, and not for DNA methylation. Because the Wilcoxon test cannot adjust for covariates, it is not shown when covariates are selected, including the batch covariate that is added automatically for some datasets.</p>
 <p>DNA methylation is analysed with the same association framework, but at the level of individual CpG sites rather than genes: differential analysis is run on M-values (log2 methylation ratios), while the per-feature boxplots show β-values (the 0–1 methylation proportion). Each result row shows the CpG’s genomic location, its annotated gene, and its CpG-island relation. Methylation is profiled at roughly 729,000 CpG sites, so the analysis takes a little longer than other omics, and a methylation-only <strong>Regions (DMR)</strong> tab additionally groups neighbouring CpGs into differentially methylated regions.</p>
 <p>The third tab under the ‘Feature Association Results’ pulls up a Pathway Analysis tool. The enrichment method offered depends on the omics type, because gene-based, metabolite-based, and reaction-based feature lists each require matched annotation libraries:</p>
 <ul>
@@ -274,11 +386,11 @@
 <li>Choose among the available libraries for the matched omics type</li>
 <li>Click ‘submit’</li>
 </ol>
-<p>The ‘Pathway Results’ will be displayed in both graphical and table format, selected by clicking on the appropriate tab. As above, both results and analysis pipeline can be downloaded by clicking on the appropriate button. In the interactive graphical view, significant pathways (based on FDR cutoff) are shown as ridgeplots. Clicking on these will raise heatmaps showing the contribution of individual genes/proteins.</p>
+<p>The ‘Pathway Results’ will be displayed in both graphical and table format, selected by clicking on the appropriate tab. As above, results can be downloaded with <strong>Download Results</strong>. In the interactive graphical view, significant pathways (based on FDR cutoff) are shown as ridgeplots. Clicking on these will raise heatmaps showing the contribution of individual genes/proteins.</p>
 </div>
 <div id="multi-omics-view" class="section level3 hasAnchor" number="2.1.2">
 <h3><span class="header-section-number">2.1.2</span> Multi-omics View <a href="https://dev.humanislets.com/#/multiomics"><img src="logo1.png" alt="Logo" style="width:18px; height:18px;"></a><a href="using-humanislets.html#multi-omics-view" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>The Multi-omics View lets users explore integrated analyses across two or three omics layers selected from a single dropdown (combinations are pre-computed; eligibility requires at least 20 donors with measurements in every selected omics). Three complementary methods are available, each answering a slightly different question and unlocked by selecting it from the <strong>Method</strong> dropdown:</p>
+<p>The Multi-omics View lets users explore integrated analyses across two or three omics layers selected from a single dropdown (WGCNA and MOFA results are precomputed; a combination is offered only when enough donors have every selected omics type). Three complementary methods are available, each answering a slightly different question and unlocked by selecting it from the <strong>Method</strong> dropdown:</p>
 <ul>
 <li><strong>WGCNA</strong> (Weighted Gene Co-expression Network Analysis) is <strong>unsupervised</strong>. It groups features that move together across donors into <em>modules</em>, then summarises each module by a single representative value (its <em>eigengene</em>) so that module-level signal can be compared across omics and against the platform’s phenotype variables. Use WGCNA when the question is <em>which features behave like a co-regulated programme, and does any module track a phenotype?</em></li>
 <li><strong>MOFA</strong> (Multi-Omics Factor Analysis) is also <strong>unsupervised</strong>, but rather than discrete modules it learns continuous <em>latent factors</em> — directions of variation that several omics share. The same factor often explains a substantial chunk of variance in two or more views, which makes MOFA a good fit when the goal is to <em>find the shared axes of variation across omics types</em>. Donors with only partial omics coverage are still usable thanks to MOFA’s NA-tolerant fit.</li>
@@ -293,31 +405,35 @@
 <li>For patch-seq, an extra <strong>cell type</strong> selector appears (α / β / δ / PP)</li>
 <li>For metabolite and flux, an extra <strong>glucose condition</strong> selector appears (low / high / ratio)</li>
 </ol></li>
-<li>For <strong>DIABLO only</strong>, pick a <strong>Primary Metadata</strong> variable and (for binary outcomes) the two contrast levels. WGCNA and MOFA are unsupervised and skip this step.</li>
+<li>For <strong>DIABLO only</strong>, pick a <strong>Primary Metadata</strong> variable and (for binary outcomes) the two contrast levels, and optionally covariates under <strong>Adjust for</strong>. WGCNA and MOFA are unsupervised and skip this step.</li>
+<li>Choose <strong>Donors</strong>: <em>All</em>, or <em>Subset</em> to use the donor filter</li>
 <li>Click <strong>Submit</strong></li>
 </ol>
-<p>The result tabs (described below per method) then become available. Because every eligible combination is precomputed on the server, Submit returns almost instantly.</p>
-<p><strong>WGCNA results layout.</strong> Four tabs:</p>
+<p>The result tabs (described below per method) then become available. WGCNA and MOFA results load almost instantly because they are precomputed; DIABLO runs when you click Submit and can take longer.</p>
+<p><strong>WGCNA results layout.</strong> A summary bar shows the number of donors, features and modules, and the scale-free fit and power. Five tabs:</p>
 <ol style="list-style-type: decimal">
 <li><strong>Overview</strong> — a heatmap with <strong>modules on the rows and core phenotypes on the columns</strong>. Each cell shows the module–phenotype association: <strong>Pearson</strong> <em>r</em> (signed, −1 to +1) for continuous and binary phenotypes, or <strong>ANOVA-derived effect size</strong> (unsigned, 0 to 1) for multi-level categoricals. Cells carry significance asterisks (* <em>p</em><sub>adj</sub>&lt;0.05, ** &lt;0.01, *** &lt;0.001), and hovering any cell reveals the full <em>r</em> / <em>p</em> / <em>p</em><sub>adj</sub> / <em>n</em>. A <em>Select Phenotypes</em> button opens a dialog to choose which phenotypes appear on the columns (with a <em>Reset to defaults</em> shortcut), and the heatmap can be exported as PNG (image) or CSV (underlying matrix). This is the entry-point view for “which module tracks which phenotype, at a glance”.</li>
 <li><strong>Trait Associations</strong> — drill-down view for a single phenotype chosen from the <em>Group</em> / <em>Phenotype</em> selectors; shows that phenotype’s association across <strong>every</strong> module in the combination (not just the curated “core” phenotype set in the Overview).</li>
 <li><strong>Features</strong> — per-module feature table with module membership ranking and omics-type tags.</li>
 <li><strong>Network</strong> — interactive node/edge view of the top topological-overlap edges, with nodes coloured by omics type and modules.</li>
+<li><strong>Pathway</strong> — ORA or GSEA (ranked by kME) for a selected module.</li>
 </ol>
-<p><strong>MOFA results layout.</strong> Six tabs:</p>
+<p><strong>MOFA results layout.</strong> Seven tabs:</p>
 <ol style="list-style-type: decimal">
 <li><strong>Overview</strong> — a heatmap with <strong>MOFA factors on the rows and core phenotypes on the columns</strong>, using the same conventions as the WGCNA Overview: <strong>Pearson</strong> <em>r</em> for continuous/binary, <strong>effect size</strong> for multi-level categoricals, the same asterisk-based significance markers, the same hover detail, the same <em>Select Phenotypes</em> / <em>Reset</em> / PNG / CSV controls. This is the place to start when asking “which MOFA factor tracks which phenotype”.</li>
 <li><strong>Variance Decomposition</strong> — per-factor per-view variance heatmap.</li>
 <li><strong>Trait Associations</strong> — drill-down view for a single phenotype across every MOFA factor (analogue of WGCNA’s Trait Associations tab).</li>
 <li><strong>Feature Loadings</strong> — top-weighted features per factor per omics.</li>
-<li><strong>Feature Network</strong> — feature-level co-loading network across omics.</li>
+<li><strong>Circos Plot</strong> — the top-loading features of a factor in each omics, linked by their correlation.<!-- previously: 5. Feature Network — feature-level co-loading network across omics. --></li>
 <li><strong>Factor Space</strong> — donors plotted in factor space, with metadata-colouring options.</li>
+<li><strong>Pathway</strong> — pathway enrichment for a selected factor.</li>
 </ol>
-<p><strong>DIABLO results layout.</strong> Three tabs (only populated when an analysis variable is selected):</p>
+<p><strong>DIABLO results layout.</strong> Four tabs:</p>
 <ol style="list-style-type: decimal">
-<li><strong>Significant Features</strong> — features selected by DIABLO across the selected omics, with their loadings and per-omics ranking.</li>
-<li><strong>Correlation Network</strong> — cross-omics feature correlation network for the selected features.</li>
-<li><strong>Pathway Analysis</strong> — ORA / GSEA on the DIABLO-selected feature list against the standard pathway libraries.</li>
+<li><strong>Overview</strong> — <em>Sample View</em> (donors on the multi-omics components) and <em>Total Variance</em> (variance explained per component and omics).</li>
+<li><strong>Important Features</strong> — loading plots per omics and the table of selected features, by component.</li>
+<li><strong>Circos Plot</strong> — the selected features across omics, linked by their correlation.</li>
+<li><strong>Pathway Analysis</strong> — ORA / GSEA on the selected features against the standard pathway libraries.</li>
 </ol>
 <p>All tables are downloadable as CSV from the corresponding tab.</p>
 <!-- HIDDEN for now (text preserved here for later restoration; remove this comment wrapper to show the "### Metabolic Atlas" section again):
@@ -361,7 +477,7 @@ The rest of the toolbar covers the common controls: **Reset View** restores the 
 <li><em>Isolation Information</em> also contains the current inventory of snap frozen and cryopreserved islet tubes for that donor (all donors also have paraffin embedded biopsies)</li>
 <li><em>Isolation Information</em> includes cell type composition calculated by deconvolution in donors with bulk proteomics data (see section 5.6, below)</li>
 <li><em>Ancestry</em> renders the donor’s ancestry as a donut chart with <strong>primary ancestry on the outer ring and secondary (sub-) ancestry on the inner ring</strong> (1000 Genomes-aligned), accompanied by tables of the underlying probabilities</li>
-<li><em>Genetic Risk Score</em> shows <strong>T1D-GRS and T2D-GRS</strong> separately, with a dropdown that lets users switch between published scoring models (e.g. the 67-variant Luckett 2025, GRS2-Qu 2022, and Sharp 2021 for T1D; soft- and hard-clustering partitioned T2D scores under Smith 2024 / Suzuki 2024); each model shows the donor’s overall score plus a histogram of the donor’s position in the cohort distribution</li>
+<li><em>Genetic Risk Score</em> shows the <strong>T1D Genetic Risk Score</strong> and the <strong>T2D Polygenic Risk Score</strong>, each with the donor’s overall score and position in the cohort distribution, plus partitioned risk (T1D: HLA DR-DQ, HLA class I, HLA class II and non-HLA; T2D: <strong>Hard</strong> or <strong>Soft</strong> clustering)</li>
 <li><em>Dynamic Insulin</em> Responses can be shown with or without normalisation to baseline</li>
 <li><em>Mitochondrial Function</em> (oxygen consumption by Seahorse assay) can be shown with or without normalisation to DNA and baseline</li>
 <li><em>Prohormone Expression</em> shows the donor’s <strong>C-peptide, proinsulin, and proinsulin:C-peptide ratio</strong> concentrations as values plus per-readout cohort histograms, with a selector to switch between the measured conditions</li>
@@ -520,7 +636,7 @@ The page is currently labelled **BETA** while we collect feedback on the AI synt
 <p>The Data Download page is a standalone top-level entry in the sidebar; it does not belong to one of the analytical categories above.</p>
 <div id="data-download-1" class="section level3 hasAnchor" number="2.4.1">
 <h3><span class="header-section-number">2.4.1</span> Data Download <a href="https://dev.humanislets.com/#/download"><img src="logo4.png" alt="Logo" style="width:18px; height:18px;"></a><a href="using-humanislets.html#data-download-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>All data at HumanIslets.com is available for download. Donors of interest can be filtered by Donor Characteristics (see section 3.1) and/or data availability. Advanced filters allow selection of donors of interest by any metadata available. Donors of interest can also be selected by uploading a list of donor IDs (for example, donor IDs obtained from a particular Omics View analysis). Data can be downloaded as Comma separated values (.csv), text (.txt), R object (.rds), or in Excel format (.xlsx) within a zip file. To perform data download:</p>
+<p>Most data at HumanIslets.com can be downloaded. Bulk RNA-seq, proteomics and genetic data are available on request until publication, and patch-seq data are reached through a separate link on the page. Donors of interest can be filtered by Donor Characteristics (see section 3.1) and/or data availability. Advanced filters allow selection of donors of interest by any metadata available. Donors of interest can also be selected by uploading a list of donor IDs (for example, donor IDs obtained from a particular Omics View analysis). Data can be downloaded as Comma separated values (.csv), text (.txt), R object (.rds), or in Excel format (.xlsx) within a zip file. To perform data download:</p>
 <ol style="list-style-type: decimal">
 <li>Under ‘Select Donors’ choose filtering parameters, upload a list of donor IDs
 <ol style="list-style-type: lower-alpha">

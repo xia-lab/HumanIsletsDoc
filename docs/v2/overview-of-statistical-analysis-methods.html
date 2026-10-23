@@ -92,6 +92,114 @@
   });
 </script>
 
+<script>
+  // Dark mode. Default: follow the computer's light/dark setting.
+  // The sun/moon button in the toolbar switches dark <-> light and remembers the choice.
+  // It uses gitbook's own Night theme (class "color-theme-2" on .book).
+  (function() {
+    var KEY = 'hi-v2-color-mode';            // "dark" | "light"; not set = follow the computer
+    var mq = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
+
+    function saved() { try { return localStorage.getItem(KEY); } catch (e) { return null; } }
+    function save(v) { try { localStorage.setItem(KEY, v); } catch (e) {} }
+    function isDark() {
+      var s = saved();
+      if (s === 'dark') return true;
+      if (s === 'light') return false;
+      return !!(mq && mq.matches);
+    }
+
+    // Keep gitbook's own font-settings theme in step, so its next page load agrees with ours.
+    function syncGitbook(dark) {
+      var gb = window.gitbook;
+      if (!gb || !gb.storage) return;
+      var st = gb.storage.get('fontState', null);
+      if (!st) return;
+      var theme = dark ? 2 : (st.theme === 1 ? 1 : 0);
+      if (st.theme !== theme) { st.theme = theme; gb.storage.set('fontState', st); }
+    }
+
+    function apply() {
+      var dark = isDark();
+      document.documentElement.classList.toggle('hi-dark', dark);
+      var book = document.querySelector('.book');
+      if (book) {
+        if (dark) { book.classList.remove('color-theme-1'); book.classList.add('color-theme-2'); }
+        else { book.classList.remove('color-theme-2'); }
+      }
+      syncGitbook(dark);
+      var btn = document.querySelector('.hi-dark-toggle');
+      if (btn) {
+        var label = dark ? 'Switch to light mode' : 'Switch to dark mode';
+        btn.setAttribute('aria-label', label);
+        btn.setAttribute('title', label);
+        var icon = btn.querySelector('i');
+        if (icon) icon.className = dark ? 'fa fa-sun-o' : 'fa fa-moon-o';
+      }
+    }
+
+    // Set the page colour before the body is drawn, to avoid a white flash.
+    if (isDark()) document.documentElement.classList.add('hi-dark');
+
+    document.addEventListener('DOMContentLoaded', apply);
+
+    window.addEventListener('load', function() {
+      var gb = window.gitbook;
+      if (gb && gb.toolbar && !document.querySelector('.hi-dark-toggle')) {
+        gb.toolbar.createButton({
+          icon: 'fa fa-moon-o',
+          label: 'Dark mode',
+          className: 'hi-dark-toggle',
+          position: 'left',
+          onClick: function(e) {
+            e.preventDefault();
+            save(isDark() ? 'light' : 'dark');
+            apply();
+          }
+        });
+      }
+      if (gb && gb.events) gb.events.bind('page.change', apply);
+      apply();
+    });
+
+    // Follow the computer while the reader has not picked a mode.
+    if (mq) {
+      var onChange = function() { if (!saved()) apply(); };
+      if (mq.addEventListener) mq.addEventListener('change', onChange); else if (mq.addListener) mq.addListener(onChange);
+    }
+
+    // gitbook's own font menu (White / Sepia / Night) counts as a choice too.
+    document.addEventListener('click', function(e) {
+      var b = e.target.closest && e.target.closest('.font-settings .dropdown-menu .button');
+      if (!b) return;
+      var t = (b.textContent || '').trim();
+      if (t === 'Night') save('dark');
+      else if (t === 'White' || t === 'Sepia') save('light');
+      else return;
+      setTimeout(apply, 0);
+    });
+  })();
+</script>
+
+<style>
+  /* Dark mode: page colour before gitbook draws (no white flash) */
+  html.hi-dark, html.hi-dark body { background: #1c1f2b; }
+
+  /* Dark mode: our own elements */
+  html.hi-dark #hi-version-badge {
+    background: #2d3143;
+    border-color: #3ddc97;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.40);
+  }
+  html.hi-dark #hi-version-badge a { color: #3ddc97; }
+  .book.color-theme-2 p.caption,
+  .book.color-theme-2 figcaption { color: #9aa5b8 !important; }
+  .book.color-theme-2 span[style*="color: blue"] { color: #7fb2ff !important; }
+  .book.color-theme-2 span[style*="#b00020"] { color: #ff7a8a !important; }
+  .book.color-theme-2 .book-header,
+  .book.color-theme-2 .book-header .btn { color: #bcc1d2; }
+</style>
+
 
 
 <style type="text/css">
@@ -176,7 +284,10 @@
 </ul></li>
 <li class="chapter" data-level="5" data-path="overview-of-statistical-analysis-methods.html"><a href="overview-of-statistical-analysis-methods.html"><i class="fa fa-check"></i><b>5</b> Overview of statistical analysis methods</a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="overview-of-statistical-analysis-methods.html"><a href="overview-of-statistical-analysis-methods.html#multiple-linear-regression"><i class="fa fa-check"></i><b>5.1</b> Multiple linear regression</a></li>
+<li class="chapter" data-level="5.1" data-path="overview-of-statistical-analysis-methods.html"><a href="overview-of-statistical-analysis-methods.html#multiple-linear-regression"><i class="fa fa-check"></i><b>5.1</b> Multiple linear regression</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="overview-of-statistical-analysis-methods.html"><a href="overview-of-statistical-analysis-methods.html#wilcoxon-rank-sum-check"><i class="fa fa-check"></i><b>5.1.1</b> Wilcoxon rank-sum check</a></li>
+</ul></li>
 <li class="chapter" data-level="5.2" data-path="overview-of-statistical-analysis-methods.html"><a href="overview-of-statistical-analysis-methods.html#spearman-ranked-correlation"><i class="fa fa-check"></i><b>5.2</b> Spearman ranked correlation</a></li>
 <li class="chapter" data-level="5.3" data-path="overview-of-statistical-analysis-methods.html"><a href="overview-of-statistical-analysis-methods.html#kendall-rank-correlation-environmental-contaminants"><i class="fa fa-check"></i><b>5.3</b> Kendall rank correlation (environmental contaminants)</a></li>
 <li class="chapter" data-level="5.4" data-path="overview-of-statistical-analysis-methods.html"><a href="overview-of-statistical-analysis-methods.html#pathway-analysis"><i class="fa fa-check"></i><b>5.4</b> Pathway analysis</a></li>
@@ -234,7 +345,11 @@
 <h1><span class="header-section-number">Chapter 5</span> Overview of statistical analysis methods<a href="overview-of-statistical-analysis-methods.html#overview-of-statistical-analysis-methods" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <div id="multiple-linear-regression" class="section level2 hasAnchor" number="5.1">
 <h2><span class="header-section-number">5.1</span> Multiple linear regression<a href="overview-of-statistical-analysis-methods.html#multiple-linear-regression" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Linear models are used to compute omics feature-metadata associations for the bulk RNAseq, Nanostring, pseudobulk RNAseq, and bulk proteomics datasets. A linear model containing the selected metadata variable of interest and all covariates (if any) is fit to the expression or abundance levels of each feature in the selected omics dataset, using the limma R package (version 3.52.4). If the user selects a categorical metadata of interest, two dropdowns automatically appear so that a specific contrast can be specified (ie. ‘type 2 diabetes’ versus ‘no diabetes’). Then, the coefficient of the metadata variable (continuous) or metadata contrast (categorical) of interest and its associated p-value are extracted from the model for each feature. P-values are adjusted using the false discovery rate method. The rationale for using the original limma method is that it has been shown to perform well for many omics types as long as the data are appropriately normalized and transformed. While more customized methods developed for specific omics types may perform slightly better when applied to the appropriate data type, the advantage of our approach is that it can be applied to many omics types without modification, making the results more comparable to each other and making the HumanIslets tool easier to maintain. A detailed explanation of how analyze omics data with multiple linear regression, including how to specify linear models for different research questions and how to interpret the results, is available in Protocol #2 <a href="https://currentprotocols.onlinelibrary.wiley.com/doi/full/10.1002/cpz1.922">here</a>.</p>
+<p>Linear models are used to compute omics feature-metadata associations for the bulk RNAseq, Nanostring, pseudobulk RNAseq, and bulk proteomics datasets. A linear model containing the selected metadata variable of interest and all covariates (if any) is fit to the expression or abundance levels of each feature in the selected omics dataset, using the limma R package. If the user selects a categorical metadata of interest, two dropdowns automatically appear so that a specific contrast can be specified (ie. ‘type 2 diabetes’ versus ‘no diabetes’). Then, the coefficient of the metadata variable (continuous) or metadata contrast (categorical) of interest and its associated p-value are extracted from the model for each feature. P-values are adjusted using the false discovery rate method. The rationale for using the original limma method is that it has been shown to perform well for many omics types as long as the data are appropriately normalized and transformed. While more customized methods developed for specific omics types may perform slightly better when applied to the appropriate data type, the advantage of our approach is that it can be applied to many omics types without modification, making the results more comparable to each other and making the HumanIslets tool easier to maintain. A detailed explanation of how analyze omics data with multiple linear regression, including how to specify linear models for different research questions and how to interpret the results, is available in Protocol #2 <a href="https://currentprotocols.onlinelibrary.wiley.com/doi/full/10.1002/cpz1.922">here</a>.</p>
+<div id="wilcoxon-rank-sum-check" class="section level3 hasAnchor" number="5.1.1">
+<h3><span class="header-section-number">5.1.1</span> Wilcoxon rank-sum check<a href="overview-of-statistical-analysis-methods.html#wilcoxon-rank-sum-check" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>For a two-group comparison without covariates, the Omics View also runs a Wilcoxon rank-sum test on the same features and donors used by limma, as a check that does not rely on normally distributed data. The effect size is the AUC: the probability that a donor from one group has a higher value than a donor from the other. It is computed with the presto R package; features with missing values are tested on their own non-missing donors with base R’s <code>wilcox.test</code>, using the normal approximation with continuity correction. P-values are adjusted with the false discovery rate over the same features as limma. The test is not run for DNA methylation, when covariates are selected (the Wilcoxon test cannot adjust for them, and this includes an automatically added batch covariate), or when either group has too few donors.</p>
+</div>
 </div>
 <div id="spearman-ranked-correlation" class="section level2 hasAnchor" number="5.2">
 <h2><span class="header-section-number">5.2</span> Spearman ranked correlation<a href="overview-of-statistical-analysis-methods.html#spearman-ranked-correlation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -246,12 +361,12 @@
 </div>
 <div id="pathway-analysis" class="section level2 hasAnchor" number="5.4">
 <h2><span class="header-section-number">5.4</span> Pathway analysis<a href="overview-of-statistical-analysis-methods.html#pathway-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Overrepresentation analysis (ORA) and gene set enrichment analysis (GSEA) are supported for pathway analysis of the feature association results. Both methods are implemented using the fgsea R package (version 1.22.0). The feature list used for ORA is determined by the p-value threshold specified in the association analysis. GSEA can be performed using either the model coefficient (or log2FC when the metadata is categorical) or the test statistic from the association analysis to rank the features. For the patch-seq data, the coefficient is the correlation estimate and there is no test statistic option as it is not compatible with the Spearman correlation results. There are six supported pathway libraries, including KEGG, Reactome, the full Gene Ontology term list (broken into Biological Process, Cellular Component, and Molecular Function), and the PANTHER summary of the Gene Ontology terms (also broken into the same three categories).</p>
+<p>Overrepresentation analysis (ORA) and gene set enrichment analysis (GSEA) are supported for pathway analysis of the feature association results. Both methods are implemented using the fgsea R package. The feature list used for ORA is determined by the p-value threshold specified in the association analysis. GSEA can be performed using either the model coefficient (or log2FC when the metadata is categorical) or the test statistic from the association analysis to rank the features. For the patch-seq data, the coefficient is the correlation estimate and there is no test statistic option as it is not compatible with the Spearman correlation results. There are six supported pathway libraries, including KEGG, Reactome, the full Gene Ontology term list (broken into Biological Process, Cellular Component, and Molecular Function), and the PANTHER summary of the Gene Ontology terms (also broken into the same three categories).</p>
 <p>Pathway analysis can sometimes return a high number of significant pathways or gene sets that consist of mostly the same features, leading to a redundant results list. Users have the option of collapsing redundant sets, which uses the “collapsePathways” function within the fgsea R package to filter the gene sets to only include those with independent gene lists. Pathway analysis is not supported for the Nanostring data, as there are too few features (n = 156) for adequate pathway coverage.</p>
 </div>
 <div id="pre-computed-feature-associations" class="section level2 hasAnchor" number="5.5">
 <h2><span class="header-section-number">5.5</span> Pre-computed feature associations<a href="overview-of-statistical-analysis-methods.html#pre-computed-feature-associations" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Two complementary families of associations are pre-computed across the platform and surfaced in the Feature View: univariate (one feature at a time) and multivariate (one omics matrix against a target, jointly).</p>
+<p>Two complementary families of associations are pre-computed: univariate associations (one feature at a time) and multivariate predictions (one omics matrix against a target, jointly). Univariate associations are shown in the Feature View and IsletAgent; multivariate predictions are shown in IsletAgent.</p>
 <div id="univariate-associations" class="section level3 hasAnchor" number="5.5.1">
 <h3><span class="header-section-number">5.5.1</span> Univariate associations<a href="overview-of-statistical-analysis-methods.html#univariate-associations" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Univariate associations were computed between all omics feature-metadata variable pairs and between all metadata variable-metadata variable pairs. The linear model and Spearman correlation methods described above were used to compute the omics-metadata associations, with one modification. Some categorical variables have obvious specific contrasts, for example for diabetes status, one is usually interested in type 1 versus no diabetes and type 2 versus no diabetes. In these cases, we specify each contrast of interest using the methods described above. Other variables do not have obvious comparisons, for example donation type, so in this case an ANOVA style analysis is done and the statistics are extracted for the categorical variable coefficient rather than for a specific contrast. Sex, age, BMI, and culture time were included as covariates for analyses that used a linear model (all bulk omics data associations).</p>
@@ -306,7 +421,7 @@
 </tr>
 </tbody>
 </table>
-<p>All six methods run inside a per-(omics, target, method) try/except, so a single failure does not stop the wider pipeline. Per-omics results are written incrementally and resumable, then consolidated into the analysis database for use by the Feature View’s multivariate panel.</p>
+<p>Only models whose cross-validated quality passes a minimum (R² for continuous targets, AUC for binary targets) are kept and shown. The results feed the Prediction panel in IsletAgent.</p>
 </div>
 </div>
 <div id="deconvolution-analysis" class="section level2 hasAnchor" number="5.6">
@@ -316,18 +431,38 @@
 </div>
 <div id="multi-omics-integration-methods" class="section level2 hasAnchor" number="5.7">
 <h2><span class="header-section-number">5.7</span> Multi-omics integration methods<a href="overview-of-statistical-analysis-methods.html#multi-omics-integration-methods" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Three complementary multi-omics methods are precomputed across all eligible omics combinations. Each requires a minimum of 20 shared donors across the omics layers being integrated, and applies per-omics feature caps to keep the inputs comparably weighted (large omics matrices are first ranked by median absolute deviation and capped before integration). See chapter 2 for how to use these methods in the platform; the parameter choices below are extracted directly from the precomputation R scripts.</p>
+<p>WGCNA and MOFA are precomputed for each supported combination of omics types; DIABLO runs when you submit. All three use only the donors measured in every selected omics type, and a combination is offered only when enough donors are shared. Large omics matrices are reduced to their most variable features before integration, so no single omics type dominates. For integration, RNA-seq is variance-stabilized (DESeq2 vst) and ComBat batch-corrected, and proteomics and metabolomics enter already ComBat batch-corrected. Results can be limited to a donor subset; for WGCNA and MOFA, the modules and factors stay as precomputed and the phenotype associations are recalculated for the chosen donors. See chapter 2 (Multi-omics View) for how to use these methods.</p>
+<!-- HIDDEN: previous 5.7 introduction (preserved for reference; replaced to match the latest code and website):
+
+Three complementary multi-omics methods are precomputed across all eligible omics combinations. Each requires a minimum of 20 shared donors across the omics layers being integrated, and applies per-omics feature caps to keep the inputs comparably weighted (large omics matrices are first ranked by median absolute deviation and capped before integration). See chapter 2 for how to use these methods in the platform; the parameter choices below are extracted directly from the precomputation R scripts.
+
+-->
 <div id="wgcna-weighted-gene-co-expression-network-analysis" class="section level3 hasAnchor" number="5.7.1">
 <h3><span class="header-section-number">5.7.1</span> WGCNA (Weighted Gene Co-expression Network Analysis)<a href="overview-of-statistical-analysis-methods.html#wgcna-weighted-gene-co-expression-network-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>For the <strong>combined-omics</strong> pipeline, per-omics matrices are first z-scored within each omics, then concatenated into a single feature matrix with prefixed feature IDs (e.g. <code>rnaseq::ENSG…</code>, <code>prot::P00…</code>). A single WGCNA run is then performed on the concatenated matrix, so modules can naturally contain features from multiple omics whenever they co-vary. Per-omics feature caps (MAD-ranked) are: RNA-seq 2,500; proteomics 2,500; pseudobulk 2,500; peak (raw metabolite) 2,000 with a &gt;50% zero filter; metabolite annotated features all kept (~215); flux 1,500 (capped to prevent dense networks dominated by flux). Bicor (biweight midcorrelation, <code>maxPOutliers = 0.1</code>) is used as the correlation method. Networks are built as <strong>signed hybrid</strong> with <code>TOMType = "signed"</code>; soft threshold is selected by <code>pickSoftThreshold</code> to reach an R² &gt; 0.80 fit to scale-free topology, with a minimum of <code>power = 6</code> enforced. Module detection adapts to sample size: <code>minModuleSize</code> defaults to 30 and is reduced toward 8 for smaller cohorts; <code>mergeCutHeight</code> defaults to 0.25 (raised to 0.30 for n &lt; 50 donors); <code>deepSplit</code> defaults to 2 (reduced to 1 for n &lt; 50). Module eigengenes are computed by <code>WGCNA::moduleEigengenes()</code>. Hub features are reported with both signed module membership (<code>kME</code>) and intramodular connectivity. Cross-omics structure is reported as the per-module-per-omics variance-reach metric (the mean R² of each module’s eigengene against each omics’ features) and as a flag on TOM edges connecting features of different omics types. Per-module pathway enrichment is performed via <code>fgsea::fora()</code> (ORA) or <code>fgsea::fgsea()</code> (GSEA, ranked by <code>kME</code>); supported libraries include KEGG, the GEM metabolite / reaction libraries, and any GO/Reactome libraries configured.</p>
+<p>Each omics matrix is z-scored, reduced to its most variable features (median absolute deviation), and joined into one matrix, with the omics type added to each feature ID. One network is built on the joined matrix, so a module can hold features from more than one omics type. Combinations cover RNA-seq, proteomics, Nanostring, pseudobulk, metabolic flux and DNA methylation. Feature caps are smaller when three omics types are combined, to keep the network manageable. Correlation uses biweight midcorrelation (bicor). The network is signed hybrid with a signed topological overlap (TOM). The soft-threshold power is the lowest that gives a good scale-free fit, with a minimum for signed networks. Module size, merge height and deepSplit adapt to the number of donors and features. Module eigengenes come from <code>WGCNA::moduleEigengenes()</code>. Each feature has its signed module membership (kME) and intramodular connectivity, and the strongest TOM edges of each module are kept for the network view. Module–phenotype associations use Pearson correlation for continuous and binary phenotypes and ANOVA (effect size) for multi-level categorical phenotypes, with Benjamini–Hochberg adjustment within each module and test type. Pathway enrichment for a module (ORA, or GSEA ranked by kME) runs on request.</p>
+<!-- HIDDEN: previous WGCNA text (preserved for reference; replaced to match the latest code and website):
+
+For the **combined-omics** pipeline, per-omics matrices are first z-scored within each omics, then concatenated into a single feature matrix with prefixed feature IDs (e.g. `rnaseq::ENSG…`, `prot::P00…`). A single WGCNA run is then performed on the concatenated matrix, so modules can naturally contain features from multiple omics whenever they co-vary. Per-omics feature caps (MAD-ranked) are: RNA-seq 2,500; proteomics 2,500; pseudobulk 2,500; peak (raw metabolite) 2,000 with a >50% zero filter; metabolite annotated features all kept (~215); flux 1,500 (capped to prevent dense networks dominated by flux). Bicor (biweight midcorrelation, `maxPOutliers = 0.1`) is used as the correlation method. Networks are built as **signed hybrid** with `TOMType = "signed"`; soft threshold is selected by `pickSoftThreshold` to reach an R² > 0.80 fit to scale-free topology, with a minimum of `power = 6` enforced. Module detection adapts to sample size: `minModuleSize` defaults to 30 and is reduced toward 8 for smaller cohorts; `mergeCutHeight` defaults to 0.25 (raised to 0.30 for n < 50 donors); `deepSplit` defaults to 2 (reduced to 1 for n < 50). Module eigengenes are computed by `WGCNA::moduleEigengenes()`. Hub features are reported with both signed module membership (`kME`) and intramodular connectivity. Cross-omics structure is reported as the per-module-per-omics variance-reach metric (the mean R² of each module's eigengene against each omics' features) and as a flag on TOM edges connecting features of different omics types. Per-module pathway enrichment is performed via `fgsea::fora()` (ORA) or `fgsea::fgsea()` (GSEA, ranked by `kME`); supported libraries include KEGG, the GEM metabolite / reaction libraries, and any GO/Reactome libraries configured.
+
+-->
 </div>
 <div id="mofa-multi-omics-factor-analysis" class="section level3 hasAnchor" number="5.7.2">
 <h3><span class="header-section-number">5.7.2</span> MOFA (Multi-Omics Factor Analysis)<a href="overview-of-statistical-analysis-methods.html#mofa-multi-omics-factor-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>MOFA is computed with the MOFA2 R package. Unlike WGCNA, donors are taken as the <strong>union</strong> across omics, with missing-view values represented as NA so the model can learn from partial-overlap donors. Per-omics feature caps (MAD-ranked) are: RNA-seq 5,000; proteomics 5,000; pseudobulk 5,000; flux all reactions; metabolite all annotated; peak 3,000. For metabolite and peak data, ComBat batch correction (two batches B1/B2) is applied before scaling. Features are z-scored row-wise (NA-tolerant) after capping. Up to 15 factors are requested, automatically reduced to <code>min(15, shared_donors / 5, min_features_per_view)</code>. All views use a Gaussian likelihood. Training options: <code>scale_views = FALSE</code> (data are already scaled), <code>scale_groups = FALSE</code>, seed = 42; convergence mode is <code>"slow"</code> for fewer than 50 shared donors and <code>"medium"</code> otherwise. Precomputed outputs include per-factor donor scores, per-omics loading matrices, variance explained per factor per view, and the top 20 features per factor per omics by absolute loading.</p>
+<p>MOFA is computed with the MOFA2 R package on the donors measured in every omics type of the combination. Large omics matrices are reduced to their most variable features (median absolute deviation); annotated metabolites, metabolic flux and Nanostring are kept whole. Features are z-scored. The number of factors is set from the number of shared donors, up to a maximum. All views use a Gaussian likelihood, views and groups are not rescaled (the data are already scaled), training converges more slowly for small cohorts, and a fixed random seed is used. Precomputed outputs include donor factor scores, feature loadings per omics, and the variance explained per factor and omics. Factor–phenotype associations use the same tests as WGCNA. The <strong>Circos Plot</strong> shows the top-loading features of a factor in each omics, linked by their Pearson correlation across shared donors. Pathway enrichment for a factor runs on request.</p>
+<!-- HIDDEN: previous MOFA text (preserved for reference; replaced to match the latest code and website):
+
+MOFA is computed with the MOFA2 R package. Unlike WGCNA, donors are taken as the **union** across omics, with missing-view values represented as NA so the model can learn from partial-overlap donors. Per-omics feature caps (MAD-ranked) are: RNA-seq 5,000; proteomics 5,000; pseudobulk 5,000; flux all reactions; metabolite all annotated; peak 3,000. For metabolite and peak data, ComBat batch correction (two batches B1/B2) is applied before scaling. Features are z-scored row-wise (NA-tolerant) after capping. Up to 15 factors are requested, automatically reduced to `min(15, shared_donors / 5, min_features_per_view)`. All views use a Gaussian likelihood. Training options: `scale_views = FALSE` (data are already scaled), `scale_groups = FALSE`, seed = 42; convergence mode is `"slow"` for fewer than 50 shared donors and `"medium"` otherwise. Precomputed outputs include per-factor donor scores, per-omics loading matrices, variance explained per factor per view, and the top 20 features per factor per omics by absolute loading.
+
+-->
 </div>
 <div id="diablo-data-integration-analysis-for-biomarker-discovery-using-latent-components" class="section level3 hasAnchor" number="5.7.3">
 <h3><span class="header-section-number">5.7.3</span> DIABLO (Data Integration Analysis for Biomarker discovery using Latent cOmponents)<a href="overview-of-statistical-analysis-methods.html#diablo-data-integration-analysis-for-biomarker-discovery-using-latent-components" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>DIABLO is a <strong>supervised</strong> integration that requires a primary metadata variable as the <em>Y</em> response. It is implemented with the mixOmics R package. For a binary categorical <em>Y</em> the platform uses <code>block.splsda</code> (≥ 3 samples per group required); for a continuous <em>Y</em> it uses <code>block.pls</code> (regression mode). Pre-filtering requires at least 10 donors with measurements in every omics block. Per-omics feature caps (MAD-ranked) are: RNA-seq / pseudobulk 2,000; proteomics 1,000; metabolite 500; contaminants 200; features are z-scored. The number of latent components is <code>min(3, n_features_per_view − 1)</code> for discriminant mode (up to 5 for regression). Blocks are connected by a fixed design matrix with off-diagonal weight 0.2 and diagonal 0 (per-block keepX tuning by cross-validation is implemented but currently disabled in the production pipeline). Outputs precomputed per analysis include: total variance explained per component per omics, a discrimination performance plot (AUROC for binary outcomes; R² for continuous), the top features ranked by max absolute loading across components, and a sample plot in integrated component space (<code>plotArrow</code>).</p>
+<p>DIABLO is a supervised integration that runs when you submit, using the mixOmics R package and a primary metadata variable as the outcome. A two-group outcome uses <code>block.splsda</code>; a continuous outcome uses <code>block.pls</code> in regression mode. Each group needs a minimum number of donors. If covariates are selected, they are regressed out of each omics block (limma <code>removeBatchEffect</code>) while the outcome is kept. Each block is then screened with limma, keeping the features most associated with the outcome (DNA methylation is first reduced by variance), and z-scored. Blocks are linked by a fixed design weight, and DIABLO selects a small, fixed number of features per block and component; there is no cross-validation tuning, so the page stays fast. No AUROC is shown, because a score computed on the same donors used to fit the model would be over-optimistic. The signed limma statistics from the screen rank features for GSEA in the pathway analysis.</p>
+<!-- HIDDEN: previous DIABLO text (preserved for reference; replaced to match the latest code and website):
+
+DIABLO is a **supervised** integration that requires a primary metadata variable as the *Y* response. It is implemented with the mixOmics R package. For a binary categorical *Y* the platform uses `block.splsda` (≥ 3 samples per group required); for a continuous *Y* it uses `block.pls` (regression mode). Pre-filtering requires at least 10 donors with measurements in every omics block. Per-omics feature caps (MAD-ranked) are: RNA-seq / pseudobulk 2,000; proteomics 1,000; metabolite 500; contaminants 200; features are z-scored. The number of latent components is `min(3, n_features_per_view − 1)` for discriminant mode (up to 5 for regression). Blocks are connected by a fixed design matrix with off-diagonal weight 0.2 and diagonal 0 (per-block keepX tuning by cross-validation is implemented but currently disabled in the production pipeline). Outputs precomputed per analysis include: total variance explained per component per omics, a discrimination performance plot (AUROC for binary outcomes; R² for continuous), the top features ranked by max absolute loading across components, and a sample plot in integrated component space (`plotArrow`).
+
+-->
 </div>
 </div>
 <div id="variational-autoencoder-vae-for-donor-clustering" class="section level2 hasAnchor" number="5.8">

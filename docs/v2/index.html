@@ -92,6 +92,114 @@
   });
 </script>
 
+<script>
+  // Dark mode. Default: follow the computer's light/dark setting.
+  // The sun/moon button in the toolbar switches dark <-> light and remembers the choice.
+  // It uses gitbook's own Night theme (class "color-theme-2" on .book).
+  (function() {
+    var KEY = 'hi-v2-color-mode';            // "dark" | "light"; not set = follow the computer
+    var mq = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
+
+    function saved() { try { return localStorage.getItem(KEY); } catch (e) { return null; } }
+    function save(v) { try { localStorage.setItem(KEY, v); } catch (e) {} }
+    function isDark() {
+      var s = saved();
+      if (s === 'dark') return true;
+      if (s === 'light') return false;
+      return !!(mq && mq.matches);
+    }
+
+    // Keep gitbook's own font-settings theme in step, so its next page load agrees with ours.
+    function syncGitbook(dark) {
+      var gb = window.gitbook;
+      if (!gb || !gb.storage) return;
+      var st = gb.storage.get('fontState', null);
+      if (!st) return;
+      var theme = dark ? 2 : (st.theme === 1 ? 1 : 0);
+      if (st.theme !== theme) { st.theme = theme; gb.storage.set('fontState', st); }
+    }
+
+    function apply() {
+      var dark = isDark();
+      document.documentElement.classList.toggle('hi-dark', dark);
+      var book = document.querySelector('.book');
+      if (book) {
+        if (dark) { book.classList.remove('color-theme-1'); book.classList.add('color-theme-2'); }
+        else { book.classList.remove('color-theme-2'); }
+      }
+      syncGitbook(dark);
+      var btn = document.querySelector('.hi-dark-toggle');
+      if (btn) {
+        var label = dark ? 'Switch to light mode' : 'Switch to dark mode';
+        btn.setAttribute('aria-label', label);
+        btn.setAttribute('title', label);
+        var icon = btn.querySelector('i');
+        if (icon) icon.className = dark ? 'fa fa-sun-o' : 'fa fa-moon-o';
+      }
+    }
+
+    // Set the page colour before the body is drawn, to avoid a white flash.
+    if (isDark()) document.documentElement.classList.add('hi-dark');
+
+    document.addEventListener('DOMContentLoaded', apply);
+
+    window.addEventListener('load', function() {
+      var gb = window.gitbook;
+      if (gb && gb.toolbar && !document.querySelector('.hi-dark-toggle')) {
+        gb.toolbar.createButton({
+          icon: 'fa fa-moon-o',
+          label: 'Dark mode',
+          className: 'hi-dark-toggle',
+          position: 'left',
+          onClick: function(e) {
+            e.preventDefault();
+            save(isDark() ? 'light' : 'dark');
+            apply();
+          }
+        });
+      }
+      if (gb && gb.events) gb.events.bind('page.change', apply);
+      apply();
+    });
+
+    // Follow the computer while the reader has not picked a mode.
+    if (mq) {
+      var onChange = function() { if (!saved()) apply(); };
+      if (mq.addEventListener) mq.addEventListener('change', onChange); else if (mq.addListener) mq.addListener(onChange);
+    }
+
+    // gitbook's own font menu (White / Sepia / Night) counts as a choice too.
+    document.addEventListener('click', function(e) {
+      var b = e.target.closest && e.target.closest('.font-settings .dropdown-menu .button');
+      if (!b) return;
+      var t = (b.textContent || '').trim();
+      if (t === 'Night') save('dark');
+      else if (t === 'White' || t === 'Sepia') save('light');
+      else return;
+      setTimeout(apply, 0);
+    });
+  })();
+</script>
+
+<style>
+  /* Dark mode: page colour before gitbook draws (no white flash) */
+  html.hi-dark, html.hi-dark body { background: #1c1f2b; }
+
+  /* Dark mode: our own elements */
+  html.hi-dark #hi-version-badge {
+    background: #2d3143;
+    border-color: #3ddc97;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.40);
+  }
+  html.hi-dark #hi-version-badge a { color: #3ddc97; }
+  .book.color-theme-2 p.caption,
+  .book.color-theme-2 figcaption { color: #9aa5b8 !important; }
+  .book.color-theme-2 span[style*="color: blue"] { color: #7fb2ff !important; }
+  .book.color-theme-2 span[style*="#b00020"] { color: #ff7a8a !important; }
+  .book.color-theme-2 .book-header,
+  .book.color-theme-2 .book-header .btn { color: #bcc1d2; }
+</style>
+
 
 
 <style type="text/css">
@@ -176,7 +284,10 @@
 </ul></li>
 <li class="chapter" data-level="5" data-path="overview-of-statistical-analysis-methods.html"><a href="overview-of-statistical-analysis-methods.html"><i class="fa fa-check"></i><b>5</b> Overview of statistical analysis methods</a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="overview-of-statistical-analysis-methods.html"><a href="overview-of-statistical-analysis-methods.html#multiple-linear-regression"><i class="fa fa-check"></i><b>5.1</b> Multiple linear regression</a></li>
+<li class="chapter" data-level="5.1" data-path="overview-of-statistical-analysis-methods.html"><a href="overview-of-statistical-analysis-methods.html#multiple-linear-regression"><i class="fa fa-check"></i><b>5.1</b> Multiple linear regression</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="overview-of-statistical-analysis-methods.html"><a href="overview-of-statistical-analysis-methods.html#wilcoxon-rank-sum-check"><i class="fa fa-check"></i><b>5.1.1</b> Wilcoxon rank-sum check</a></li>
+</ul></li>
 <li class="chapter" data-level="5.2" data-path="overview-of-statistical-analysis-methods.html"><a href="overview-of-statistical-analysis-methods.html#spearman-ranked-correlation"><i class="fa fa-check"></i><b>5.2</b> Spearman ranked correlation</a></li>
 <li class="chapter" data-level="5.3" data-path="overview-of-statistical-analysis-methods.html"><a href="overview-of-statistical-analysis-methods.html#kendall-rank-correlation-environmental-contaminants"><i class="fa fa-check"></i><b>5.3</b> Kendall rank correlation (environmental contaminants)</a></li>
 <li class="chapter" data-level="5.4" data-path="overview-of-statistical-analysis-methods.html"><a href="overview-of-statistical-analysis-methods.html#pathway-analysis"><i class="fa fa-check"></i><b>5.4</b> Pathway analysis</a></li>
