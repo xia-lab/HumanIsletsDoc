@@ -47,7 +47,7 @@ The ‘Pathway Results’ will be displayed in both graphical and table format, 
 
 ### Multi-omics View [<img src="logo1.png" alt="Logo" style="width:18px; height:18px;">](https://dev.humanislets.com/#/multiomics)
 
-The Multi-omics View lets users explore integrated analyses across two or three omics layers selected from a single dropdown (WGCNA and MOFA results are precomputed; a combination is offered only when enough donors have every selected omics type). Three complementary methods are available, each answering a slightly different question and unlocked by selecting it from the **Method** dropdown:
+The Multi-omics View lets users explore integrated analyses across two or three omics layers selected from a single dropdown (WGCNA and MOFA results are precomputed for combinations where at least 20 donors have every selected omics type). Three complementary methods are available, each answering a slightly different question and unlocked by selecting it from the **Method** dropdown:
 
 - **WGCNA** (Weighted Gene Co-expression Network Analysis) is **unsupervised**. It groups features that move together across donors into *modules*, then summarises each module by a single representative value (its *eigengene*) so that module-level signal can be compared across omics and against the platform's phenotype variables. Use WGCNA when the question is *which features behave like a co-regulated programme, and does any module track a phenotype?*
 - **MOFA** (Multi-Omics Factor Analysis) is also **unsupervised**, but rather than discrete modules it learns continuous *latent factors* — directions of variation that several omics share. The same factor often explains a substantial chunk of variance in two or more views, which makes MOFA a good fit when the goal is to *find the shared axes of variation across omics types*. Donors with only partial omics coverage are still usable thanks to MOFA's NA-tolerant fit.
@@ -58,7 +58,7 @@ A help (`?`) tooltip next to the dropdown summarises these three methods inline.
 To run a multi-omics analysis:
 
 1. Pick the **Method** (WGCNA, MOFA, or DIABLO) from the dropdown
-2. Choose **Omics Type I** and **Omics Type II** (and optionally **Omics Type III**) — the combinations are precomputed, so the choices that have ≥ 20 shared donors will be selectable
+2. Choose **Omics Type I** and **Omics Type II** (and optionally **Omics Type III**). For WGCNA and MOFA, results exist only for combinations with at least 20 shared donors; other combinations show a *Not Found* message. DIABLO needs at least 10 shared donors with a value for the primary metadata.
     a. For patch-seq, an extra **cell type** selector appears (α / β / δ / PP)
     b. For metabolite and flux, an extra **glucose condition** selector appears (low / high / ratio)
 3. For **DIABLO only**, pick a **Primary Metadata** variable and (for binary outcomes) the two contrast levels, and optionally covariates under **Adjust for**. WGCNA and MOFA are unsupervised and skip this step.
