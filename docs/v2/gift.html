@@ -379,13 +379,13 @@
 </div>
 <div id="gift" class="section level1 hasAnchor" number="6">
 <h1><span class="header-section-number">Chapter 6</span> GIFT Genomic View<a href="gift.html#gift" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>The GIFT Genomic View (section 2.3.2) shows islet genetic results from GIFT, a resource led by the Gloyn lab (Stanford), which provides all genetic data in HumanIslets. The Gloyn lab produced these associations; HumanIslets stores them and draws the plots and tables. This chapter describes what the view holds, how the page builds its plots, and the quick colocalisation test that runs on our server.</p>
+<p>The GIFT Genomic View (section 2.3.2) shows islet genetic results from GIFT, a resource led by the Gloyn lab, which provides all genetic data in HumanIslets. The Gloyn lab produced these associations; HumanIslets stores them and draws the plots and tables. This chapter describes what the view holds, how the page builds its plots, and the quick colocalisation test.</p>
 <p><span style="color:#b00020; font-weight:600;">[GIFT citation and data-use terms to be added; needs confirmation from the Gloyn lab.]</span></p>
 <div id="data-in-the-view" class="section level2 hasAnchor" number="6.1">
 <h2><span class="header-section-number">6.1</span> Data in the view<a href="gift.html#data-in-the-view" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p><em>Current coverage: 519 genotyped donors and 7,764,556 variants.</em></p>
 <ul>
-<li><p><strong>Islet function GWAS (“GWAS-in-a-dish”):</strong> genome-wide associations between genetic variants and donor islet phenotypes, for example <em>Static-secretion stimulation index</em>. 50 phenotypes in five groups:</p>
+<li><strong>Islet function GWAS (“GWAS-in-a-dish”):</strong> genome-wide associations between genetic variants and donor islet phenotypes, for example <em>Static-secretion stimulation index</em>. 50 phenotypes in five groups:
 <ul>
 <li>Static GSIS: 6 phenotypes, 377 donors;</li>
 <li>Bayesian hierarchical model: 25 phenotypes, 376 donors;</li>
@@ -393,15 +393,14 @@
 <li>Beta-cell electrophysiology: 6 phenotypes, 300 donors;</li>
 <li>Alpha-cell electrophysiology: 7 phenotypes, 88 donors.</li>
 </ul></li>
-<li><p><strong>Islet cis-QTLs:</strong> variants linked to a nearby molecular feature: eQTL (gene expression), exon-level eQTL (exon expression), sQTL (splicing junction), pQTL (protein) and caQTL (chromatin peak).</p>
+<li><strong>Islet cis-QTLs:</strong> variants linked to a nearby molecular feature: eQTL (gene expression), exon-level eQTL (exon expression), sQTL (splicing junction), pQTL (protein) and caQTL (chromatin peak).
 <ul>
 <li>eQTL: 12,826 significant lead signals, mapped in 954 donors (448 GIFT donors and 506 donors from published islet RNA-seq studies: CRG, InsPIRE, TIGER and van de Bunt et al.);</li>
 <li>caQTL: 5,159 lead signals in 139 donors;</li>
 <li>pQTL: 567 lead signals in 113 donors.</li>
-</ul>
-<p><span style="color:#b00020; font-weight:600;">[Counts for exon-level eQTL and sQTL to be added; needs confirmation from the Gloyn lab.]</span></p></li>
-<li><p><strong>Covariate models:</strong> each GWAS phenotype has three models: <strong>primary</strong>, <strong>T2D-adjusted</strong> and <strong>BMI-adjusted</strong>. Some static insulin secretion phenotypes use content-adjusted versions of the same three models (labelled <em>content-adj.</em>). The primary model is shown first.</p></li>
-<li><p><strong>Positions and alleles:</strong> variant positions use GRCh38 (hg38). In GWAS tables the effect size is per copy of the effect allele; in QTL tables it is per copy of the ALT allele.</p></li>
+</ul></li>
+<li><strong>Covariate models:</strong> each GWAS phenotype has three models: <strong>primary</strong>, <strong>T2D-adjusted</strong> and <strong>BMI-adjusted</strong>. Some static insulin secretion phenotypes use content-adjusted versions of the same three models (labelled <em>content-adj.</em>). The primary model is shown first.</li>
+<li><strong>Positions and alleles:</strong> variant positions use GRCh38 (hg38). In GWAS tables the effect size is per copy of the effect allele; in QTL tables it is per copy of the ALT allele.</li>
 </ul>
 </div>
 <div id="how-the-plots-are-built" class="section level2 hasAnchor" number="6.2">
@@ -424,8 +423,8 @@
 <li><strong>PP.H3:</strong> both are associated, with two different causal variants;</li>
 <li><strong>PP.H4:</strong> both are associated, with one shared causal variant.</li>
 </ul>
-<p><strong>Results from the Gloyn lab.</strong> When a gene is in the GIFT colocalisation results, the tab shows them. The locus plot for each pair is drawn from the current summary statistics on this site, so <em>P</em> values can differ a little from the GIFT results.</p>
-<p><strong>Quick test.</strong> When a gene is not in those results, a <strong>Quick test</strong> can be run for reference. It tests the gene’s cis-QTL (one QTL type at a time) against every islet function GWAS phenotype, using the current summary statistics. It uses the coloc approximate Bayes factor method (the same formula as <code>coloc.abf()</code> in the R coloc package), run in Python on the HumanIslets server:</p>
+<p><strong>Results from the GIFT paper.</strong> When a gene is in the GIFT colocalisation results, the tab shows them. The locus plot for each pair is drawn from the current summary statistics on this site, so <em>P</em> values can differ a little from the GIFT results.</p>
+<p><strong>Quick test.</strong> When a gene is not in those results, a <strong>Quick test</strong> can be run for reference. It tests the gene’s cis-QTL (one QTL type at a time) against every islet function GWAS phenotype, using the current summary statistics. It uses the coloc approximate Bayes factor method (<code>coloc.abf()</code> in the R coloc package):</p>
 <ul>
 <li>default coloc priors: <em>p</em><sub>1</sub> = <em>p</em><sub>2</sub> = 1×10<sup>-4</sup>, <em>p</em><sub>12</sub> = 1×10<sup>-5</sup>;</li>
 <li>variants with minor allele frequency &gt; 5%; alleles aligned, with mismatched and strand-ambiguous (A/T, C/G) variants removed;</li>

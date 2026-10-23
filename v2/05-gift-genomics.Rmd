@@ -1,6 +1,6 @@
 # GIFT Genomic View {#gift}
 
-The GIFT Genomic View (section 2.3.2) shows islet genetic results from GIFT, a resource led by the Gloyn lab (Stanford), which provides all genetic data in HumanIslets. The Gloyn lab produced these associations; HumanIslets stores them and draws the plots and tables. This chapter describes what the view holds, how the page builds its plots, and the quick colocalisation test that runs on our server.
+The GIFT Genomic View (section 2.3.2) shows islet genetic results from GIFT, a resource led by the Gloyn lab, which provides all genetic data in HumanIslets. The Gloyn lab produced these associations; HumanIslets stores them and draws the plots and tables. This chapter describes what the view holds, how the page builds its plots, and the quick colocalisation test.
 
 <span style="color:#b00020; font-weight:600;">[GIFT citation and data-use terms to be added; needs confirmation from the Gloyn lab.]</span>
 
@@ -18,9 +18,6 @@ The GIFT Genomic View (section 2.3.2) shows islet genetic results from GIFT, a r
     - eQTL: 12,826 significant lead signals, mapped in 954 donors (448 GIFT donors and 506 donors from published islet RNA-seq studies: CRG, InsPIRE, TIGER and van de Bunt et al.);
     - caQTL: 5,159 lead signals in 139 donors;
     - pQTL: 567 lead signals in 113 donors.
-
-    <span style="color:#b00020; font-weight:600;">[Counts for exon-level eQTL and sQTL to be added; needs confirmation from the Gloyn lab.]</span>
-
 - **Covariate models:** each GWAS phenotype has three models: **primary**, **T2D-adjusted** and **BMI-adjusted**. Some static insulin secretion phenotypes use content-adjusted versions of the same three models (labelled *content-adj.*). The primary model is shown first.
 - **Positions and alleles:** variant positions use GRCh38 (hg38). In GWAS tables the effect size is per copy of the effect allele; in QTL tables it is per copy of the ALT allele.
 
@@ -42,9 +39,9 @@ Colocalisation asks whether two association signals in one region share a causal
 - **PP.H3:** both are associated, with two different causal variants;
 - **PP.H4:** both are associated, with one shared causal variant.
 
-**Results from the Gloyn lab.** When a gene is in the GIFT colocalisation results, the tab shows them. The locus plot for each pair is drawn from the current summary statistics on this site, so *P* values can differ a little from the GIFT results.
+**Results from the GIFT paper.** When a gene is in the GIFT colocalisation results, the tab shows them. The locus plot for each pair is drawn from the current summary statistics on this site, so *P* values can differ a little from the GIFT results.
 
-**Quick test.** When a gene is not in those results, a **Quick test** can be run for reference. It tests the gene's cis-QTL (one QTL type at a time) against every islet function GWAS phenotype, using the current summary statistics. It uses the coloc approximate Bayes factor method (the same formula as `coloc.abf()` in the R coloc package), run in Python on the HumanIslets server:
+**Quick test.** When a gene is not in those results, a **Quick test** can be run for reference. It tests the gene's cis-QTL (one QTL type at a time) against every islet function GWAS phenotype, using the current summary statistics. It uses the coloc approximate Bayes factor method (`coloc.abf()` in the R coloc package):
 
 - default coloc priors: *p*~1~ = *p*~2~ = 1×10^-4^, *p*~12~ = 1×10^-5^;
 - variants with minor allele frequency > 5%; alleles aligned, with mismatched and strand-ambiguous (A/T, C/G) variants removed;
