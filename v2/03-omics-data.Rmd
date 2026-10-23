@@ -2,7 +2,7 @@
 
 ## Gene expression (bulk RNA-seq)
 
-*Current coverage: 22,788 transcripts across 373 donors.*
+*Current coverage: 20,892 transcripts across 371 donors.*
 
 On the day of sample collection, typically the shipment day (see section 3.5 above), 150 islets are hand picked and transferred to 1 ml of Trizol reagent. After vortexing, the sample is stored at -80°C until shipping or RNAseq at either Oxford or Stanford.
 
@@ -14,7 +14,7 @@ The raw RNA sequencing data has been deposited in the European Genome-phenome Ar
 
 ## Gene expression (Nanostring)
 
-*Current coverage: 156 transcripts across 190 donors.*
+*Current coverage: 156 transcripts across 259 donors.*
 
 On the day of sample collection (see section 3.5, above) 50 islets are hand-picked at the ADI IsletCore, washed with PBS, then lysed in 100ul of RNeasy Lysis Buffer (RLT, Qiagen) containing 1% beta-mercaptoethanol. Samples are stored at -80oC before running on Nanostring gene expression assay at BC Children Hospital (Vancouver). The assay was updated partway through data collection, where a small number of genes were removed and replaced with others, resulting in two different gene codesets. Briefly, 1ul cell lysate is used for hybridization with customized gene code sets that target 142 pancreatic islet genes and 6 reference genes. Hybridized complex is then loaded on cartridge and Nanostring nCounter to measure the target gene expression. The raw data is analyzed with nSolver4.0 software from Nanostring, producing a table of intensity values where larger values correspond to higher gene expression values. Full details are found [here](https://www.biorxiv.org/content/10.1101/2023.09.08.556709v1). 
 
@@ -46,6 +46,8 @@ The single-cell counts from patch-seq data (section 4.5, below) were summarized 
 
 ## Single-cell gene expression (patch-seq)
 
+*Current coverage: 61 HumanIslets donors with patch-seq cells.*
+
 The collection and analysis of pancreas patch-seq data is described [here](https://www.sciencedirect.com/science/article/pii/S155041312030187X?via%3Dihub) and [here](https://www.sciencedirect.com/science/article/pii/S1550413121006859?via%3Dihub). Reads from FASTQ files were trimmed using TrimGalore version 0.6.5 with auto-detection of adapter sequence, then aligned and counted using STAR version 2.7.9a to the GRCh38 human genome (Ensembl release 104). Cell count matrices were loaded into R and a Seurat object was generated using the Seurat R package (version 4.3.0). Only cells with patch-clamp data were included; data for additional cells are available from the listed accession numbers below. Cell types were identified by projection, using the MapQuery command from the R package Seurat, onto a large set of human islet single cell RNAseq data generated from publicly available data (see below). Cells were filtered to remove any that were not alpha or beta cells, had fewer than 500 total counts across all transcripts, had fewer than 300 unique transcripts with non-zero count values, or had greater than 20% mitochondrial DNA. Ensembl gene IDs were mapped to Entrez IDs and counts from any duplicated Entrez IDs were summed. Counts were separated by cell type (alpha and beta) and glucose concentration (1, 5, and 10mM), resulting in six different matrices. Each matrix was filtered to remove transcripts with greater than 80% zeros. Counts were converted to logCPM values using the trimmed mean of M-values (TMM) method from the edgeR R package (version 3.38.4). TMM has been shown to perform better for single-cell RNAseq data compared to the RLE method because it is robust to the high drop-out rate. Individual transcripts that had zero counts were replaced with NA.
 
 Raw sequencing reads are available in the NCBI Gene Expression Omnibus (GEO) and Sequence Read Archive (SRA) under accession numbers [GSE124742](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE124742) and [GSE164875](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE164875) and [GSE270484](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE270484) at PancDB (https://hpap.pmacs.upenn.edu/).
@@ -59,7 +61,7 @@ Data are from the NCBI Gene Expression Omnibus (GEO) and Sequence Read Archive (
 
 ## Metabolomics
 
-*Current coverage: 215 annotated metabolite features across 43 donors, measured at low (2.8 mM) and high (16.7 mM) glucose, with ratio also reported.*
+*Current coverage: 215 annotated metabolite features across 38 donors (38 at low glucose, 37 at high glucose and in ratio form), measured at low (2.8 mM) and high (16.7 mM) glucose, with ratio also reported.*
 
 Metabolomics samples are collected on islets handled at the ADI IsletCore under the same two glucose conditions used elsewhere in the platform — **low glucose (LG, 2.8 mM)** and **high glucose (HG, 16.7 mM)** — so that metabolite intensities can be compared at fasting-like versus stimulation-like conditions and an HG/LG ratio can be reported alongside each absolute value. Samples are analysed by liquid chromatography–mass spectrometry. Raw mzML spectra are acquired across two batches (B1 and B2) in both positive- and negative-ion modes. Peak picking is performed with **Asari** (xialab's open-source MS preprocessor), producing per-mode preferred feature tables and a feature-level annotation file. Feature tables are then processed in **MetaboAnalyst** (xialab's metabolomics platform; see https://www.metaboanalyst.ca/).
 
@@ -100,7 +102,7 @@ Genome-wide DNA methylation is profiled on the Illumina Infinium MethylationEPIC
 
 ## Metabolic Flux
 
-*Current coverage: 2,771 reactions at high glucose (2,775 at low glucose; 2,765 in ratio form) across 375 donors.*
+*Current coverage: 2,771 reactions at high glucose (2,775 at low glucose; 2,765 in ratio form) across 371 donors.*
 
 Donor-specific genome-scale metabolic models (GEMs) are built from the **Human-GEM v1.19.0** reconstruction and loaded into COBRApy from per-donor MATLAB-format model files. ATP hydrolysis (Human-GEM reaction `MAR03964`) is set as the cellular objective. The platform simulates two glucose conditions and two media compositions:
 
