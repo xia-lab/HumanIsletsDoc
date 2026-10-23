@@ -1,11 +1,11 @@
 # Knowledge Graph
 
-The Knowledge Search page (chapter 2) is powered by a server-side knowledge graph (KG) that integrates the HumanIslets cohort's own evidence with several curated public databases and live external APIs. This chapter documents what is in the KG, where it comes from, and when it is refreshed.
+IsletAgent (chapter 2) is powered by a server-side knowledge graph (KG) that integrates the HumanIslets cohort's own evidence with several curated public databases and live external APIs. This chapter documents what is in the KG, where it comes from, and when it is refreshed.
 
 ## Architecture overview
 
 ```
-Angular frontend (Knowledge Search page)
+Angular frontend (IsletAgent page)
         │
         ▼
 FastAPI backend

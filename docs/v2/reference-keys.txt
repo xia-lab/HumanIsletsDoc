@@ -12,7 +12,7 @@ donor-view
 phenotype-view
 cluster-view
 search-discovery
-knowledge-search
+isletagent
 feature-view
 data-download
 data-download-1

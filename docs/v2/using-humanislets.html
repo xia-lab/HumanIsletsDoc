@@ -137,7 +137,7 @@
 </ul></li>
 <li class="chapter" data-level="2.3" data-path="using-humanislets.html"><a href="using-humanislets.html#search-discovery"><i class="fa fa-check"></i><b>2.3</b> Search &amp; Discovery</a>
 <ul>
-<li class="chapter" data-level="2.3.1" data-path="using-humanislets.html"><a href="using-humanislets.html#knowledge-search"><i class="fa fa-check"></i><b>2.3.1</b> Knowledge Search <img src="logo4.png" alt="Logo" style="width:18px; height:18px;"></a></li>
+<li class="chapter" data-level="2.3.1" data-path="using-humanislets.html"><a href="using-humanislets.html#isletagent"><i class="fa fa-check"></i><b>2.3.1</b> IsletAgent <img src="logo4.png" alt="Logo" style="width:18px; height:18px;"></a></li>
 <li class="chapter" data-level="2.3.2" data-path="using-humanislets.html"><a href="using-humanislets.html#feature-view"><i class="fa fa-check"></i><b>2.3.2</b> Feature View <img src="logo3.png" alt="Logo" style="width:18px; height:18px;"></a></li>
 </ul></li>
 <li class="chapter" data-level="2.4" data-path="using-humanislets.html"><a href="using-humanislets.html#data-download"><i class="fa fa-check"></i><b>2.4</b> Data Download</a>
@@ -253,7 +253,7 @@
 <li>Selecting a p-value cutoff, and the use of adjusted p-values</li>
 <li>Click ‘submit’</li>
 </ol>
-<p>The number of donors included in the analysis will be displayed. If too few donors are available for the chosen analysis (&lt;10), an error message will be shown. Results of the analysis will be shown under ‘Feature Association Results’, and both results and analysis pipeline can be downloaded by clicking on the appropriate button. Results are shown as a graphical representation (volcano plot) or table, accessible by clicking on the appropriate tab. Clicking on features (points in the volcano plot, or table entries) will raise a graph showing categorical or scatterplot representations of the data/feature of interest. Clicking on individual donors within those plots will take you to the ‘Donor View’ page for that donor, allowing for inspection of potential outlier donors. In the Results Table, clicking on the feature name will take you to the ‘Feature Search’ page for that gene/protein. At the right are links to the NCBI gene page and T2D Knowledge Portal (T2DKP) entries for each feature (external sites), to a single-cell RNAseq reference dataset (SC) to inspect cell-type specific expression of the feature, and to the platform’s own <strong>Knowledge Search (KG)</strong> page (section 2.3.1) for an integrated multi-source view of the feature.</p>
+<p>The number of donors included in the analysis will be displayed. If too few donors are available for the chosen analysis (&lt;10), an error message will be shown. Results of the analysis will be shown under ‘Feature Association Results’, and both results and analysis pipeline can be downloaded by clicking on the appropriate button. Results are shown as a graphical representation (volcano plot) or table, accessible by clicking on the appropriate tab. Clicking on features (points in the volcano plot, or table entries) will raise a graph showing categorical or scatterplot representations of the data/feature of interest. Clicking on individual donors within those plots will take you to the ‘Donor View’ page for that donor, allowing for inspection of potential outlier donors. In the Results Table, clicking on the feature name will take you to the ‘Feature Search’ page for that gene/protein. At the right are links to the NCBI gene page and T2D Knowledge Portal (T2DKP) entries for each feature (external sites), to a single-cell RNAseq reference dataset (SC) to inspect cell-type specific expression of the feature, and to <strong>IsletAgent</strong> (KG link; section 2.3.1) for the evidence about the feature.</p>
 <p>DNA methylation is analysed with the same association framework, but at the level of individual CpG sites rather than genes: differential analysis is run on M-values (log2 methylation ratios), while the per-feature boxplots show β-values (the 0–1 methylation proportion). Each result row shows the CpG’s genomic location, its annotated gene, and its CpG-island relation. Methylation is profiled at roughly 729,000 CpG sites, so the analysis takes a little longer than other omics, and a methylation-only <strong>Regions (DMR)</strong> tab additionally groups neighbouring CpGs into differentially methylated regions.</p>
 <p>The third tab under the ‘Feature Association Results’ pulls up a Pathway Analysis tool. The enrichment method offered depends on the omics type, because gene-based, metabolite-based, and reaction-based feature lists each require matched annotation libraries:</p>
 <ul>
@@ -455,24 +455,58 @@ The page also surfaces two modal dialogs on demand: an **AI Insight Dialog** (cl
 <div id="search-discovery" class="section level2 hasAnchor" number="2.3">
 <h2><span class="header-section-number">2.3</span> Search &amp; Discovery<a href="using-humanislets.html#search-discovery" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The Search &amp; Discovery block groups feature-centric and entity-centric exploration: ask a question about a gene/phenotype, or jump from one feature to all its associations.</p>
-<div id="knowledge-search" class="section level3 hasAnchor" number="2.3.1">
-<h3><span class="header-section-number">2.3.1</span> Knowledge Search <a href="https://dev.humanislets.com/kg-search"><img src="logo4.png" alt="Logo" style="width:18px; height:18px;"></a><a href="using-humanislets.html#knowledge-search" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>The Knowledge Search page lets users query any gene, protein, metabolite, reaction, or phenotype and returns integrated evidence about the entity. Users can either type a free-form natural-language question (e.g. <em>“What does TCF7L2 do in beta cells?”</em>) or enter a single symbol and the page resolves it to the right entity automatically.</p>
-<p><strong>Results layout.</strong> The page opens with the search bar plus a row of example-question chips users can click as starter queries. After a query is run, the result renders as a tabbed card; the tab set depends on the kind of entity that was queried:</p>
+<div id="isletagent" class="section level3 hasAnchor" number="2.3.1">
+<h3><span class="header-section-number">2.3.1</span> IsletAgent <a href="https://dev.humanislets.com/#/islet-agent"><img src="logo4.png" alt="Logo" style="width:18px; height:18px;"></a><a href="using-humanislets.html#isletagent" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>IsletAgent answers plain-language questions about a gene, a phenotype, or the relationship between them. Each answer is grounded in the HumanIslets cohort, in public and local genetics, and in public knowledge, all held in the platform’s knowledge graph (chapter 6). The page is labelled <strong>BETA</strong>.</p>
+<p><strong>Asking a question.</strong> Type a question in the box and click <strong>Ask</strong>, or click one of the example questions under <strong>Try</strong>, such as <em>Is GCK linked to type 2 diabetes?</em>, <em>What predicts HbA1c (%)?</em> or <em>Which pathways are enriched in type 2 diabetes in RNA-seq?</em> Click <strong>Watch an example</strong> to see a full answer step by step. While IsletAgent works, a progress bar shows each step: <strong>Understood</strong>, <strong>Chose</strong>, <strong>Found</strong>, <strong>Ran</strong> and <strong>Result</strong>.</p>
+<p><strong>How it works.</strong> IsletAgent is a small language model, fine-tuned on grounded examples from the knowledge graph and run privately on local hardware. It reads the question, picks the entities and a retrieval route, and fetches the evidence from the knowledge graph through reviewed query templates. When a question needs a new calculation, it calls one of the platform’s predefined analyses, such as differential expression, phenotype association, pathway enrichment, colocalization or Mendelian randomization. Every retrieval and calculation can be checked and reproduced.</p>
+<p><strong>Reading an answer.</strong></p>
 <ul>
-<li><strong>Gene result — 4 tabs</strong>: <em>Knowledge Graph Findings</em>, <em>Findings from Our Cohort</em>, <em>External Validation</em>, <em>AI Interpretation</em>.</li>
-<li><strong>Phenotype / Pathway / Reaction / Metabolite / Contaminant result — 3 tabs</strong>: <em>Knowledge Graph Findings</em>, <em>Findings from Our Cohort</em>, <em>AI Interpretation</em> (External Validation is folded into the KG / Cohort tabs for these entity types).</li>
-<li><strong>Question result (free-form NL question) — 3 tabs</strong>: same trio plus an inline AI-suggestion banner above the tabs when the cohort can’t match the question directly, offering suggested cohort-mode chips, GWAS chips, and general/research-area chips to refine the question.</li>
-</ul>
-<p><strong>What each tab shows</strong> (gene example; other entity types use the same conventions):</p>
+<li><strong>Evidence verdict:</strong> the card at the top names the relationship (for example, <em>GCK → type 2 diabetes</em>) and gives a one-word verdict (for example, <em>Convergent</em>). It lists which sources agree (<strong>cohort</strong>, <strong>genetics</strong>, <strong>public knowledge</strong>) and shows the evidence grade (<strong>Limited</strong>, <strong>Moderate</strong>, <strong>Strong</strong> or <strong>Very Strong</strong>) with its evidence score. The grade scores the relationship, not the gene alone. A low grade means there is little evidence so far, not that the link is wrong.</li>
+<li><strong>Overview tab:</strong> the evidence, shown as panels. Each panel can be moved, widened, collapsed or closed, and its <strong>?</strong> button explains it. Which panels appear depends on the question:
 <ul>
-<li><strong>Knowledge Graph Findings:</strong> disease associations (from PrimeKG), drug interactions (DrugBank/PrimeKG), biological pathways (Reactome/PrimeKG), Gene Ontology terms (biological process + molecular function), tissue expression with islet/pancreas highlighted, gene regulatory edges from Hetionet (with direction colour-coded), environmental exposures (CTD), and curated + on-demand literature evidence from PubMed/PubTator 3. Each item is clickable and drills into related entities.</li>
-<li><strong>Findings from Our Cohort:</strong> the gene’s detection across HumanIslets omics datasets; direct phenotype correlations (with FDR/raw threshold radio + slider + <em>Apply</em>); multivariate predictors (with filter sliders for |importance|, model quality, and minimum number of methods); KEGG pathway annotations as a chip cloud; metabolic reactions from the GEM with high- and low-glucose flux; and the donor-subgroup (VAE cluster) context.</li>
-<li><strong>External Validation</strong> (gene only) — database annotations (GWAS, NHGRI-EBI GWAS Catalog, local cohort QTL, TIGER islet eQTL, GTEx v8 eGene), a collapsible GWAS evidence tree (T2D / T1D / beta-cell trait groups with HuGE scores and a variants table), local cohort QTL details, TIGER islet eQTL details, and GTEx eGene tissue table.</li>
-<li><strong>AI Interpretation:</strong> a generated natural-language summary of the above evidence. Explicitly framed as a <em>hypothesis-generation</em> aid for users to verify against the cited evidence and primary literature, not as a stand-alone authority.</li>
+<li><strong>Evidence profile:</strong> how much each kind of evidence contributes, against its maximum: Association, Prediction, cis-QTL, GWAS, Mendelian randomization and Knowledge.</li>
+<li><strong>Donor-level measurement:</strong> each donor’s level of the feature, one panel per platform, split by the phenotype (for example, <strong>Diabetes diagnosis</strong> or <strong>Corrected diabetes status</strong>), with covariate-adjusted significance.</li>
+<li><strong>Prediction:</strong> the multivariate models (random forest, XGBoost, elastic net) that rank the feature as a predictor, showing where it ranks and how well each model predicts.</li>
+<li><strong>What the cohort holds:</strong> how many donors have the feature on each platform, and its distribution.</li>
+<li><strong>Knowledge-graph context:</strong> only the curated public relations that link the two entities (PrimeKG, Hetionet and pathway libraries).</li>
+<li><strong>Literature:</strong> published mentions, with PMID and title. These are pointers only; they are never scored and never sent to the model.</li>
+</ul></li>
+<li><strong>Methods &amp; data tab:</strong>
+<ul>
+<li><strong>Results:</strong> every result behind the answer as a table, with <strong>View</strong> and <strong>CSV</strong>.</li>
+<li><strong>Methods and input data:</strong> the statistical method behind each calculation, the data it used, and an <strong>R script + data</strong> download that reproduces it locally.
+<ul>
+<li><strong>Cohort · differential</strong> is a limma linear model per feature, phenotype and platform, adjusted for age, sex, BMI and culture time (none for the metabolite and contaminant layers), with Benjamini–Hochberg adjusted <em>p</em>-values.</li>
+<li><strong>Cohort · prediction</strong> uses random forest, XGBoost and elastic net, with cross-validated or held-out model quality.</li>
+</ul></li>
+<li><strong>Public endpoint:</strong> the tab also shows the endpoint that returns the same answer (<code>POST https://dev.humanislets.com/kg-api/agent/ask</code>).</li>
+</ul></li>
+<li><strong>Guide:</strong> the <strong>Guide</strong> tab and <em>Take a quick tour of this answer</em> walk through each part of the answer.</li>
 </ul>
-<p>How the knowledge graph is built and what external sources feed each tab is documented in chapter 6 (Knowledge Graph).</p>
-<p>The page is currently labelled <strong>BETA</strong> while we collect feedback on the AI synthesis quality.</p>
+<p><strong>Limits.</strong> IsletAgent answers only from the data and analyses HumanIslets supports. When the evidence is unclear, it gives a cautious answer. Use it to find and weigh evidence, not as proof of a mechanism.</p>
+<!-- HIDDEN: previous "Knowledge Search" section text (preserved for reference; the page is now IsletAgent):
+
+The Knowledge Search page lets users query any gene, protein, metabolite, reaction, or phenotype and returns integrated evidence about the entity. Users can either type a free-form natural-language question (e.g. *"What does TCF7L2 do in beta cells?"*) or enter a single symbol and the page resolves it to the right entity automatically.
+
+**Results layout.** The page opens with the search bar plus a row of example-question chips users can click as starter queries. After a query is run, the result renders as a tabbed card; the tab set depends on the kind of entity that was queried:
+
+- **Gene result — 4 tabs**: *Knowledge Graph Findings*, *Findings from Our Cohort*, *External Validation*, *AI Interpretation*.
+- **Phenotype / Pathway / Reaction / Metabolite / Contaminant result — 3 tabs**: *Knowledge Graph Findings*, *Findings from Our Cohort*, *AI Interpretation* (External Validation is folded into the KG / Cohort tabs for these entity types).
+- **Question result (free-form NL question) — 3 tabs**: same trio plus an inline AI-suggestion banner above the tabs when the cohort can't match the question directly, offering suggested cohort-mode chips, GWAS chips, and general/research-area chips to refine the question.
+
+**What each tab shows** (gene example; other entity types use the same conventions):
+
+- **Knowledge Graph Findings:** disease associations (from PrimeKG), drug interactions (DrugBank/PrimeKG), biological pathways (Reactome/PrimeKG), Gene Ontology terms (biological process + molecular function), tissue expression with islet/pancreas highlighted, gene regulatory edges from Hetionet (with direction colour-coded), environmental exposures (CTD), and curated + on-demand literature evidence from PubMed/PubTator 3. Each item is clickable and drills into related entities.
+- **Findings from Our Cohort:** the gene's detection across HumanIslets omics datasets; direct phenotype correlations (with FDR/raw threshold radio + slider + *Apply*); multivariate predictors (with filter sliders for |importance|, model quality, and minimum number of methods); KEGG pathway annotations as a chip cloud; metabolic reactions from the GEM with high- and low-glucose flux; and the donor-subgroup (VAE cluster) context.
+- **External Validation** (gene only) — database annotations (GWAS, NHGRI-EBI GWAS Catalog, local cohort QTL, TIGER islet eQTL, GTEx v8 eGene), a collapsible GWAS evidence tree (T2D / T1D / beta-cell trait groups with HuGE scores and a variants table), local cohort QTL details, TIGER islet eQTL details, and GTEx eGene tissue table.
+- **AI Interpretation:** a generated natural-language summary of the above evidence. Explicitly framed as a *hypothesis-generation* aid for users to verify against the cited evidence and primary literature, not as a stand-alone authority.
+
+How the knowledge graph is built and what external sources feed each tab is documented in chapter 6 (Knowledge Graph).
+
+The page is currently labelled **BETA** while we collect feedback on the AI synthesis quality.
+
+-->
 </div>
 <div id="feature-view" class="section level3 hasAnchor" number="2.3.2">
 <h3><span class="header-section-number">2.3.2</span> Feature View <a href="https://dev.humanislets.com/#/feature"><img src="logo3.png" alt="Logo" style="width:18px; height:18px;"></a><a href="using-humanislets.html#feature-view" class="anchor-section" aria-label="Anchor link to header"></a></h3>
