@@ -5,12 +5,12 @@ financial-support
 overview-and-sampledata-collection
 using-humanislets.com
 omics
-omics-view-individual-omics-analysis
-multi-omics-analysis
+omics-view
+multi-omics-view
 donor-phenotype
 donor-view
 phenotype-view
-cluster-explorer
+cluster-view
 search-discovery
 knowledge-search
 feature-view

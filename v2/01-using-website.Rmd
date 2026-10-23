@@ -6,7 +6,7 @@ The platform's left-hand navigation groups features into four blocks — **Omics
 
 The Omics block holds the analyses that operate primarily on feature-level molecular data: differential-expression-style omics analysis and multi-omics integration<!--, and the genome-scale flux atlas-->.
 
-### Omics View &mdash; individual omics analysis [<img src="logo1.png" alt="Logo" style="width:18px; height:18px;">](https://dev.humanislets.com/omics)
+### Omics View [<img src="logo1.png" alt="Logo" style="width:18px; height:18px;">](https://dev.humanislets.com/#/omics)
 
 HumanIslets.com presently includes information from 625 human research islet isolations that includes donor and technical metadata, islet and islet cell function, and omics. Omics datasets include bulk proteomics, bulk RNAseq, gene panels (Nanostring), patch-seq, pseudobulk RNAseq for alpha- and beta-cells, and DNA methylation (Illumina EPICv2 array). Omics-metadata relationships can be analysed by:
 
@@ -42,9 +42,9 @@ To perform pathway / metabolite / reaction analysis:
 
 The ‘Pathway Results’ will be displayed in both graphical and table format, selected by clicking on the appropriate tab. As above, both results and analysis pipeline can be downloaded by clicking on the appropriate button. In the interactive graphical view, significant pathways (based on FDR cutoff) are shown as ridgeplots. Clicking on these will raise heatmaps showing the contribution of individual genes/proteins.
 
-### Multi-Omics Analysis [<img src="logo1.png" alt="Logo" style="width:18px; height:18px;">](https://dev.humanislets.com/multiomics)
+### Multi-omics View [<img src="logo1.png" alt="Logo" style="width:18px; height:18px;">](https://dev.humanislets.com/#/multiomics)
 
-The Multi-Omics Analysis page lets users explore integrated analyses across two or three omics layers selected from a single dropdown (combinations are pre-computed; eligibility requires at least 20 donors with measurements in every selected omics). Three complementary methods are available, each answering a slightly different question and unlocked by selecting it from the **Method** dropdown:
+The Multi-omics View lets users explore integrated analyses across two or three omics layers selected from a single dropdown (combinations are pre-computed; eligibility requires at least 20 donors with measurements in every selected omics). Three complementary methods are available, each answering a slightly different question and unlocked by selecting it from the **Method** dropdown:
 
 - **WGCNA** (Weighted Gene Co-expression Network Analysis) is **unsupervised**. It groups features that move together across donors into *modules*, then summarises each module by a single representative value (its *eigengene*) so that module-level signal can be compared across omics and against the platform's phenotype variables. Use WGCNA when the question is *which features behave like a co-regulated programme, and does any module track a phenotype?*
 - **MOFA** (Multi-Omics Factor Analysis) is also **unsupervised**, but rather than discrete modules it learns continuous *latent factors* — directions of variation that several omics share. The same factor often explains a substantial chunk of variance in two or more views, which makes MOFA a good fit when the goal is to *find the shared axes of variation across omics types*. Donors with only partial omics coverage are still usable thanks to MOFA's NA-tolerant fit.
@@ -121,7 +121,7 @@ The rest of the toolbar covers the common controls: **Reset View** restores the 
 
 The Donor & Phenotype block groups the views that browse the cohort at the donor level: per-donor profiles, phenotype-only exploration, and multi-omics-derived donor stratification.
 
-### Donor View [<img src="logo2.png" alt="Logo" style="width:18px; height:18px;">](https://dev.humanislets.com/donor)
+### Donor View [<img src="logo2.png" alt="Logo" style="width:18px; height:18px;">](https://dev.humanislets.com/#/donor)
 
 The Donor View page allows examination of individual donor, islet isolation, and functional data from each of 625 donors currently in the HumanIslets.com database. Donors can be searched by ADI IsletCore Donor ID or Research Resource ID (RRID). Data categories can be selected from the left-hand menu, organized into four groups: *Metadata* (Donor Information, Isolation Information); *Genetic Variables* (Ancestry, Genetic Risk Score); *Insulin Secretion* (Static GSIS plus separate Dynamic Insulin Response views for Glucose, Leucine, and Palmitate); and *Other* (Prohormone Expression, Mitochondrial Function, Single-cell electrophysiology, Pancreas Lipid Extraction, and Omics Availability). These metadata are described in detail in chapters 3 and 4, below.
 
@@ -137,7 +137,7 @@ Typically, data is shown for selected donor in the context of the entire dataset
 - *Prohormone Expression* shows the donor's **C-peptide, proinsulin, and proinsulin:C-peptide ratio** concentrations as values plus per-readout cohort histograms, with a selector to switch between the measured conditions
 - *Pancreas Lipid Extraction* shows the donor's **total cholesterol (TC), triglycerides (TG), and free cholesterol (FC)** (mg/g tissue) as values plus per-lipid cohort histograms
 
-### Phenotype View [<img src="logo2.png" alt="Logo" style="width:18px; height:18px;">](https://dev.humanislets.com/meta)
+### Phenotype View [<img src="logo2.png" alt="Logo" style="width:18px; height:18px;">](https://dev.humanislets.com/#/meta)
 
 The Phenotype View lets users probe relationships among the 198 phenotype variables in the database (donor characteristics, isolation outcomes, secretion, mitochondrial function, perifusion, electrophysiology) without selecting any omics type. The page has a left-hand menu with three options:
 
@@ -157,9 +157,37 @@ The Phenotype View lets users probe relationships among the 198 phenotype variab
 
 
 
-### Cluster Explorer [<img src="logo2.png" alt="Logo" style="width:18px; height:18px;">](https://dev.humanislets.com/aidemo)
+### Cluster View [<img src="logo2.png" alt="Logo" style="width:18px; height:18px;">](https://dev.humanislets.com/#/cluster)
 
-The Cluster Explorer presents a multi-omics-derived stratification of the cohort into five donor subgroups. The underlying clustering uses a multi-view Variational Autoencoder (VAE) trained on bulk RNA-seq and proteomics for the 387 donors with at least one of those omics; cluster labels are then extended to the 238 remaining donors using a LightGBM classifier trained on unbiased demographic and isolation features. The full pipeline (architecture, training, classifier extension, stability metrics) is described in chapter 5. The sidebar entry is "Cluster Explorer"; the page itself is titled **Donor Explorer**.
+The Cluster View groups donors into molecular clusters. The clusters come from bulk RNA-seq and proteomics, not from clinical labels. Donors without these omics data are assigned to a cluster from their phenotypes, and each assignment has a reliability level (high, medium or low). The full method is described in chapter 5 (Variational Autoencoder (VAE) for donor clustering). The page is called **Cluster View** in the sidebar, with the subtitle *Donor cluster explorer*.
+
+**Donor map.** The map shows every donor. Each cluster has its own arm, and a donor sits nearer the clusters it belongs to more strongly: omics donors from their omics data, and donors without omics from their predicted probabilities. Clicking a donor point opens that donor's de-identified record.
+
+- **Color by / Shape by:** colour the points by any phenotype or by cluster, and shape them by a categorical phenotype or by cluster.
+- **Measured (omics) / Predicted:** click either legend item to show or hide those donors.
+- **Point size:** sets the size of the points. Use the buttons to zoom in, zoom out or reset; scroll to zoom and drag to pan.
+- **Phenotype directions:** a button shows which measured phenotypes vary across the map, as labels around it.
+- **Border donors:** highlights measured donors that sit between two clusters.
+
+**Cluster cards.** A card on the right summarises each cluster: its name, a short description, the main phenotype and omics differences, and how many donors are measured or predicted. Selecting a card opens the cluster detail page (below).
+
+**Comparing two groups.** The **Omics DE** and **Phenotype** buttons open a panel that compares two groups of donors. Click a cluster to add it to **Group A** or **Group B**; Group B can also be all other clusters. For **Omics DE**, choose the omics type: RNA-seq, Proteomics, Nanostring, Pseudobulk (alpha), Pseudobulk (beta), Metabolomics (LG), Metabolomics (HG), Metabolomics (HG/LG) or Methylation. **Advanced options** let you adjust for covariates (regressed out with a linear model in limma), choose which donors to include (*Omics only*, *+ High conf.*, *+ High & Med* or *+ All predicted*), and limit donors with filters. Click **Run** to start, or **Clear** to start over.
+
+**Cluster phenotype heatmap.** Rows are phenotypes, grouped by category, and columns are clusters. Each cell shows Cohen's *d* for the cluster against all other clusters (red = higher, blue = lower), with asterisks marking significance. Only phenotypes that reach nominal significance in at least one cluster are shown. The **Donors** filter sets which donors are used: *Omics only*, *+ High conf.*, *+ High & Med* or *+ All predicted*. Click a cell for details.
+
+**Cluster detail page** (`#/cluster-detail/…`, opened from a cluster card). Each cluster has its own page with these sections:
+
+- **Header:** the cluster name, a short summary, a plain-language description, and how many donors have omics data or are predicted. **Back to Cluster View** returns to the main page.
+- **Demographics:** the cluster's mean and range for Age, BMI and HbA1c (%) against the whole cohort, and the number of male and female donors.
+- **Diabetes Status:** donor counts by **Diabetes diagnosis** (raw) and by **Corrected diabetes status**, side by side. Corrected diabetes status is derived from HbA1c, not a clinical re-diagnosis.
+- **Data Availability:** how many donors in the cluster have each omics type and each phenotype group.
+- **Phenotype Enrichment:** phenotypes compared between the cluster and all other clusters, with effect size, *p*-value, adjusted *p*-value, number of donors, and the mean in and outside the cluster. **Advanced comparison** changes the comparison, and **Reset table** goes back to the default.
+- **Omics Differential Expression:** choose an omics type to see features that differ between the cluster and all other clusters (limma, unadjusted by default). The table shows log2FC, *t*, *p*-value and adjusted *p*-value. The default view shows the top features; **Run full DE** runs the full analysis, **Advanced comparison** changes the groups, covariates and donors, and **Reset to default** goes back.
+- **Pathway Enrichment:** pre-ranked GSEA on the *t* statistics of the current comparison, against GO Molecular Function, KEGG and Reactome. The table shows NES, *p*-value, adjusted *p*-value, hits and genes. **Run on current comparison** updates it after you change the comparison.
+- **KG links:** in both omics tables, the **KG** link opens that feature in **IsletAgent**.
+- **Explore Further:** cards linking to Cluster View, Omics Analysis, Multi-omics and IsletAgent.
+
+<!-- HIDDEN: previous Cluster View layout (text preserved for reference; replaced by the layout above to match the current website):
 
 **Results layout.** The page is organized into three top-level sections plus two modal dialogs:
 
@@ -167,12 +195,12 @@ The Cluster Explorer presents a multi-omics-derived stratification of the cohort
     - *Left:* a UMAP embedding of all donors, with a *Color by* selector (any phenotype) and a 2D / 3D dimension toggle. Network edges connect each donor to its 5 nearest neighbours in UMAP space; cross-cluster dashed edges link the closest donor pairs between clusters. Node size reflects connection degree.
     - *Right:* a scrollable list of cluster cards with a *Compare* action that opens the per-cluster detail page.
 2. **Donor Explorer**.
-    - A donor-selection dropdown (currently 233 donors available for detailed inspection).
+    - A donor-selection dropdown.
     - *Donor Details* — selected donor's age, BMI, HbA1c, diabetes diagnosis, sex, cluster assignment, and omics/predicted badge.
     - *Donor vs Cluster Comparison* — per-phenotype Z-scores and percentiles for the donor against their cluster (showing only phenotypes deviating by > 0.8 SD).
     - *Similar Donors* — ranked list of the most similar donors with similarity bars and cluster affiliation; for donors with omics this is cosine similarity in the VAE fused latent space, for predicted-only donors it is cluster probability agreement.
 3. **Cluster-Phenotype Enrichments** (heatmap).
-    - A heatmap of phenotype effect sizes (Cohen's *d*) per cluster vs. rest, with tabs for *Omics only*, *All donors*, and (when available) a *3-view* split.
+    - A heatmap of phenotype effect sizes (Cohen's *d*) per cluster vs. rest, with a donor filter: omics donors only, or omics donors plus predicted donors at a chosen reliability level.
     - Clicking a cell opens an *Enrichment Detail* side panel with the cluster/phenotype names, effect size with directional arrow, *p*-value badge, cluster demographics, and related enrichments.
 
 The page also surfaces two modal dialogs on demand: an **AI Insight Dialog** (cluster analysis summary, phenotypes grouped by category, top 10 DE genes, AI interpretation) and a **Similarity Breakdown Dialog** for any selected donor pair (per-view breakdown bars for omics, most-similar-phenotype comparison table).
@@ -183,17 +211,19 @@ The page also surfaces two modal dialogs on demand: an **AI Insight Dialog** (cl
 - **Demographics:** stat cards (Avg Age, Avg BMI, % Male, Avg HbA1c).
 - **Diagnosis Breakdown:** badges with diagnosis label and count.
 - **Data Availability:** badges listing omics modalities present in the cluster with their coverage (X / N donors).
-- **Phenotype Enrichment:** paginated table of phenotype variables with the cluster's effect direction, effect size, *p*-value, adjusted *p*-value, and per-cluster vs. outside means. Only *held-out* phenotype features are tested so that variables used as classifier input are excluded.
-- **Differential Expression:** paginated table of RNA-seq and proteomics features with direction, log₂FC, *t*-statistic, raw *p*, and adjusted *p*. Filter buttons let users restrict by modality or to significant only.
-- **Enriched Pathways:** paginated table from pre-ranked GSEA (KEGG 2021, Reactome 2022, GO MF 2023; pre-ranked GSEA with `limma` *t*-statistic ranking; raw *p* < 0.05 shown), with direction (↑ enriched in up-regulated, ↓ in down-regulated) and a clickable gene list.
-- **Explore Further:** navigation cards linking to Omics Analysis, Multi-Omics (WGCNA), <!--Metabolic Atlas, -->Knowledge Search, and Cluster Comparison.
+- **Phenotype Enrichment:** paginated table of phenotype variables with the cluster's effect direction, effect size, *p*-value, adjusted *p*-value, and per-cluster vs. outside means. Each phenotype is compared between the cluster and all other clusters combined: Welch's *t* test for continuous and the χ² test for categorical phenotypes, with Benjamini–Hochberg adjusted *p*-values.
+- **Differential Expression:** paginated table of RNA-seq and proteomics features with direction, log₂FC, *t*-statistic, raw *p*, and adjusted *p*. Features are compared with limma, between the cluster and all other clusters combined, without covariates. Filter buttons let users restrict by modality or to significant only.
+- **Enriched Pathways:** paginated table from pre-ranked enrichment (fgsea) of the limma *t* statistics against KEGG, Reactome and GO Molecular Function gene sets, with Benjamini–Hochberg adjusted *p*-values, direction (↑ enriched in up-regulated, ↓ in down-regulated) and a clickable gene list.
+- **Explore Further:** navigation cards linking to Omics Analysis, Multi-Omics (WGCNA), Metabolic Atlas, Knowledge Search, and Cluster Comparison.
 
 **Cluster Comparison page** (route `/cluster-compare`, reached either from a single cluster's *Explore Further → Cluster Comparison* card or directly from any cluster card's *Compare* action). Users pick **two clusters to compare** side by side and the page produces:
 
 - A **Phenotype Radar** plot summarising how the two clusters differ across the platform's phenotype variables.
 - A **Significant Phenotype Differences** table listing the phenotypes that differ at *p* < 0.05 between the two clusters, with the effect direction (*Enriched in C1* / *Enriched in C2*).
 - A **Pairwise DE Genes** table listing the differentially expressed genes/proteins between the two clusters (*p* < 0.05), with filters for *RNA-seq* / *Proteomics* and a Source / Term filter for pathway-enrichment annotations.
-- A toggle to restrict the comparison to *Omics Only* donors (those who contributed to the VAE) versus *All Donors* (including phenotype-classifier-extended donors), so users can see whether a comparison is driven by the omics evidence directly.
+- A toggle to restrict the comparison to *Omics Only* donors (those clustered from their omics data) versus *All Donors* (including donors assigned from their phenotypes), so users can see whether a comparison is driven by the omics evidence directly.
+
+-->
 
 
 
@@ -222,9 +252,9 @@ How the knowledge graph is built and what external sources feed each tab is docu
 
 The page is currently labelled **BETA** while we collect feedback on the AI synthesis quality.
 
-### Feature View [<img src="logo3.png" alt="Logo" style="width:18px; height:18px;">](https://dev.humanislets.com/feature)
+### Feature View [<img src="logo3.png" alt="Logo" style="width:18px; height:18px;">](https://dev.humanislets.com/#/feature)
 
-Instead of performing an ‘Omics Analysis’ focused on a particular omics type and metadata variable, users can search for a feature of interest and pull up ALL associations for that particular feature of interest, corrected for common covariates (see section 5.5, below). Searchable features include genes/proteins and also metadata variable. This allows rapid interrogation of precomputed results across all datasets.
+Instead of running an analysis in the ‘Omics View’ focused on a particular omics type and metadata variable, users can search for a feature of interest and pull up ALL associations for that particular feature of interest, corrected for common covariates (see section 5.5, below). Searchable features include genes/proteins and also metadata variable. This allows rapid interrogation of precomputed results across all datasets.
 
 Searching for a gene/protein feature generates a table of results ranked by adjusted p-value. Searching for a metadata variable (e.g. BMI) generates a table of feature (gene/protein) results across all omics datasets, ranked by adjusted p-value. Clicking on rows and external links brings up categorical or scatterplots of the association, external pages for the feature of interest, or single-cell RNAseq expression for that feature. Because a large number of associations can be displayed, filtering of the metadata or omics type is enabled by clicking on the column title.
 
@@ -232,9 +262,9 @@ Searching for a gene/protein feature generates a table of results ranked by adju
 
 The Data Download page is a standalone top-level entry in the sidebar; it does not belong to one of the analytical categories above.
 
-### Data download [<img src="logo4.png" alt="Logo" style="width:18px; height:18px;">](https://dev.humanislets.com/download)
+### Data Download [<img src="logo4.png" alt="Logo" style="width:18px; height:18px;">](https://dev.humanislets.com/#/download)
 
-All data at HumanIslets.com is available for download. Donors of interest can be filtered by Donor Characteristics (see section 3.1) and/or data availability. Advanced filters allow selection of donors of interest by any metadata available. Donors of interest can also be selected by uploading a list of donor IDs (for example, donor IDs obtained from a particular Omics Analysis). Data can be downloaded as Comma separated values (.csv), text (.txt), R object (.rds), or in Excel format (.xlsx) within a zip file. To perform data download:
+All data at HumanIslets.com is available for download. Donors of interest can be filtered by Donor Characteristics (see section 3.1) and/or data availability. Advanced filters allow selection of donors of interest by any metadata available. Donors of interest can also be selected by uploading a list of donor IDs (for example, donor IDs obtained from a particular Omics View analysis). Data can be downloaded as Comma separated values (.csv), text (.txt), R object (.rds), or in Excel format (.xlsx) within a zip file. To perform data download:
 
 1. Under ‘Select Donors’ choose filtering parameters, upload a list of donor IDs
     a. Distribution of chosen donors compared with the entire dataset can be assessed by clicking on the icons at right

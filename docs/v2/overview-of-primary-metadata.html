@@ -126,14 +126,14 @@
 <ul>
 <li class="chapter" data-level="2.1" data-path="using-humanislets.html"><a href="using-humanislets.html#omics"><i class="fa fa-check"></i><b>2.1</b> Omics</a>
 <ul>
-<li class="chapter" data-level="2.1.1" data-path="using-humanislets.html"><a href="using-humanislets.html#omics-view-individual-omics-analysis"><i class="fa fa-check"></i><b>2.1.1</b> Omics View — individual omics analysis <img src="logo1.png" alt="Logo" style="width:18px; height:18px;"></a></li>
-<li class="chapter" data-level="2.1.2" data-path="using-humanislets.html"><a href="using-humanislets.html#multi-omics-analysis"><i class="fa fa-check"></i><b>2.1.2</b> Multi-Omics Analysis <img src="logo1.png" alt="Logo" style="width:18px; height:18px;"></a></li>
+<li class="chapter" data-level="2.1.1" data-path="using-humanislets.html"><a href="using-humanislets.html#omics-view"><i class="fa fa-check"></i><b>2.1.1</b> Omics View <img src="logo1.png" alt="Logo" style="width:18px; height:18px;"></a></li>
+<li class="chapter" data-level="2.1.2" data-path="using-humanislets.html"><a href="using-humanislets.html#multi-omics-view"><i class="fa fa-check"></i><b>2.1.2</b> Multi-omics View <img src="logo1.png" alt="Logo" style="width:18px; height:18px;"></a></li>
 </ul></li>
 <li class="chapter" data-level="2.2" data-path="using-humanislets.html"><a href="using-humanislets.html#donor-phenotype"><i class="fa fa-check"></i><b>2.2</b> Donor &amp; Phenotype</a>
 <ul>
 <li class="chapter" data-level="2.2.1" data-path="using-humanislets.html"><a href="using-humanislets.html#donor-view"><i class="fa fa-check"></i><b>2.2.1</b> Donor View <img src="logo2.png" alt="Logo" style="width:18px; height:18px;"></a></li>
 <li class="chapter" data-level="2.2.2" data-path="using-humanislets.html"><a href="using-humanislets.html#phenotype-view"><i class="fa fa-check"></i><b>2.2.2</b> Phenotype View <img src="logo2.png" alt="Logo" style="width:18px; height:18px;"></a></li>
-<li class="chapter" data-level="2.2.3" data-path="using-humanislets.html"><a href="using-humanislets.html#cluster-explorer"><i class="fa fa-check"></i><b>2.2.3</b> Cluster Explorer <img src="logo2.png" alt="Logo" style="width:18px; height:18px;"></a></li>
+<li class="chapter" data-level="2.2.3" data-path="using-humanislets.html"><a href="using-humanislets.html#cluster-view"><i class="fa fa-check"></i><b>2.2.3</b> Cluster View <img src="logo2.png" alt="Logo" style="width:18px; height:18px;"></a></li>
 </ul></li>
 <li class="chapter" data-level="2.3" data-path="using-humanislets.html"><a href="using-humanislets.html#search-discovery"><i class="fa fa-check"></i><b>2.3</b> Search &amp; Discovery</a>
 <ul>
@@ -142,7 +142,7 @@
 </ul></li>
 <li class="chapter" data-level="2.4" data-path="using-humanislets.html"><a href="using-humanislets.html#data-download"><i class="fa fa-check"></i><b>2.4</b> Data Download</a>
 <ul>
-<li class="chapter" data-level="2.4.1" data-path="using-humanislets.html"><a href="using-humanislets.html#data-download-1"><i class="fa fa-check"></i><b>2.4.1</b> Data download <img src="logo4.png" alt="Logo" style="width:18px; height:18px;"></a></li>
+<li class="chapter" data-level="2.4.1" data-path="using-humanislets.html"><a href="using-humanislets.html#data-download-1"><i class="fa fa-check"></i><b>2.4.1</b> Data Download <img src="logo4.png" alt="Logo" style="width:18px; height:18px;"></a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="overview-of-primary-metadata.html"><a href="overview-of-primary-metadata.html"><i class="fa fa-check"></i><b>3</b> Overview of Primary Metadata</a>
@@ -281,7 +281,7 @@
 <li>1mM → 16.7mM glucose</li>
 <li>2.8mM → 16.7mM glucose</li>
 </ol>
-<p>Outliers were handled in two ways. <em><u>Level 1</u></em>) A single donor-level measurement was computed as the median of the three replicate measures. Using the median instead of the mean reduced the impact of replicate-level outliers on the data. <em><u>Level 2</u></em>) The donor-level values were filtered to remove those that were more than 4 standard deviations away from the mean of all donors on a log10 scale. This removed values that were many orders of magnitude different from the population. In the Data Download tool, the data are provided at the replicate level (before outlier removal), while in-tool Omics Analysis is performed on data subjected to both Level 1 and Level 2 outlier removal.</p>
+<p>Outliers were handled in two ways. <em><u>Level 1</u></em>) A single donor-level measurement was computed as the median of the three replicate measures. Using the median instead of the mean reduced the impact of replicate-level outliers on the data. <em><u>Level 2</u></em>) The donor-level values were filtered to remove those that were more than 4 standard deviations away from the mean of all donors on a log10 scale. This removed values that were many orders of magnitude different from the population. In the Data Download tool, the data are provided at the replicate level (before outlier removal), while Omics View analysis is performed on data subjected to both Level 1 and Level 2 outlier removal.</p>
 <blockquote>
 <p><em>Available static insulin secretion metadata include</em>: Culture time before experiment (days), Insulin content (pg/ml), Secretion at 1 mM glucose (pg/ml), Secretion at 2.8 mM glucose (pg/ml), Secretion at 10 mM glucose (pg/ml), Secretion at 16.7 mM glucose (pg/ml), Stimulation index (1-&gt;10 mM glucose), Stimulation index (1-&gt;16.7 mM glucose), Stimulation index (2.8-&gt;16.7 mM glucose).</p>
 </blockquote>
@@ -349,7 +349,7 @@
 <li><strong>Soft clustering</strong> (Smith et al. <a href="https://pubmed.ncbi.nlm.nih.gov/38443691/">2024</a>, <em>Nature Medicine</em>) — variants can contribute to multiple clusters with varying weights, allowing overlap and continuity across mechanisms. The clusters surfaced in the donor view include β-cell dysfunction (two), obesity, lipodystrophy (two), proinsulin, bilirubin, cholesterol, liver lipid, hyperinsulin, SHBGi-LpA, and Alp-negative.</li>
 <li><strong>Hard clustering</strong> (Suzuki et al. <a href="https://pubmed.ncbi.nlm.nih.gov/38374256/">2024</a>, <em>Nature</em>) — each variant is uniquely assigned to a single cluster, representing relatively discrete genetic mechanisms. The clusters include residual glycemic, body fat, metabolic syndrome, obesity, β-cell PI+, β-cell PI−, lipodystrophy, and liver-and-lipid metabolism.</li>
 </ul>
-<p>Both the ancestry and GRS pipelines are contributed by the lab of Dr. Anna Gloyn (Stanford); see the <a href="https://dev.humanislets.com/contributors">Contributors</a> page. All data are released in versioned freezes: <strong>Version 2</strong> is the current default (uses Suzuki 2024 for the T2D-GRS), while <strong>Version 1</strong> is archived from the previous release (which used Mahajan et al. 2022 for the T2D-GRS and DiCorpo et al. 2022 for the partitioned scores). Both versions are accessible from the version dropdown in the donor view.</p>
+<p>Both the ancestry and GRS pipelines are contributed by the lab of Dr. Anna Gloyn (Stanford); see the <a href="https://dev.humanislets.com/#/contributors">Contributors</a> page. All data are released in versioned freezes: <strong>Version 2</strong> is the current default (uses Suzuki 2024 for the T2D-GRS), while <strong>Version 1</strong> is archived from the previous release (which used Mahajan et al. 2022 for the T2D-GRS and DiCorpo et al. 2022 for the partitioned scores). Both versions are accessible from the version dropdown in the donor view.</p>
 <p><span style="color:#b00020; font-weight:600;">[Needs confirmation from the Gloyn lab.]</span></p>
 </div>
 <div id="pancreas-lipid-extraction" class="section level2 hasAnchor" number="3.13">
