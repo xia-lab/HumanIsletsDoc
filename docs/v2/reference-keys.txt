@@ -9,7 +9,7 @@ omics-view
 multi-omics-view
 donor-phenotype
 donor-view
-phenotype-view
+attribute-view
 cluster-view
 search-discovery
 isletagent

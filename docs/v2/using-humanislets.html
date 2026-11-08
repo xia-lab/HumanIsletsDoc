@@ -23,7 +23,7 @@
 <meta name="author" content="" />
 
 
-<meta name="date" content="2026-11-06" />
+<meta name="date" content="2026-11-07" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -269,7 +269,7 @@
 <li class="chapter" data-level="2.2" data-path="using-humanislets.html"><a href="using-humanislets.html#donor-phenotype"><i class="fa fa-check"></i><b>2.2</b> Donor &amp; Phenotype</a>
 <ul>
 <li class="chapter" data-level="2.2.1" data-path="using-humanislets.html"><a href="using-humanislets.html#donor-view"><i class="fa fa-check"></i><b>2.2.1</b> Donor View <img src="logo2.png" alt="Logo" style="width:18px; height:18px;"></a></li>
-<li class="chapter" data-level="2.2.2" data-path="using-humanislets.html"><a href="using-humanislets.html#phenotype-view"><i class="fa fa-check"></i><b>2.2.2</b> Phenotype View <img src="logo2.png" alt="Logo" style="width:18px; height:18px;"></a></li>
+<li class="chapter" data-level="2.2.2" data-path="using-humanislets.html"><a href="using-humanislets.html#attribute-view"><i class="fa fa-check"></i><b>2.2.2</b> Attribute View <img src="logo2.png" alt="Logo" style="width:18px; height:18px;"></a></li>
 <li class="chapter" data-level="2.2.3" data-path="using-humanislets.html"><a href="using-humanislets.html#cluster-view"><i class="fa fa-check"></i><b>2.2.3</b> Cluster View <img src="logo2.png" alt="Logo" style="width:18px; height:18px;"></a></li>
 </ul></li>
 <li class="chapter" data-level="2.3" data-path="using-humanislets.html"><a href="using-humanislets.html#search-discovery"><i class="fa fa-check"></i><b>2.3</b> Search &amp; Discovery</a>
@@ -524,9 +524,9 @@ The rest of the toolbar covers the common controls: **Reset View** restores the 
 <li><em>Pancreas Lipid Extraction</em> shows the donor’s <strong>total cholesterol (TC), triglycerides (TG), and free cholesterol (FC)</strong> (mg/g tissue) as values plus per-lipid cohort histograms</li>
 </ul>
 </div>
-<div id="phenotype-view" class="section level3 hasAnchor" number="2.2.2">
-<h3><span class="header-section-number">2.2.2</span> Phenotype View <a href="https://dev.humanislets.com/#/meta"><img src="logo2.png" alt="Logo" style="width:18px; height:18px;"></a><a href="using-humanislets.html#phenotype-view" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>The Phenotype View lets users probe relationships among the phenotype variables in the database (donor characteristics, isolation outcomes, secretion, mitochondrial function, perifusion, electrophysiology) without selecting any omics type. The page has a left-hand menu with three options:</p>
+<div id="attribute-view" class="section level3 hasAnchor" number="2.2.2">
+<h3><span class="header-section-number">2.2.2</span> Attribute View <a href="https://dev.humanislets.com/#/meta"><img src="logo2.png" alt="Logo" style="width:18px; height:18px;"></a><a href="using-humanislets.html#attribute-view" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><span id="phenotype-view"></span>The Attribute View lets users probe relationships among the phenotype variables in the database (donor characteristics, isolation outcomes, secretion, mitochondrial function, perifusion, electrophysiology) without selecting any omics type. The page has a left-hand menu with three options:</p>
 <ul>
 <li><p><strong>Overview:</strong> a scrollable heatmap of every donor against every phenotype variable, with cells coloured by each donor’s z-score against the population, so at a glance users can see where a donor sits across the full phenotype panel and spot clusters of donors that look similar across many measurements at once. A <em>Visual Filter</em> radio group lets users restrict the view to a specific <em>Donor</em> subset (chosen via the standard donor filter dialog, by characteristics, data availability, or a donor-ID upload) or to a <em>Phenotype</em> subset (chosen via the phenotype filter dialog); clicking <em>Update</em> re-renders the heatmap with the chosen filter, and once a donor subset is applied a <em>Download Donor List</em> button appears so the same selection can be re-used on the Data Download page. Use this view to spot outliers, compare a few donors against the whole cohort, or quickly check which phenotype variables are populated for a candidate analysis cohort.</p></li>
 <li><p><strong>Correlation:</strong> an interactive chord diagram (and matching sortable table) of pairwise correlations among phenotype variables, kept only when they pass a user-set correlation-magnitude cutoff <em>and</em> a <em>p</em>-value cutoff. Users can restrict the analysis to a subset of donors or phenotypes and choose whether to include within-group correlations (off by default so the chord emphasises cross-group co-variation), then click <em>Submit</em>. The results panel has two tabs:</p>
@@ -545,7 +545,7 @@ The rest of the toolbar covers the common controls: **Reset View** restores the 
 </div>
 <div id="cluster-view" class="section level3 hasAnchor" number="2.2.3">
 <h3><span class="header-section-number">2.2.3</span> Cluster View <a href="https://dev.humanislets.com/#/cluster"><img src="logo2.png" alt="Logo" style="width:18px; height:18px;"></a><a href="using-humanislets.html#cluster-view" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>The Cluster View groups donors into molecular clusters. The clusters come from bulk RNA-seq and proteomics, not from clinical labels. Donors without these omics data are assigned to a cluster from their phenotypes, and each assignment has a reliability level (high, medium or low). The full method is described in chapter 5 (Variational Autoencoder (VAE) for donor clustering). The page is called <strong>Cluster View</strong> in the sidebar, with the subtitle <em>Donor cluster explorer</em>.</p>
+<p>The Cluster View groups donors into four molecular clusters: Glucose-responsive, Basal hypersecretion, Mixed-nutrient-responsive and Hypo-secretory. The clusters come from bulk RNA-seq and proteomics, not from clinical labels. Donors without these omics data are assigned to a cluster from their phenotypes, and each assignment has a reliability level (high, medium or low). The full method is described in chapter 5 (Variational Autoencoder (VAE) for donor clustering). The page is called <strong>Cluster View</strong> in the sidebar, with the subtitle <em>Donor cluster explorer</em>.</p>
 <p><strong>Donor map.</strong> The map shows every donor. Each cluster has its own arm, and a donor sits nearer the clusters it belongs to more strongly: omics donors from their omics data, and donors without omics from their predicted probabilities. Clicking a donor point opens that donor’s de-identified record.</p>
 <ul>
 <li><strong>Color by / Shape by:</strong> colour the points by any phenotype or by cluster, and shape them by a categorical phenotype or by cluster.</li>
