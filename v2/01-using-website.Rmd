@@ -145,9 +145,9 @@ Typically, data is shown for selected donor in the context of the entire dataset
 - *Prohormone Expression* shows the donor's **C-peptide, proinsulin, and proinsulin:C-peptide ratio** concentrations as values plus per-readout cohort histograms, with a selector to switch between the measured conditions
 - *Pancreas Lipid Extraction* shows the donor's **total cholesterol (TC), triglycerides (TG), and free cholesterol (FC)** (mg/g tissue) as values plus per-lipid cohort histograms
 
-### Phenotype View [<img src="logo2.png" alt="Logo" style="width:18px; height:18px;">](https://dev.humanislets.com/#/meta)
+### Attribute View [<img src="logo2.png" alt="Logo" style="width:18px; height:18px;">](https://dev.humanislets.com/#/meta)
 
-The Phenotype View lets users probe relationships among the phenotype variables in the database (donor characteristics, isolation outcomes, secretion, mitochondrial function, perifusion, electrophysiology) without selecting any omics type. The page has a left-hand menu with three options:
+<span id="phenotype-view"></span>The Attribute View lets users probe relationships among the phenotype variables in the database (donor characteristics, isolation outcomes, secretion, mitochondrial function, perifusion, electrophysiology) without selecting any omics type. The page has a left-hand menu with three options:
 
 - **Overview:** a scrollable heatmap of every donor against every phenotype variable, with cells coloured by each donor's z-score against the population, so at a glance users can see where a donor sits across the full phenotype panel and spot clusters of donors that look similar across many measurements at once. A *Visual Filter* radio group lets users restrict the view to a specific *Donor* subset (chosen via the standard donor filter dialog, by characteristics, data availability, or a donor-ID upload) or to a *Phenotype* subset (chosen via the phenotype filter dialog); clicking *Update* re-renders the heatmap with the chosen filter, and once a donor subset is applied a *Download Donor List* button appears so the same selection can be re-used on the Data Download page. Use this view to spot outliers, compare a few donors against the whole cohort, or quickly check which phenotype variables are populated for a candidate analysis cohort.
 
@@ -167,7 +167,7 @@ The Phenotype View lets users probe relationships among the phenotype variables 
 
 ### Cluster View [<img src="logo2.png" alt="Logo" style="width:18px; height:18px;">](https://dev.humanislets.com/#/cluster)
 
-The Cluster View groups donors into molecular clusters. The clusters come from bulk RNA-seq and proteomics, not from clinical labels. Donors without these omics data are assigned to a cluster from their phenotypes, and each assignment has a reliability level (high, medium or low). The full method is described in chapter 5 (Variational Autoencoder (VAE) for donor clustering). The page is called **Cluster View** in the sidebar, with the subtitle *Donor cluster explorer*.
+The Cluster View groups donors into four molecular clusters: Glucose-responsive, Basal hypersecretion, Mixed-nutrient-responsive and Hypo-secretory. The clusters come from bulk RNA-seq and proteomics, not from clinical labels. Donors without these omics data are assigned to a cluster from their phenotypes, and each assignment has a reliability level (high, medium or low). The full method is described in chapter 5 (Variational Autoencoder (VAE) for donor clustering). The page is called **Cluster View** in the sidebar, with the subtitle *Donor cluster explorer*.
 
 **Donor map.** The map shows every donor. Each cluster has its own arm, and a donor sits nearer the clusters it belongs to more strongly: omics donors from their omics data, and donors without omics from their predicted probabilities. Clicking a donor point opens that donor's de-identified record.
 
